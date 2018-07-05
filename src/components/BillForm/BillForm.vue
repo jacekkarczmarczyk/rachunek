@@ -8,7 +8,7 @@
         <v-container grid-list-xl>
           <v-layout row wrap>
             <v-flex xs12 sm4>
-              <v-select type="number" return-object label="Stawka VAT" :items="[{ text: 'Liniowa - 19%', value: 19.0}]" v-model="stawkaVat" />
+              <v-select type="number" label="Stawka VAT" :items="[{ text: 'Liniowa - 19%', value: 19.0}]" v-model="stawkaVat" />
             </v-flex>
             <v-flex xs12 sm4>
               <v-text-field v-if="company.zus" type="number" label="Ubezpieczenie społeczne" v-model="ubezpieczenieSpoleczne" />
