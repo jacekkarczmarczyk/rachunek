@@ -6,11 +6,14 @@
                     Firmy
                 </v-subheader>
                 <v-list>
-                    <v-list-tile v-for="company in companies" :key="company.taxId" @click="setCurrentCompanyTaxId(company.taxId)" :class="{'grey lighten-4': company.taxId === $store.state.__global__.currentTaxId}">
+                    <v-list-tile two-rows v-for="company in companies" :key="company.taxId" @click="setCurrentCompanyTaxId(company.taxId)" :class="{'grey lighten-4': company.taxId === $store.state.__global__.currentTaxId}">
                         <v-list-tile-content>
                             <v-list-tile-title>
                                 {{ company.company }}
                             </v-list-tile-title>
+                            <v-list-tile-sub-title>
+                                {{ company.taxId }}
+                            </v-list-tile-sub-title>
                         </v-list-tile-content>
                         <v-list-tile-action>
                             <v-btn icon color="warning" flat @click="deleteCompany(company)"><v-icon>mdi-delete</v-icon></v-btn>
