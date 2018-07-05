@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-toolbar color="primary" flat dark>
-      <v-toolbar-title>{{ taxId }} <template v-if="company">{{ company.company }}</template></v-toolbar-title>
+      <v-toolbar-title><template v-if="company">{{ company.company }}</template></v-toolbar-title>
     </v-toolbar>
     <v-card-text>
       <form @submit.prevent>
