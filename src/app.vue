@@ -16,10 +16,10 @@
                             </v-list-tile-sub-title>
                         </v-list-tile-content>
                         <v-list-tile-action>
-                            <v-btn icon color="warning" flat @click="deleteCompany(company)"><v-icon>mdi-delete</v-icon></v-btn>
+                            <v-btn icon color="warning" flat @click.stop="deleteCompany(company)"><v-icon>mdi-delete</v-icon></v-btn>
                         </v-list-tile-action>
                         <v-list-tile-action>
-                            <v-btn icon color="primary" flat @click="editCompany(company)"><v-icon>mdi-pencil</v-icon></v-btn>
+                            <v-btn icon color="primary" flat @click.stop="editCompany(company)"><v-icon>mdi-pencil</v-icon></v-btn>
                         </v-list-tile-action>
                     </v-list-tile>
                 </v-list>
@@ -90,12 +90,12 @@ export default {
     addCompany () {
       this.companyFormData = Object.assign({}, this.defaultCompanyFormData)
       this.companyDialog = true
-      this.$refs.companyFields.refresh()
+      this.$nextTick(() => this.$refs.companyFields.refresh())
     },
     editCompany (company) {
       this.companyFormData = Object.assign({}, company)
       this.companyDialog = true
-      this.$refs.companyFields.refresh()
+      this.$nextTick(() => this.$refs.companyFields.refresh())
     },
     deleteCompany (company) {
       if (confirm(`Usunąć firmę "${company.company}"?`)) {
