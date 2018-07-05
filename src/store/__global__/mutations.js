@@ -9,9 +9,13 @@ export const MUTATE_TAX_SETTINGS = (state, settings) => {
 }
 
 export const MUTATE_ADD_COMPANY = (state, company) => {
-  Vue.set(state.companies, company.nip, company)
+  Vue.set(state.companies, company.taxId, Object.assign({}, company))
 }
 
-export const MUTATE_REMOVE_COMPANY = (state, nip) => {
-  Vue.delete(state.companies, nip)
+export const MUTATE_SET_CURRENT_TAX_ID = (state, taxId) => {
+  state.currentTaxId = taxId
+}
+
+export const MUTATE_REMOVE_COMPANY = (state, taxId) => {
+  Vue.delete(state.companies, taxId)
 }
