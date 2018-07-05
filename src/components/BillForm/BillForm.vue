@@ -1,66 +1,91 @@
 <template>
-  <v-card>
-    <v-toolbar color="primary" flat dark>
-      <v-toolbar-title><template v-if="company">{{ company.company }}</template></v-toolbar-title>
-    </v-toolbar>
-    <v-card-text>
-      <form @submit.prevent>
-        <v-container grid-list-xl>
-          <v-layout row wrap>
-            <v-flex xs12 sm4>
-              <v-select type="number" label="Stawka VAT" :items="[{ text: 'Liniowa - 19%', value: 19.0}]" v-model="stawkaVat" />
-            </v-flex>
-            <v-flex xs12 sm4>
-              <v-text-field v-if="company.zus" type="number" label="Ubezpieczenie społeczne" v-model="ubezpieczenieSpoleczne" />
-            </v-flex>
-            <v-flex xs12 sm4>
-              <v-text-field v-if="company.zus" type="number" label="Ubezpieczenie zdrowotne" v-model="ubezpieczenieZdrowotne" />
-            </v-flex>
-            <v-flex xs8>
-              <v-text-field box min="0" autofocusbox type="number" label="Godziny robocze" v-model="workingHours" />
-            </v-flex>
-            <v-flex xs4>
-              <v-text-field disabled autofocusbox type="number" label="Stawka godzinowa" :value="company.workingHourRate" />
-            </v-flex>
-          </v-layout>
-        </v-container>
+  <v-tabs>
+    <v-tab>
+      Formularz
+    </v-tab>
+    <v-tab>
+      Faktura
+    </v-tab>
 
-        <v-container grid-list-xl>
-          <v-layout row wrap align-center>
-            <v-flex xs4 class="headline text-xs-right">
-              Kwota na rękę:
-            </v-flex>
-            <v-flex 
-              xs8 
-              class="display-2 copy-to-clipboard"
-              :class="valueForMeCopied ? 'success--text' : ''"
-              v-clipboard:copy="B8.toFixed(2)"
-              v-clipboard:success="() => valueForMeCopied = true"
-            >
-              {{ format(B8) }}
-            </v-flex>
-            <v-flex xs4 class="headline text-xs-right">
-              Kwota na fakturze netto:
-            </v-flex>
-            <v-flex 
-              xs8 
-              class="display-2 copy-to-clipboard"
-              :class="valueNetCopied ? 'success--text' : ''"
-              v-clipboard:copy="valueNet.toFixed(2)"
-              v-clipboard:success="() => valueNetCopied = true"
-            >
-              {{ format(valueNet) }}
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </form>
-    </v-card-text>
-  </v-card>
+    <v-tabs-items>
+      <v-tab-item>
+
+        <v-card>
+          <v-toolbar color="primary" flat dark>
+            <v-toolbar-title><template v-if="company">{{ company.company }}</template></v-toolbar-title>
+          </v-toolbar>
+          <v-card-text>
+            <form @submit.prevent>
+              <v-container grid-list-xl>
+                <v-layout row wrap>
+                  <v-flex xs12 sm4>
+                    <v-select type="number" label="Stawka VAT" :items="[{ text: 'Liniowa - 19%', value: 19.0}]" v-model="stawkaVat" />
+                  </v-flex>
+                  <v-flex xs12 sm4>
+                    <v-text-field v-if="company.zus" type="number" label="Ubezpieczenie społeczne" v-model="ubezpieczenieSpoleczne" />
+                  </v-flex>
+                  <v-flex xs12 sm4>
+                    <v-text-field v-if="company.zus" type="number" label="Ubezpieczenie zdrowotne" v-model="ubezpieczenieZdrowotne" />
+                  </v-flex>
+                  <v-flex xs8>
+                    <v-text-field box min="0" autofocusbox type="number" label="Godziny robocze" v-model="workingHours" />
+                  </v-flex>
+                  <v-flex xs4>
+                    <v-text-field disabled autofocusbox type="number" label="Stawka godzinowa" :value="company.workingHourRate" />
+                  </v-flex>
+                </v-layout>
+              </v-container>
+
+              <v-container grid-list-xl>
+                <v-layout row wrap align-center>
+                  <v-flex xs4 class="headline text-xs-right">
+                    Kwota na rękę:
+                  </v-flex>
+                  <v-flex 
+                    xs8 
+                    class="display-2 copy-to-clipboard"
+                    :class="valueForMeCopied ? 'success--text' : ''"
+                    v-clipboard:copy="B8.toFixed(2)"
+                    v-clipboard:success="() => valueForMeCopied = true"
+                  >
+                    {{ format(B8) }}
+                  </v-flex>
+                  <v-flex xs4 class="headline text-xs-right">
+                    Kwota na fakturze netto:
+                  </v-flex>
+                  <v-flex 
+                    xs8 
+                    class="display-2 copy-to-clipboard"
+                    :class="valueNetCopied ? 'success--text' : ''"
+                    v-clipboard:copy="valueNet.toFixed(2)"
+                    v-clipboard:success="() => valueNetCopied = true"
+                  >
+                    {{ format(valueNet) }}
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </form>
+          </v-card-text>
+        </v-card>
+
+      </v-tab-item>
+      <v-tab-item>
+        <invoice :company="company" :net="B8"></invoice>
+      </v-tab-item>
+    </v-tabs-items>
+  </v-tabs>
+
 </template>
 
 <script>
+import Invoice from '../Invoice/Invoice'
+
 export default {
   name: 'bill-form',
+
+  components: {
+    Invoice,
+  },
 
   props: {
     taxId: String,
