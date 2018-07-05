@@ -8,13 +8,13 @@
         <v-container grid-list-xl>
           <v-layout row wrap>
             <v-flex xs12 sm4>
-              <v-select dense type="number" return-object label="Stawka VAT" :items="[{ text: 'Liniowa - 19%', value: 19.0}]" v-model="stawkaVat" />
+              <v-select type="number" return-object label="Stawka VAT" :items="[{ text: 'Liniowa - 19%', value: 19.0}]" v-model="stawkaVat" />
             </v-flex>
             <v-flex xs12 sm4>
-              <v-text-field :disabled="!company.zus" type="number" label="Ubezpieczenie społeczne" v-model="ubezpieczenieSpoleczne" />
+              <v-text-field v-if="company.zus" type="number" label="Ubezpieczenie społeczne" v-model="ubezpieczenieSpoleczne" />
             </v-flex>
             <v-flex xs12 sm4>
-              <v-text-field :disabled="!company.zus" dense type="number" label="Ubezpieczenie zdrowotne" v-model="ubezpieczenieZdrowotne" />
+              <v-text-field v-if="company.zus" type="number" label="Ubezpieczenie zdrowotne" v-model="ubezpieczenieZdrowotne" />
             </v-flex>
             <v-flex xs8>
               <v-text-field box min="0" autofocusbox type="number" label="Godziny robocze" v-model="workingHours" />
@@ -109,14 +109,11 @@ export default {
         }))
       },
     },
-    valueForMe () {
-      return this.company.workingHourRate * Math.max(0, (this.workingHours >> 0))
-    },
     E4 () {
-      return this.ubezpieczenieSpoleczne
+      return this.company.zus ? this.ubezpieczenieSpoleczne : 0
     },
     F4 () {
-      return this.ubezpieczenieZdrowotne
+      return this.company.zus ? this.ubezpieczenieZdrowotne : 0
     },
     B11 () {
       return this.valueForMe
@@ -140,7 +137,10 @@ export default {
       return this.B3 - this.B5
     },
     B8 () {
-      return this.B6 - this.E4 - this.F4
+      return Math.max(0, this.B6 - this.E4 - this.F4)
+    },
+    valueForMe () {
+      return this.company.workingHourRate * Math.max(0, (this.workingHours >> 0))
     },
     valueNet () {
       return this.valueForMe > 0 ? this.B12 : 0
