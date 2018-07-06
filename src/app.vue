@@ -6,7 +6,7 @@
                     Firmy
                 </v-subheader>
                 <v-list>
-                    <v-list-tile two-rows v-for="company in companies" :key="company.taxId" @click="setCurrentCompanyTaxId(company.taxId)" :class="{'grey lighten-4': company.taxId === $store.state.__global__.currentTaxId}">
+                    <v-list-tile two-rows v-for="company in companies" :key="company.taxId" @click="setCurrentCompanyTaxId(company.taxId)" :class="{'grey lighten-2': company.taxId === $store.state.__global__.currentTaxId}">
                         <v-list-tile-content>
                             <v-list-tile-title>
                                 {{ company.company }}

@@ -11,9 +11,9 @@
       <v-tab-item>
 
         <v-card>
-          <v-toolbar color="primary" flat dark>
+          <!-- <v-toolbar color="primary" flat dark>
             <v-toolbar-title><template v-if="company">{{ company.company }}</template></v-toolbar-title>
-          </v-toolbar>
+          </v-toolbar> -->
           <v-card-text>
             <form @submit.prevent>
               <v-container grid-list-xl>
@@ -41,8 +41,8 @@
                   <v-flex xs4 class="headline text-xs-right">
                     Kwota na rękę:
                   </v-flex>
-                  <v-flex 
-                    xs8 
+                  <v-flex
+                    xs8
                     class="display-2 copy-to-clipboard"
                     :class="valueForMeCopied ? 'success--text' : ''"
                     v-clipboard:copy="B8.toFixed(2)"
@@ -53,8 +53,8 @@
                   <v-flex xs4 class="headline text-xs-right">
                     Kwota na fakturze netto:
                   </v-flex>
-                  <v-flex 
-                    xs8 
+                  <v-flex
+                    xs8
                     class="display-2 copy-to-clipboard"
                     :class="valueNetCopied ? 'success--text' : ''"
                     v-clipboard:copy="valueNet.toFixed(2)"
@@ -70,7 +70,7 @@
 
       </v-tab-item>
       <v-tab-item>
-        <invoice :company="company" :net="B8"></invoice>
+        <invoice :company="company" :net="valueNet"></invoice>
       </v-tab-item>
     </v-tabs-items>
   </v-tabs>
@@ -165,7 +165,11 @@ export default {
       return Math.max(0, this.B6 - this.E4 - this.F4)
     },
     valueForMe () {
-      return this.company.workingHourRate * Math.max(0, (this.workingHours >> 0))
+      let hours = parseFloat((this.workingHours || '').replace(',', '.'))
+      if (isNaN(hours) || hours < 0) {
+        hours = 0
+      }
+      return this.company.workingHourRate * hours
     },
     valueNet () {
       return this.valueForMe > 0 ? this.B12 : 0
