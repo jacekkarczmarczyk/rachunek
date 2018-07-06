@@ -9,11 +9,7 @@
 
     <v-tabs-items>
       <v-tab-item>
-
         <v-card>
-          <v-toolbar color="primary" flat dark>
-            <v-toolbar-title><template v-if="company">{{ company.company }}</template></v-toolbar-title>
-          </v-toolbar>
           <v-card-text>
             <form @submit.prevent>
               <v-container grid-list-xl>
@@ -41,20 +37,20 @@
                   <v-flex xs4 class="headline text-xs-right">
                     Kwota na rękę:
                   </v-flex>
-                  <v-flex 
-                    xs8 
+                  <v-flex
+                    xs8
                     class="display-2 copy-to-clipboard"
                     :class="valueForMeCopied ? 'success--text' : ''"
-                    v-clipboard:copy="B8.toFixed(2)"
+                    v-clipboard:copy="B7.toFixed(2)"
                     v-clipboard:success="() => valueForMeCopied = true"
                   >
-                    {{ format(B8) }}
+                    {{ format(B7) }}
                   </v-flex>
                   <v-flex xs4 class="headline text-xs-right">
                     Kwota na fakturze netto:
                   </v-flex>
-                  <v-flex 
-                    xs8 
+                  <v-flex
+                    xs8
                     class="display-2 copy-to-clipboard"
                     :class="valueNetCopied ? 'success--text' : ''"
                     v-clipboard:copy="valueNet.toFixed(2)"
@@ -70,7 +66,7 @@
 
       </v-tab-item>
       <v-tab-item>
-        <invoice :company="company" :net="B8"></invoice>
+        <invoice :company="company" :net="valueNet"></invoice>
       </v-tab-item>
     </v-tabs-items>
   </v-tabs>
@@ -134,41 +130,45 @@ export default {
         }))
       },
     },
-    E4 () {
+    E3 () {
       return this.company.zus ? this.ubezpieczenieSpoleczne : 0
     },
-    F4 () {
+    F3 () {
       return this.company.zus ? this.ubezpieczenieZdrowotne : 0
     },
-    B11 () {
-      return this.valueForMe
-    },
-    E7 () {
+    E6 () {
       return this.stawkaVat
     },
-    B12 () {
-      return (((this.B11 + (81 * this.E4) / 100) * 100) / 81)
+    B2 () {
+      return Math.ceil(this.B11)
     },
     B3 () {
-      return Math.round(this.B12)
+      return this.B2 - this.E3
     },
     B4 () {
-      return this.B3 - this.E4
+      return Math.round(this.B3 * this.E6 / 100 - this.F3)
     },
     B5 () {
-      return Math.round(this.B4 * this.E7 / 100 - this.F4)
+      return this.B2 - this.B4
     },
-    B6 () {
-      return this.B3 - this.B5
+    B7 () {
+      return Math.max(0, this.B5 - this.E3 - this.F3)
     },
-    B8 () {
-      return Math.max(0, this.B6 - this.E4 - this.F4)
+    B10 () {
+      return this.valueForMe
+    },
+    B11 () {
+      return (((this.B10 + ((100 - this.E6) * this.E3) / 100) * 100) / (100 - this.E6))
     },
     valueForMe () {
-      return this.company.workingHourRate * Math.max(0, (this.workingHours >> 0))
+      let hours = parseFloat((this.workingHours || '').replace(',', '.'))
+      if (isNaN(hours) || hours < 0) {
+        hours = 0
+      }
+      return this.company.workingHourRate * hours
     },
     valueNet () {
-      return this.valueForMe > 0 ? this.B12 : 0
+      return this.valueForMe > 0 ? this.B11 : 0
     },
   },
 

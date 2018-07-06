@@ -6,7 +6,7 @@
             <div>Warszawa, {{ (new Date).toISOString().substr(0, 10) }}</div>
         </div>
 
-        
+
     <table class="v-table mb-5">
         <thead>
         <tr>
@@ -18,6 +18,7 @@
         <tr>
             <td><strong>{{ company.company }}, {{ company.taxId }}</strong><br>{{ company.street }} {{ company.house }} {{ company.flat }}<br>{{ company.postalCode }} {{ company.city }}<br>{{ company.country }}</td>
             <td colspan="2">
+                <strong>Firma/NIP</strong>
             </td>
         </tr>
         </tbody>
@@ -30,66 +31,67 @@
         </thead>
         <tbody>
         <tr>
+            <td>NR KONTA</td>
             <td>Przelew</td>
             <td>14 dni</td>
         </tr>
         </tbody>
     </table>
 
-        
+
     <table class="v-table mb-5">
         <thead>
         <tr>
             <th>Nazwa artykułu</th>
             <th>J.M.</th>
             <th>Ilość</th>
-            <th>Cena<br>jedn.<br>netto</th>
-            <th>Wartość<br>netto</th>
-            <th>Podatek<br>%</th>
-            <th>Podatek<br>kwota</th>
-            <th>Wartość<br>z podatkiem</th>
+            <th>Cena jedn. netto</th>
+            <th>Wartość netto</th>
+            <th>Podatek (%)</th>
+            <th>Podatek (kwota)</th>
+            <th>Wartość z&nbsp;podatkiem</th>
         </tr>
         </thead>
         <tbody>
-        
+
             <tr>
                 <td>Usługa informatyczna</td>
                 <td>szt.</td>
                 <td>1</td>
-                <td>{{ format(net) }}</td>
-                <td>{{ format(net) }}</td>
+                <td>{{ format(netInt) }}</td>
+                <td>{{ format(netInt) }}</td>
                 <td>23%</td>
-                <td>{{ format(net * 0.23) }}</td>
-                <td>{{ format(net * 1.23) }}</td>
+                <td>{{ format(taxInt) }}</td>
+                <td>{{ format(grossInt) }}</td>
             </tr>
-        
+
         </tbody>
         <tbody>
         <tr>
             <th class="text-xs-right" style="vertical-align: top" scope="row" colspan="4">Razem</th>
-            <td>{{ format(net) }}</td>
+            <td>{{ format(netInt) }}</td>
             <td></td>
-            <td>{{ format(net * 0.23) }}</td>
-            <td>{{ format(net * 1.23) }}</td>
+            <td>{{ format(taxInt) }}</td>
+            <td>{{ format(grossInt) }}</td>
         </tr>
         </tbody>
     </table>
 
-        
+
     <table class="value">
         <tbody>
         <tr>
             <th scope="row" style="text-align: right">Do zapłaty:</th>
-            <td class="currency">{{ format(net * 1.23) }}</td>
+            <td class="currency">{{ format(grossInt) }}</td>
         </tr>
         <tr>
             <th scope="row" style="text-align: right">Słownie:</th>
-            <td>{{ number2words(net * 1.23) }}</td>
+            <td>{{ number2words(grossInt) }}</td>
         </tr>
         </tbody>
     </table>
 
-        
+
     <div class="signature" style="margin: 4em 1em">
         <p style="font-style: italic">Dokument został wygenerowany automatycznie</p>
     </div>
@@ -110,43 +112,41 @@ export default {
     net: null,
   },
 
+  computed: {
+    netInt () {
+      return Math.round(100 * this.net)
+    },
+
+    grossInt () {
+      return this.netInt + this.taxInt
+    },
+
+    taxInt () {
+      return Math.round(23 * this.net)
+    },
+  },
+
   methods: {
     format (value) {
       return Intl.NumberFormat('pl-PL', {
         style: 'currency',
         currency: 'PLN',
-      }).format(value)
+      }).format(value / 100)
     },
 
     number2words (value) {
       if (!value) {
-        return ''
+        return '-'
       }
 
-      const [integer, fraction] = value.toString().split('.')
       const slownie = new Slownie()
-      const fractionNormalized = Math.round(100 * ('0.' + ((fraction || 0) >> 0)))
-      return slownie.get(Math.floor(integer)) + ' zł, ' + slownie.get(fractionNormalized) + ' gr'
+      return slownie.get(Math.floor(value / 100)) + ' zł' + ((value % 100) ? (', ' + slownie.get(value % 100) + ' gr') : '')
     },
 
     print () {
-      document.querySelector('aside').style.display = 'none'
-      document.querySelector('.v-tabs__bar').style.display = 'none'
-      document.querySelector('.container').style.maxWidth = '1000000px'
-      document.querySelector('.container').style.padding = '0'
-      document.querySelector('.v-content').style.padding = '0'
-      document.querySelector('.print-button').style.display = 'none'
-      document.querySelector('.v-footer').style.display = 'none'
-      document.querySelector('.application').style.background = 'none'
+      document.body.classList.add('print-invoice')
       print()
-      document.querySelector('aside').style.display = ''
-      document.querySelector('.v-tabs__bar').style.display = ''
-      document.querySelector('.container').style.maxWidth = ''
-      document.querySelector('.container').style.padding = ''
-      document.querySelector('.v-content').style.padding = ''
-      document.querySelector('.print-button').style.display = ''
-      document.querySelector('.v-footer').style.display = ''
-      document.querySelector('.application').style.background = ''
+      document.body.classList.remove('print-invoice')
     },
   },
 }
@@ -160,8 +160,9 @@ thead th {
 td {
     vertical-align: top;
 }
-th {
+table.v-table thead th {
     vertical-align: bottom;
+    white-space: normal;
 }
 td, th {
     padding: 0.3rem 1rem !important;
@@ -169,5 +170,26 @@ td, th {
 }
 tr:hover {
     background: none !important;
+}
+</style>
+
+<style>
+@media print {
+  .print-invoice .application {
+    background: none;
+  }
+
+  .print-invoice aside,
+  .print-invoice .v-tabs__bar,
+  .print-invoice .print-button,
+  .print-invoice .v-footer {
+    display: none;
+  }
+
+  .print-invoice .container,
+  .print-invoice .v-content {
+    padding: 0 !important;
+    max-width: none;
+  }
 }
 </style>

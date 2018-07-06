@@ -6,7 +6,7 @@
                     Firmy
                 </v-subheader>
                 <v-list>
-                    <v-list-tile two-rows v-for="company in companies" :key="company.taxId" @click="setCurrentCompanyTaxId(company.taxId)" :class="{'grey lighten-4': company.taxId === $store.state.__global__.currentTaxId}">
+                    <v-list-tile two-rows v-for="company in companies" :key="company.taxId" @click="setCurrentCompanyTaxId(company.taxId)" :class="{'grey lighten-2': company.taxId === $store.state.__global__.currentTaxId}">
                         <v-list-tile-content>
                             <v-list-tile-title>
                                 {{ company.company }}
@@ -32,7 +32,7 @@
             </v-container>
         </v-content>
         <v-footer app fixed style="background: rgba(0, 0, 0, 0.7)">
-            <div class="grey--text">(C) 2017 Jacek Karczmarczyk</div>
+            <div class="grey--text">(C) {{ (new Date).getFullYear() }} Jacek Karczmarczyk</div>
         </v-footer>
 
         <v-dialog max-width="800" v-model="companyDialog" @keydown.esc="companyDialog = false">
