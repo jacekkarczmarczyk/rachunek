@@ -19,3 +19,7 @@ export const MUTATE_SET_CURRENT_TAX_ID = (state, taxId) => {
 export const MUTATE_REMOVE_COMPANY = (state, taxId) => {
   Vue.delete(state.companies, taxId)
 }
+
+export const MUTATE_SET_SELLER = (state, seller) => {
+  state.seller = Object.assign({}, seller)
+}

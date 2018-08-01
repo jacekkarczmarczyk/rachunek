@@ -1,9 +1,12 @@
 <template>
 <v-card>
-    <v-card-text class="pa-4">
-        <div class="mb-5">
-            <div class="headline">Faktura nr XXX</div>
-            <div>Warszawa, {{ (new Date).toISOString().substr(0, 10) }}</div>
+    <v-card-text class="pa-3">
+        <div class="text-xs-right"><small>{{ seller.city }}, {{ todayFormatted }}</small></div>
+        <div class="text-xs-right"><small>Data sprzedaży, {{ todayFormatted }}</small></div>
+        <div class="mb-5 text-xs-center" style="margin-top: -2rem">
+            <div>Rachunek</div>
+            <div class="headline">{{ (new Date).getFullYear() }}/{{ (1 + (new Date).getMonth()).toString().padStart(2, '0') }}/01</div>
+            <div class="subheading">Oryginał</div>
         </div>
 
 
@@ -16,9 +19,19 @@
         </thead>
         <tbody>
         <tr>
-            <td><strong>{{ company.company }}, {{ company.taxId }}</strong><br>{{ company.street }} {{ company.house }} {{ company.flat }}<br>{{ company.postalCode }} {{ company.city }}<br>{{ company.country }}</td>
-            <td colspan="2">
-                <strong>Firma/NIP</strong>
+            <td style="vertical-align: top">
+              <div><strong>{{ seller.company }}</strong></div>
+              <div>{{ seller.street }} {{ seller.house }} {{ seller.flat }}</div>
+              <div>{{ seller.postalCode }} {{ seller.city }}</div>
+              <div>{{ seller.country }}</div>
+              <div>NIP: {{ seller.taxId }}</div>
+            </td>
+            <td colspan="2" style="vertical-align: top">
+              <div><strong>{{ company.company }}</strong></div>
+              <div>{{ company.street }} {{ company.house }} {{ company.flat }}</div>
+              <div>{{ company.postalCode }} {{ company.city }}</div>
+              <div>{{ company.country }}</div>
+              <div>NIP: {{ company.taxId }}</div>
             </td>
         </tr>
         </tbody>
@@ -31,7 +44,10 @@
         </thead>
         <tbody>
         <tr>
-            <td>NR KONTA</td>
+            <td>
+              <div>{{ seller.bankName }}</div>
+              <div>{{ seller.bankAccount }}</div>
+            </td>
             <td>Przelew</td>
             <td>14 dni</td>
         </tr>
@@ -39,61 +55,59 @@
     </table>
 
 
-    <table class="v-table mb-5">
+    <table class="v-table mb-5 mr-5">
         <thead>
         <tr>
-            <th>Nazwa artykułu</th>
+            <th>Nazwa towaru / usługi</th>
             <th>J.M.</th>
             <th>Ilość</th>
-            <th>Cena jedn. netto</th>
-            <th>Wartość netto</th>
-            <th>Podatek (%)</th>
-            <th>Podatek (kwota)</th>
-            <th>Wartość z&nbsp;podatkiem</th>
+            <th>Cena jednostkowa</th>
+            <th>Wartość</th>
         </tr>
         </thead>
         <tbody>
 
             <tr>
-                <td>Usługa informatyczna</td>
-                <td>szt.</td>
-                <td>1</td>
-                <td>{{ format(netInt) }}</td>
-                <td>{{ format(netInt) }}</td>
-                <td>23%</td>
-                <td>{{ format(taxInt) }}</td>
-                <td>{{ format(grossInt) }}</td>
+                <td style="vertical-align: middle">{{ company.serviceTitle }}</td>
+                <td style="vertical-align: middle">szt.</td>
+                <td style="vertical-align: middle">1</td>
+                <td style="vertical-align: middle">{{ format(netInt) }}</td>
+                <td style="vertical-align: middle">{{ format(netInt) }}</td>
             </tr>
 
         </tbody>
         <tbody>
         <tr>
-            <th class="text-xs-right" style="vertical-align: top" scope="row" colspan="4">Razem</th>
-            <td>{{ format(netInt) }}</td>
-            <td></td>
-            <td>{{ format(taxInt) }}</td>
-            <td>{{ format(grossInt) }}</td>
+          <th />
+          <th />
+            <th class="text-xs-right" style="vertical-align: middle" scope="row">Razem</th>
+            <td style="vertical-align: middle">{{ format(netInt) }}</td>
+            <td style="vertical-align: middle">{{ format(netInt) }}</td>
         </tr>
         </tbody>
     </table>
 
 
-    <table class="value">
+    <table class="mb-5">
         <tbody>
         <tr>
             <th scope="row" style="text-align: right">Do zapłaty:</th>
-            <td class="currency">{{ format(grossInt) }}</td>
+            <td class="currency">{{ format(netInt) }}</td>
         </tr>
         <tr>
             <th scope="row" style="text-align: right">Słownie:</th>
-            <td>{{ number2words(grossInt) }}</td>
+            <td>{{ number2words(netInt) }}</td>
         </tr>
         </tbody>
     </table>
 
 
-    <div class="signature" style="margin: 4em 1em">
-        <p style="font-style: italic">Dokument został wygenerowany automatycznie</p>
+    <div class="pt-5" style="display: flex; text-align: center; font-size: 0.8rem; justify-content: space-around">
+      <div class="px-3" style="width: 30%; border-top: 1px dotted #888">
+        <div>Podpis osoby upoważnionej do wystawienia faktury</div>
+        <div class="body-2">{{ seller.name }}</div>
+      </div>
+      <div class="px-3" style="width: 30%; border-top: 1px dotted #888">Podpis osoby upoważnionej do odbioru faktury</div>
     </div>
 
     </v-card-text>
@@ -108,11 +122,25 @@ import { Slownie } from 'slownie'
 
 export default {
   props: {
+    seller: null,
     company: null,
     net: null,
   },
 
   computed: {
+    intlDate () {
+      return Intl.DateTimeFormat('pl-PL', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+    },
+    intlCurrency () {
+      return Intl.NumberFormat('pl-PL', {
+        style: 'currency',
+        currency: 'PLN',
+      })
+    },
     netInt () {
       return Math.round(100 * this.net)
     },
@@ -124,14 +152,16 @@ export default {
     taxInt () {
       return Math.round(23 * this.net)
     },
+
+    todayFormatted () {
+      const date = new Date() - 86400000
+      return this.intlDate.format(date)
+    },
   },
 
   methods: {
     format (value) {
-      return Intl.NumberFormat('pl-PL', {
-        style: 'currency',
-        currency: 'PLN',
-      }).format(value / 100)
+      return this.intlCurrency.format(value / 100)
     },
 
     number2words (value) {
@@ -157,11 +187,7 @@ thead th {
     background: rgba(0, 0, 0, 0.03);
     border-bottom: 1px solid #ccc;
 }
-td {
-    vertical-align: top;
-}
 table.v-table thead th {
-    vertical-align: bottom;
     white-space: normal;
 }
 td, th {
@@ -190,6 +216,11 @@ tr:hover {
   .print-invoice .v-content {
     padding: 0 !important;
     max-width: none;
+  }
+
+  .print-invoice div {
+    border: none;
+    box-shadow: none;
   }
 }
 </style>

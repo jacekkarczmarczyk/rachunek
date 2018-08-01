@@ -3,7 +3,7 @@ import * as mutations from './mutations'
 
 export default {
   namespaced: true,
-  sync: ['settings', 'companies', 'currentTaxId'],
+  sync: ['settings', 'companies', 'currentTaxId', 'seller'],
   state: {
     settings: {
       tax: {
@@ -13,6 +13,7 @@ export default {
       },
     },
     companies: {},
+    seller: {},
     currentTaxId: '',
   },
   actions,

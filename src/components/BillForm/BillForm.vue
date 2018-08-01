@@ -66,7 +66,7 @@
 
       </v-tab-item>
       <v-tab-item>
-        <invoice :company="company" :net="valueNet"></invoice>
+        <invoice :company="company" :net="valueNet" :seller="seller"></invoice>
       </v-tab-item>
     </v-tabs-items>
   </v-tabs>
@@ -99,6 +99,9 @@ export default {
     },
     taxSettings () {
       return this.$store.state.__global__.settings.tax
+    },
+    seller () {
+      return this.$store.state.__global__.seller
     },
     ubezpieczenieSpoleczne: {
       get () {

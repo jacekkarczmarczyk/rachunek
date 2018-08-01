@@ -17,8 +17,7 @@
                 <v-text-field hide-details v-model="value.postalCode" label="Kod pocztowy" />
             </v-flex>
             <v-flex xs12 sm6>
-
-       <v-text-field hide-details v-model="value.street" label="Ulica" />
+              <v-text-field hide-details v-model="value.street" label="Ulica" />
             </v-flex>
             <v-flex xs12 sm6>
                 <v-text-field hide-details v-model="value.house" label="Numer domu" />
@@ -26,14 +25,14 @@
             <v-flex xs12 sm6>
                 <v-text-field hide-details v-model="value.flat" label="Numer lokalu" />
             </v-flex>
-            <v-flex xs12 sm6>
-                <v-text-field box type="number" suffix="PLN" hide-details v-model="value.workingHourRate" label="Stawka godzinowa" />
-            </v-flex>
-            <v-flex xs12 sm6>
-                <v-checkbox hide-details v-model="value.zus" label="Opłacanie ZUS" />
+            <v-flex xs12>
+                <v-text-field hide-details v-model="value.name" label="Imię i nazwisko" />
             </v-flex>
             <v-flex xs12>
-                <v-text-field box hide-details v-model="value.serviceTitle" label="Nazwa usługi" />
+                <v-text-field hide-details v-model="value.bankName" label="Nazwa banku" />
+            </v-flex>
+            <v-flex xs12>
+                <v-text-field hide-details v-model="value.bankAccount" label="Numer konta" />
             </v-flex>
         </v-layout>
     </v-container>
