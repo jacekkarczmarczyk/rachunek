@@ -3,23 +3,29 @@
         <v-content>
             <v-navigation-drawer app disable-route-watcher permanent>
                 <v-subheader>
-                    Firmy
+                    Sprzedawca
                 </v-subheader>
-                <v-list>
-                    <v-list-tile two-rows class="accent white--text">
+                <v-list two-line>
+                    <v-list-tile>
                         <v-list-tile-content>
                             <v-list-tile-title>
                                 {{ seller.company || 'Nie podano firmy' }}
                             </v-list-tile-title>
-                            <v-list-tile-sub-title class="white--text">
+                            <v-list-tile-sub-title>
                                 {{ seller.taxId || 'Nie podano nru NIP' }}
                             </v-list-tile-sub-title>
                         </v-list-tile-content>
                         <v-list-tile-action>
-                            <v-btn icon dark flat @click.stop="editSeller()"><v-icon>mdi-pencil</v-icon></v-btn>
+                            <v-btn color="primary" icon flat @click.stop="editSeller()"><v-icon>mdi-pencil</v-icon></v-btn>
                         </v-list-tile-action>
                     </v-list-tile>
-                    <v-list-tile two-rows v-for="company in companies" :key="company.taxId" @click="setCurrentCompanyTaxId(company.taxId)" :class="{'grey lighten-2': company.taxId === $store.state.__global__.currentTaxId}">
+                  </v-list>
+                  <v-divider></v-divider>
+                <v-subheader>
+                    Klienci
+                </v-subheader>
+                <v-list two-line>
+                    <v-list-tile v-for="company in companies" :key="company.taxId" @click="setCurrentCompanyTaxId(company.taxId)" :class="{'grey lighten-2': company.taxId === $store.state.__global__.currentTaxId}">
                         <v-list-tile-content>
                             <v-list-tile-title>
                                 {{ company.company }}
@@ -36,8 +42,8 @@
                         </v-list-tile-action>
                     </v-list-tile>
                 </v-list>
-                <div>
-                    <v-btn slot="activator" color="primary" @click="addCompany()"><v-icon>add</v-icon>Dodaj firmę</v-btn>
+                <div class="text-xs-right">
+                    <v-btn color="primary" @click="addCompany()"><v-icon>add</v-icon>Dodaj firmę</v-btn>
                 </div>
             </v-navigation-drawer>
             <v-container>
