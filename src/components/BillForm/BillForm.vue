@@ -1,5 +1,5 @@
 <template>
-  <v-tabs>
+  <v-tabs color="primary" dark slider-color="warning">
     <v-tab>
       Formularz
     </v-tab>
@@ -23,6 +23,17 @@
                   <v-flex xs12 sm4>
                     <v-text-field v-if="company.zus" type="number" label="Ubezpieczenie zdrowotne" v-model="ubezpieczenieZdrowotne" />
                   </v-flex>
+
+                  <v-flex xs12 sm4>
+                    <v-text-field type="date" label="Data sprzedaży" v-model="invoiceDate" />
+                  </v-flex>
+                  <v-flex xs12 sm4>
+                    <v-text-field type="date" label="Data wystawienia faktury" v-model="issueDate" />
+                  </v-flex>
+                  <v-flex xs12 sm4>
+                    <v-text-field type="number" label="Nr porządkowy faktury" v-model="invoiceNo" />
+                  </v-flex>
+
                   <v-flex xs8>
                     <v-text-field box min="0" autofocusbox type="number" label="Godziny robocze" v-model="workingHours" />
                   </v-flex>
@@ -66,7 +77,7 @@
 
       </v-tab-item>
       <v-tab-item>
-        <invoice :company="company" :net="valueNet" :seller="seller"></invoice>
+        <invoice :company="company" :net="valueNet" :seller="seller" :invoice-date="invoiceDate" :issue-date="issueDate" :invoice-no="invoiceNo"></invoice>
       </v-tab-item>
     </v-tabs-items>
   </v-tabs>
@@ -91,6 +102,9 @@ export default {
     workingHours: null,
     valueForMeCopied: false,
     valueNetCopied: false,
+    invoiceNo: 1,
+    invoiceDate: new Date().toISOString().substr(0, 10),
+    issueDate: new Date().toISOString().substr(0, 10),
   }),
 
   computed: {

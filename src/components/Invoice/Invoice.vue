@@ -1,11 +1,11 @@
 <template>
 <v-card>
     <v-card-text class="pa-3">
-        <div class="text-xs-right"><small>{{ seller.city }}, {{ todayFormatted }}</small></div>
-        <div class="text-xs-right"><small>Data sprzedaży, {{ todayFormatted }}</small></div>
+        <div class="text-xs-right"><small>{{ seller.city }}, {{ intlDate.format(new Date(this.issueDate)) }}</small></div>
+        <div class="text-xs-right"><small>Data sprzedaży, {{ intlDate.format(new Date(this.invoiceDate)) }}</small></div>
         <div class="mb-5 text-xs-center" style="margin-top: -2rem">
             <div>Rachunek</div>
-            <div class="headline">{{ (new Date).getFullYear() }}/{{ (1 + (new Date).getMonth()).toString().padStart(2, '0') }}/01</div>
+            <div class="headline">{{ new Date(invoiceDate).getFullYear() }}/{{ (1 + new Date(invoiceDate).getMonth()).toString().padStart(2, '0') }}/{{ invoiceNo.toString().padStart(2, '0') }}</div>
             <div class="subheading">Oryginał</div>
         </div>
 
@@ -125,6 +125,9 @@ export default {
     seller: null,
     company: null,
     net: null,
+    issueDate: null,
+    invoiceDate: null,
+    invoiceNo: null,
   },
 
   computed: {
@@ -151,11 +154,6 @@ export default {
 
     taxInt () {
       return Math.round(23 * this.net)
-    },
-
-    todayFormatted () {
-      const date = new Date() - 86400000
-      return this.intlDate.format(date)
     },
   },
 
