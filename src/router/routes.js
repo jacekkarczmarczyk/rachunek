@@ -1,9 +1,7 @@
-import BillFormRoute from '../routes/BillFormRoute'
-
 export default router => [{
   path: '/bill-form',
-  component: BillFormRoute,
+  component: () => import('@/views/BillFormView.vue'),
 }, {
   path: '*',
   redirect: '/bill-form',
-}]
+}];

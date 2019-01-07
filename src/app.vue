@@ -43,7 +43,7 @@
                     </v-list-tile>
                 </v-list>
                 <div class="text-xs-right">
-                    <v-btn color="primary" @click="addCompany()"><v-icon>add</v-icon>Dodaj firmę</v-btn>
+                    <v-btn color="primary" @click="addCompany()"><v-icon left>mdi-plus</v-icon>Dodaj firmę</v-btn>
                 </div>
             </v-navigation-drawer>
             <v-container>
@@ -89,8 +89,8 @@
 </template>
 
 <script>
-import CompanyFields from './components/CompanyFields/CompanyFields'
-import SellerFields from './components/SellerFields/SellerFields'
+import CompanyFields from '@/components/CompanyFields/CompanyFields.vue';
+import SellerFields from '@/components/SellerFields/SellerFields.vue';
 
 export default {
   name: 'app',
@@ -133,54 +133,54 @@ export default {
   }),
 
   computed: {
-    companies () {
-      return this.$store.state.__global__.companies
+    companies() {
+      return this.$store.state.__global__.companies;
     },
-    seller () {
-      return this.$store.state.__global__.seller
+    seller() {
+      return this.$store.state.__global__.seller;
     },
   },
 
   methods: {
-    addCompany () {
-      this.companyFormData = Object.assign({}, this.defaultCompanyFormData)
-      this.companyDialog = true
-      this.$nextTick(() => this.$refs.companyFields.refresh())
+    addCompany() {
+      this.companyFormData = Object.assign({}, this.defaultCompanyFormData);
+      this.companyDialog = true;
+      this.$nextTick(() => this.$refs.companyFields.refresh());
     },
-    editCompany (company) {
-      this.companyFormData = Object.assign({}, company)
-      this.companyDialog = true
-      this.$nextTick(() => this.$refs.companyFields.refresh())
+    editCompany(company) {
+      this.companyFormData = Object.assign({}, company);
+      this.companyDialog = true;
+      this.$nextTick(() => this.$refs.companyFields.refresh());
     },
-    editSeller () {
-      this.sellerFormData = Object.assign({}, this.seller)
-      this.sellerDialog = true
-      this.$nextTick(() => this.$refs.sellerFields.refresh())
+    editSeller() {
+      this.sellerFormData = Object.assign({}, this.seller);
+      this.sellerDialog = true;
+      this.$nextTick(() => this.$refs.sellerFields.refresh());
     },
-    deleteCompany (company) {
+    deleteCompany(company) {
       if (confirm(`Usunąć firmę "${company.company}"?`)) {
-        this.$store.commit('__global__/MUTATE_REMOVE_COMPANY', company.taxId)
+        this.$store.commit('__global__/MUTATE_REMOVE_COMPANY', company.taxId);
       }
     },
-    saveCompany () {
+    saveCompany() {
       if (!this.companyFormData.taxId || !this.companyFormData.company) {
-        alert('Proszę podać NIP i nazwę firmy')
-        return
+        alert('Proszę podać NIP i nazwę firmy');
+        return;
       }
-      this.$store.commit('__global__/MUTATE_ADD_COMPANY', this.companyFormData)
-      this.companyDialog = false
+      this.$store.commit('__global__/MUTATE_ADD_COMPANY', this.companyFormData);
+      this.companyDialog = false;
     },
-    saveSeller () {
+    saveSeller() {
       if (!this.sellerFormData.taxId || !this.sellerFormData.company) {
-        alert('Proszę podać NIP i nazwę firmy')
-        return
+        alert('Proszę podać NIP i nazwę firmy');
+        return;
       }
-      this.$store.commit('__global__/MUTATE_SET_SELLER', this.sellerFormData)
-      this.sellerDialog = false
+      this.$store.commit('__global__/MUTATE_SET_SELLER', this.sellerFormData);
+      this.sellerDialog = false;
     },
-    setCurrentCompanyTaxId (taxId) {
-      this.$store.commit('__global__/MUTATE_SET_CURRENT_TAX_ID', taxId)
+    setCurrentCompanyTaxId(taxId) {
+      this.$store.commit('__global__/MUTATE_SET_CURRENT_TAX_ID', taxId);
     },
   },
-}
+};
 </script>

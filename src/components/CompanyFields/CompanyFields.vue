@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
   name: 'company-fields',
@@ -59,24 +59,24 @@ export default {
   watch: {
     value: {
       deep: true,
-      handler (v) {
+      handler(v) {
         // this.$emit('input', Object.assign({}, v))
       },
     },
   },
 
   methods: {
-    refresh () {
-      this.internalValue = Object.assign({}, this.value)
+    refresh() {
+      this.internalValue = Object.assign({}, this.value);
     },
-    async fetchCompanyData () {
-      const taxId = this.value.taxId.replace(/[^0-9]/, '')
-      const data = await axios.get(`https://api-v3.mojepanstwo.pl/dane/krs_podmioty.json?conditions[krs_podmioty.nip]=${taxId}`)
+    async fetchCompanyData() {
+      const taxId = this.value.taxId.replace(/[^0-9]/, '');
+      const data = await axios.get(`https://api-v3.mojepanstwo.pl/dane/krs_podmioty.json?conditions[krs_podmioty.nip]=${taxId}`);
       if (!data || !data.data || !data.data.Dataobject || !data.data.Dataobject.length) {
-        alert('Nie znaleziono firmy')
-        return
+        alert('Nie znaleziono firmy');
+        return;
       }
-      const item = data.data.Dataobject[0].data
+      const item = data.data.Dataobject[0].data;
       const newData = Object.assign({}, this.internalValue, {
         taxId,
         company: item['krs_podmioty.nazwa'],
@@ -86,14 +86,9 @@ export default {
         street: item['krs_podmioty.adres_ulica'],
         house: item['krs_podmioty.adres_numer'],
         flat: item['krs_podmioty.adres_lokal'],
-      })
-      this.$emit('input', newData)
+      });
+      this.$emit('input', newData);
     },
   },
-}
+};
 </script>
-
-
-
-
-

@@ -118,7 +118,7 @@
 </template>
 
 <script>
-import { Slownie } from 'slownie'
+import { Slownie } from 'slownie';
 
 export default {
   props: {
@@ -131,53 +131,53 @@ export default {
   },
 
   computed: {
-    intlDate () {
+    intlDate() {
       return Intl.DateTimeFormat('pl-PL', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
-      })
+      });
     },
-    intlCurrency () {
+    intlCurrency() {
       return Intl.NumberFormat('pl-PL', {
         style: 'currency',
         currency: 'PLN',
-      })
+      });
     },
-    netInt () {
-      return Math.round(100 * this.net)
-    },
-
-    grossInt () {
-      return this.netInt + this.taxInt
+    netInt() {
+      return Math.round(100 * this.net);
     },
 
-    taxInt () {
-      return Math.round(23 * this.net)
+    grossInt() {
+      return this.netInt + this.taxInt;
+    },
+
+    taxInt() {
+      return Math.round(23 * this.net);
     },
   },
 
   methods: {
-    format (value) {
-      return this.intlCurrency.format(value / 100)
+    format(value) {
+      return this.intlCurrency.format(value / 100);
     },
 
-    number2words (value) {
+    number2words(value) {
       if (!value) {
-        return '-'
+        return '-';
       }
 
-      const slownie = new Slownie()
-      return slownie.get(Math.floor(value / 100)) + ' zł' + ((value % 100) ? (', ' + slownie.get(value % 100) + ' gr') : '')
+      const slownie = new Slownie();
+      return `${slownie.get(Math.floor(value / 100))} zł${(value % 100) ? (`, ${slownie.get(value % 100)} gr`) : ''}`;
     },
 
-    print () {
-      document.body.classList.add('print-invoice')
-      print()
-      document.body.classList.remove('print-invoice')
+    print() {
+      document.body.classList.add('print-invoice');
+      print();
+      document.body.classList.remove('print-invoice');
     },
   },
-}
+};
 </script>
 
 <style scoped>
