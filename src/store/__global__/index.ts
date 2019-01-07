@@ -1,4 +1,4 @@
-import * as actions from './actions';
+// import * as actions from './actions';
 import * as mutations from './mutations';
 
 export default {
@@ -16,6 +16,6 @@ export default {
     seller: {},
     currentTaxId: '',
   },
-  actions,
+  // actions,
   mutations,
 };

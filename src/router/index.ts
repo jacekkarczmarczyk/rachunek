@@ -5,7 +5,7 @@ import routes from './routes';
 Vue.use(VueRouter);
 
 const router = new VueRouter();
-router.addRoutes(routes(router));
+router.addRoutes(routes);
 router.afterEach(() => {
   window.document.body.scrollTop = 0;
 });
