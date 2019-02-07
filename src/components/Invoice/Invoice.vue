@@ -1,24 +1,32 @@
 <template>
-<v-card>
+  <v-card>
     <v-card-text class="pa-3">
-        <div class="text-xs-right"><small>{{ seller.city }}, {{ intlDate.format(new Date(this.issueDate)) }}</small></div>
-        <div class="text-xs-right"><small>Data sprzedaży, {{ intlDate.format(new Date(this.invoiceDate)) }}</small></div>
-        <div class="mb-5 text-xs-center" style="margin-top: -2rem">
-            <div>Rachunek</div>
-            <div class="headline">{{ new Date(invoiceDate).getFullYear() }}/{{ (1 + new Date(invoiceDate).getMonth()).toString().padStart(2, '0') }}/{{ invoiceNo.toString().padStart(2, '0') }}</div>
-            <div class="subheading">Oryginał</div>
-        </div>
+      <div class="text-xs-right"><small>{{ seller.city }}, {{ intlDate.format(new Date(issueDate)) }}</small></div>
+      <div class="text-xs-right"><small>Data sprzedaży, {{ intlDate.format(new Date(invoiceDate)) }}</small></div>
+      <div
+        class="mb-5 text-xs-center"
+        style="margin-top: -2rem"
+      >
+        <div>Rachunek</div>
+        <div class="headline">{{ new Date(invoiceDate).getFullYear() }}/{{ (1 + new Date(invoiceDate).getMonth()).toString().padStart(2, '0') }}/{{ invoiceNo.toString().padStart(2, '0') }}</div>
+        <div class="subheading">Oryginał</div>
+      </div>
 
-
-    <table class="v-table mb-5">
+      <table class="v-table mb-5">
         <thead>
-        <tr>
-            <th class="text-xs-left" style="width: 50%">Sprzedawca</th>
-            <th class="text-xs-left" colspan="2">Nabywca</th>
-        </tr>
+          <tr>
+            <th
+              class="text-xs-left"
+              style="width: 50%"
+            >Sprzedawca</th>
+            <th
+              class="text-xs-left"
+              colspan="2"
+            >Nabywca</th>
+          </tr>
         </thead>
         <tbody>
-        <tr>
+          <tr>
             <td style="vertical-align: top">
               <div><strong>{{ seller.company }}</strong></div>
               <div>{{ seller.street }} {{ seller.house }} {{ seller.flat }}</div>
@@ -26,95 +34,118 @@
               <div>{{ seller.country }}</div>
               <div>NIP: {{ seller.taxId }}</div>
             </td>
-            <td colspan="2" style="vertical-align: top">
+            <td
+              colspan="2"
+              style="vertical-align: top"
+            >
               <div><strong>{{ company.company }}</strong></div>
               <div>{{ company.street }} {{ company.house }} {{ company.flat }}</div>
               <div>{{ company.postalCode }} {{ company.city }}</div>
               <div>{{ company.country }}</div>
               <div>NIP: {{ company.taxId }}</div>
             </td>
-        </tr>
+          </tr>
         </tbody>
         <thead>
-        <tr>
+          <tr>
             <th class="text-xs-left">Rachunek bankowy</th>
             <th class="text-xs-left">Sposób zapłaty</th>
             <th class="text-xs-left">Termin płatności</th>
-        </tr>
+          </tr>
         </thead>
         <tbody>
-        <tr>
+          <tr>
             <td>
               <div>{{ seller.bankName }}</div>
               <div>{{ seller.bankAccount }}</div>
             </td>
             <td>Przelew</td>
             <td>14 dni</td>
-        </tr>
+          </tr>
         </tbody>
-    </table>
+      </table>
 
-
-    <table class="v-table mb-5 mr-5">
+      <table class="v-table mb-5 mr-5">
         <thead>
-        <tr>
+          <tr>
             <th>Nazwa towaru / usługi</th>
             <th>J.M.</th>
             <th>Ilość</th>
             <th>Cena jednostkowa</th>
             <th>Wartość</th>
-        </tr>
+          </tr>
         </thead>
         <tbody>
 
-            <tr>
-                <td style="vertical-align: middle">{{ company.serviceTitle }}</td>
-                <td style="vertical-align: middle">szt.</td>
-                <td style="vertical-align: middle">1</td>
-                <td style="vertical-align: middle">{{ format(netInt) }}</td>
-                <td style="vertical-align: middle">{{ format(netInt) }}</td>
-            </tr>
+          <tr>
+            <td style="vertical-align: middle">{{ company.serviceTitle }}</td>
+            <td style="vertical-align: middle">szt.</td>
+            <td style="vertical-align: middle">1</td>
+            <td style="vertical-align: middle">{{ format(netInt) }}</td>
+            <td style="vertical-align: middle">{{ format(netInt) }}</td>
+          </tr>
 
         </tbody>
         <tbody>
-        <tr>
-          <th />
-          <th />
-            <th class="text-xs-right" style="vertical-align: middle" scope="row">Razem</th>
+          <tr>
+            <th />
+            <th />
+            <th
+              class="text-xs-right"
+              style="vertical-align: middle"
+              scope="row"
+            >Razem</th>
             <td style="vertical-align: middle">{{ format(netInt) }}</td>
             <td style="vertical-align: middle">{{ format(netInt) }}</td>
-        </tr>
+          </tr>
         </tbody>
-    </table>
+      </table>
 
-
-    <table class="mb-5">
+      <table class="mb-5">
         <tbody>
-        <tr>
-            <th scope="row" style="text-align: right">Do zapłaty:</th>
+          <tr>
+            <th
+              scope="row"
+              style="text-align: right"
+            >Do zapłaty:</th>
             <td class="currency">{{ format(netInt) }}</td>
-        </tr>
-        <tr>
-            <th scope="row" style="text-align: right">Słownie:</th>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+              style="text-align: right"
+            >Słownie:</th>
             <td>{{ number2words(netInt) }}</td>
-        </tr>
+          </tr>
         </tbody>
-    </table>
+      </table>
 
-
-    <div class="pt-5" style="display: flex; text-align: center; font-size: 0.8rem; justify-content: space-around">
-      <div class="px-3" style="width: 30%; border-top: 1px dotted #888">
-        <div>Podpis osoby upoważnionej do wystawienia faktury</div>
-        <div class="body-2">{{ seller.name }}</div>
+      <div
+        class="pt-5"
+        style="display: flex; text-align: center; font-size: 0.8rem; justify-content: space-around"
+      >
+        <div
+          class="px-3"
+          style="width: 30%; border-top: 1px dotted #888"
+        >
+          <div>Podpis osoby upoważnionej do wystawienia faktury</div>
+          <div class="body-2">{{ seller.name }}</div>
+        </div>
+        <div
+          class="px-3"
+          style="width: 30%; border-top: 1px dotted #888"
+        >Podpis osoby upoważnionej do odbioru faktury</div>
       </div>
-      <div class="px-3" style="width: 30%; border-top: 1px dotted #888">Podpis osoby upoważnionej do odbioru faktury</div>
-    </div>
 
     </v-card-text>
     <v-card-actions class="justify-center pa-4">
-        <v-btn class="print-button" color="primary" @click="print"><v-icon class="mr-3">mdi-printer</v-icon>Drukuj</v-btn>
+      <v-btn
+        class="print-button"
+        color="primary"
+        @click="print"
+      ><v-icon class="mr-3">mdi-printer</v-icon>Drukuj</v-btn>
     </v-card-actions>
-</v-card>
+  </v-card>
 </template>
 
 <script>
@@ -131,38 +162,38 @@ export default {
   },
 
   computed: {
-    intlDate() {
+    intlDate () {
       return Intl.DateTimeFormat('pl-PL', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
       });
     },
-    intlCurrency() {
+    intlCurrency () {
       return Intl.NumberFormat('pl-PL', {
         style: 'currency',
         currency: 'PLN',
       });
     },
-    netInt() {
+    netInt () {
       return Math.round(100 * this.net);
     },
 
-    grossInt() {
+    grossInt () {
       return this.netInt + this.taxInt;
     },
 
-    taxInt() {
+    taxInt () {
       return Math.round(23 * this.net);
     },
   },
 
   methods: {
-    format(value) {
+    format (value) {
       return this.intlCurrency.format(value / 100);
     },
 
-    number2words(value) {
+    number2words (value) {
       if (!value) {
         return '-';
       }
@@ -171,7 +202,7 @@ export default {
       return `${slownie.get(Math.floor(value / 100))} zł${(value % 100) ? (`, ${slownie.get(value % 100)} gr`) : ''}`;
     },
 
-    print() {
+    print () {
       document.body.classList.add('print-invoice');
       print();
       document.body.classList.remove('print-invoice');

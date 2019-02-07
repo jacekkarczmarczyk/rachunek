@@ -26,11 +26,11 @@ Vue.use(Vuetify, {
 
 // eslint-disable-next-line no-new
 new Vue({
+  el: '#app',
   components: {
     App,
   },
   router,
   store,
-  el: '#app',
   render: h => h(App),
 });

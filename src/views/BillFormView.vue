@@ -1,5 +1,5 @@
 <template>
-  <bill-form :tax-id="taxId"></bill-form>
+  <bill-form :tax-id="taxId" />
 </template>
 
 <script>
@@ -16,7 +16,7 @@ export default {
   }),
 
   computed: {
-    taxId() {
+    taxId () {
       return this.$store.state.__global__.currentTaxId;
     },
   },

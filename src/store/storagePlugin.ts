@@ -11,7 +11,7 @@ const initState = ({
 
   const syncedData = JSON.parse(initial);
 
-  Object.keys(store.modules).forEach((module) => {
+  Object.keys(store.modules).forEach(module => {
     (store.modules[module].sync || []).forEach((key: any) => {
       if (syncedData.hasOwnProperty(module) && syncedData[module].hasOwnProperty(key)) {
         store.modules[module].state[key] = syncedData[module][key];
@@ -23,7 +23,7 @@ const initState = ({
 export default ({
   store,
   storageKey,
-  storage
+  storage,
 }: any) => {
   initState({
     store,
@@ -38,13 +38,13 @@ export default ({
   const modules = Object.keys(store.modules);
   const syncProperties = {};
   const storageData = {};
-  modules.forEach((module) => {
+  modules.forEach(module => {
     (syncProperties as any)[module] = store.modules[module].sync;
     (storageData as any)[module] = {};
   });
 
   store.plugins.push((s: any) => s.subscribe((mutation: any, state: any) => {
-    modules.forEach((module) => {
+    modules.forEach(module => {
       (syncProperties as any)[module].forEach((key: any) => {
         (storageData as any)[module][key] = state[module][key];
       });

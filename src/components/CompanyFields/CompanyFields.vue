@@ -1,49 +1,127 @@
 <template>
-    <v-container grid-list-xl>
-        <v-layout row wrap>
-            <v-flex xs12>
-                <v-text-field autofocus hide-details v-model="value.taxId" label="NIP" append-outer-icon="mdi-download" @click:append-outer="fetchCompanyData" />
-            </v-flex>
-            <v-flex xs12>
-                <v-text-field hide-details v-model="value.company" label="Firma" />
-            </v-flex>
-            <v-flex xs12 sm6>
-                <v-text-field hide-details v-model="value.country" label="Panstwo" />
-            </v-flex>
-            <v-flex xs12 sm6>
-                <v-text-field hide-details v-model="value.city" label="Miasto" />
-            </v-flex>
-            <v-flex xs12 sm6>
-                <v-text-field hide-details v-model="value.postalCode" label="Kod pocztowy" />
-            </v-flex>
-            <v-flex xs12 sm6>
+  <v-container grid-list-xl>
+    <v-layout
+      row
+      wrap
+    >
+      <v-flex xs12>
+        <v-text-field
+          v-model="value.taxId"
+          autofocus
+          hide-details
+          label="NIP"
+          append-outer-icon="mdi-download"
+          @click:append-outer="fetchCompanyData"
+        />
+      </v-flex>
+      <v-flex xs12>
+        <v-text-field
+          v-model="value.company"
+          hide-details
+          label="Firma"
+        />
+      </v-flex>
+      <v-flex
+        xs12
+        sm6
+      >
+        <v-text-field
+          v-model="value.country"
+          hide-details
+          label="Panstwo"
+        />
+      </v-flex>
+      <v-flex
+        xs12
+        sm6
+      >
+        <v-text-field
+          v-model="value.city"
+          hide-details
+          label="Miasto"
+        />
+      </v-flex>
+      <v-flex
+        xs12
+        sm6
+      >
+        <v-text-field
+          v-model="value.postalCode"
+          hide-details
+          label="Kod pocztowy"
+        />
+      </v-flex>
+      <v-flex
+        xs12
+        sm6
+      >
 
-       <v-text-field hide-details v-model="value.street" label="Ulica" />
-            </v-flex>
-            <v-flex xs12 sm6>
-                <v-text-field hide-details v-model="value.house" label="Numer domu" />
-            </v-flex>
-            <v-flex xs12 sm6>
-                <v-text-field hide-details v-model="value.flat" label="Numer lokalu" />
-            </v-flex>
-            <v-flex xs12 sm6>
-                <v-text-field box type="number" suffix="PLN" hide-details v-model="value.workingHourRate" label="Stawka godzinowa" />
-            </v-flex>
-            <v-flex xs12 sm6>
-                <v-checkbox hide-details v-model="value.zus" label="Opłacanie ZUS" />
-            </v-flex>
-            <v-flex xs12>
-                <v-text-field box hide-details v-model="value.serviceTitle" label="Nazwa usługi" />
-            </v-flex>
-        </v-layout>
-    </v-container>
+        <v-text-field
+          v-model="value.street"
+          hide-details
+          label="Ulica"
+        />
+      </v-flex>
+      <v-flex
+        xs12
+        sm6
+      >
+        <v-text-field
+          v-model="value.house"
+          hide-details
+          label="Numer domu"
+        />
+      </v-flex>
+      <v-flex
+        xs12
+        sm6
+      >
+        <v-text-field
+          v-model="value.flat"
+          hide-details
+          label="Numer lokalu"
+        />
+      </v-flex>
+      <v-flex
+        xs12
+        sm6
+      >
+        <v-text-field
+          v-model="value.workingHourRate"
+          box
+          type="number"
+          suffix="PLN"
+          hide-details
+          label="Stawka godzinowa"
+        />
+      </v-flex>
+      <v-flex
+        xs12
+        sm6
+      >
+        <v-checkbox
+          v-model="value.zus"
+          hide-details
+          label="Opłacanie ZUS"
+        />
+      </v-flex>
+      <v-flex xs12>
+        <v-text-field
+          v-model="value.serviceTitle"
+          box
+          hide-details
+          label="Nazwa usługi"
+        />
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
 import axios from 'axios';
 
 export default {
-  name: 'company-fields',
+  name: 'CompanyFields',
 
   props: {
     value: {
@@ -59,17 +137,17 @@ export default {
   watch: {
     value: {
       deep: true,
-      handler(v) {
+      handler (v) {
         // this.$emit('input', Object.assign({}, v))
       },
     },
   },
 
   methods: {
-    refresh() {
+    refresh () {
       this.internalValue = Object.assign({}, this.value);
     },
-    async fetchCompanyData() {
+    async fetchCompanyData () {
       const taxId = this.value.taxId.replace(/[^0-9]/, '');
       const data = await axios.get(`https://api-v3.mojepanstwo.pl/dane/krs_podmioty.json?conditions[krs_podmioty.nip]=${taxId}`);
       if (!data || !data.data || !data.data.Dataobject || !data.data.Dataobject.length) {

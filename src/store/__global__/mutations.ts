@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
 export const MUTATE_TAX_SETTINGS = (state: any, settings: any) => {
-  Object.keys(state.settings.tax).forEach((setting) => {
+  Object.keys(state.settings.tax).forEach(setting => {
     if (setting in settings) {
       state.settings.tax[setting] = settings[setting];
     }
