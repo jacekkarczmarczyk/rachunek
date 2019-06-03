@@ -220,6 +220,7 @@ thead th {
 td, th {
   padding: 0.3rem 1rem !important;
   text-align: left;
+  height: 40px;
 }
 tr:hover {
   background: none !important;
