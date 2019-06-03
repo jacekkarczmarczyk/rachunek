@@ -1,20 +1,20 @@
-import 'vuetify/dist/vuetify.min.css';
-
+import 'roboto-fontface/css/roboto/roboto-fontface.css';
+import '@mdi/font/css/materialdesignicons.css';
 import Vue from 'vue';
 import VueClipboard from 'vue-clipboard2';
 import Vuetify from 'vuetify/lib';
-import 'vuetify/src/stylus/app.styl';
 import pl from 'vuetify/src/locale/pl';
 import router from '@/router';
 import store from '@/store';
 import App from '@/app.vue';
-import 'roboto-fontface/css/roboto/roboto-fontface.css';
-import '@mdi/font/css/materialdesignicons.css';
 
 Vue.config.productionTip = false;
 
 Vue.use(VueClipboard);
-Vue.use(Vuetify, {
+Vue.use(Vuetify);
+
+// @ts-ignore
+const vuetify = new Vuetify({
   iconfont: 'mdi',
   lang: {
     locales: {
@@ -32,5 +32,6 @@ new Vue({
   },
   router,
   store,
+  vuetify,
   render: h => h(App),
 });

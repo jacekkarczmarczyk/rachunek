@@ -12,7 +12,7 @@
         <div class="subheading">Oryginał</div>
       </div>
 
-      <table class="v-table mb-5">
+      <v-simple-table class="mb-5">
         <thead>
           <tr>
             <th
@@ -63,9 +63,9 @@
             <td>14 dni</td>
           </tr>
         </tbody>
-      </table>
+      </v-simple-table>
 
-      <table class="v-table mb-5 mr-5">
+      <v-simple-table class="mb-5">
         <thead>
           <tr>
             <th>Nazwa towaru / usługi</th>
@@ -99,9 +99,9 @@
             <td style="vertical-align: middle">{{ format(netInt) }}</td>
           </tr>
         </tbody>
-      </table>
+      </v-simple-table>
 
-      <table class="mb-5">
+      <v-simple-table class="mb-5">
         <tbody>
           <tr>
             <th
@@ -118,7 +118,7 @@
             <td>{{ number2words(netInt) }}</td>
           </tr>
         </tbody>
-      </table>
+      </v-simple-table>
 
       <div
         class="pt-5"
@@ -213,18 +213,16 @@ export default {
 
 <style scoped>
 thead th {
-    background: rgba(0, 0, 0, 0.03);
-    border-bottom: 1px solid #ccc;
-}
-table.v-table thead th {
-    white-space: normal;
+  background: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid #ccc;
+  white-space: normal;
 }
 td, th {
-    padding: 0.3rem 1rem !important;
-    text-align: left;
+  padding: 0.3rem 1rem !important;
+  text-align: left;
 }
 tr:hover {
-    background: none !important;
+  background: none !important;
 }
 </style>
 
@@ -235,7 +233,7 @@ tr:hover {
   }
 
   .print-invoice aside,
-  .print-invoice .v-tabs__bar,
+  .print-invoice .v-tabs-bar,
   .print-invoice .print-button,
   .print-invoice .v-footer {
     display: none;

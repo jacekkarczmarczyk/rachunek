@@ -10,61 +10,61 @@
           Sprzedawca
         </v-subheader>
         <v-list two-line>
-          <v-list-tile>
-            <v-list-tile-content>
-              <v-list-tile-title>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>
                 {{ seller.company || 'Nie podano firmy' }}
-              </v-list-tile-title>
-              <v-list-tile-sub-title>
+              </v-list-item-title>
+              <v-list-item-subtitle>
                 {{ seller.taxId || 'Nie podano nru NIP' }}
-              </v-list-tile-sub-title>
-            </v-list-tile-content>
-            <v-list-tile-action>
+              </v-list-item-subtitle>
+            </v-list-item-content>
+            <v-list-item-action>
               <v-btn
                 color="primary"
                 icon
-                flat
+                text
                 @click.stop="editSeller()"
               ><v-icon>mdi-pencil</v-icon></v-btn>
-            </v-list-tile-action>
-          </v-list-tile>
+            </v-list-item-action>
+          </v-list-item>
         </v-list>
         <v-divider />
         <v-subheader>
           Klienci
         </v-subheader>
         <v-list two-line>
-          <v-list-tile
+          <v-list-item
             v-for="company in companies"
             :key="company.taxId"
             :class="{'grey lighten-2': company.taxId === $store.state.__global__.currentTaxId}"
             @click="setCurrentCompanyTaxId(company.taxId)"
           >
-            <v-list-tile-content>
-              <v-list-tile-title>
+            <v-list-item-content>
+              <v-list-item-title>
                 {{ company.company }}
-              </v-list-tile-title>
-              <v-list-tile-sub-title>
+              </v-list-item-title>
+              <v-list-item-subtitle>
                 {{ company.taxId }}
-              </v-list-tile-sub-title>
-            </v-list-tile-content>
-            <v-list-tile-action>
+              </v-list-item-subtitle>
+            </v-list-item-content>
+            <v-list-item-action>
               <v-btn
                 icon
                 color="warning"
-                flat
+                text
                 @click.stop="deleteCompany(company)"
               ><v-icon>mdi-delete</v-icon></v-btn>
-            </v-list-tile-action>
-            <v-list-tile-action>
+            </v-list-item-action>
+            <v-list-item-action>
               <v-btn
                 icon
                 color="primary"
-                flat
+                text
                 @click.stop="editCompany(company)"
               ><v-icon>mdi-pencil</v-icon></v-btn>
-            </v-list-tile-action>
-          </v-list-tile>
+            </v-list-item-action>
+          </v-list-item>
         </v-list>
         <div class="text-xs-right">
           <v-btn
@@ -107,7 +107,7 @@
           <v-card-actions>
             <v-spacer />
             <v-btn
-              flat
+              text
               @click="companyDialog = false"
             >Anuluj</v-btn>
             <v-btn
@@ -142,7 +142,7 @@
           <v-card-actions>
             <v-spacer />
             <v-btn
-              flat
+              text
               @click="sellerDialog = false"
             >Anuluj</v-btn>
             <v-btn

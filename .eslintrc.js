@@ -2,16 +2,20 @@ module.exports = {
   root: true,
   env: {
     node: true,
+    jest: true,
   },
-  extends: [
-    'standard',
-    'plugin:vue/recommended',
-  ],
   plugins: [
     '@typescript-eslint',
   ],
+  extends: [
+    'standard',
+    'plugin:vue/recommended',
+    /*
+    '@vue/typescript',
+    */
+  ],
   parserOptions: {
-    parser: '@typescript-eslint/parser',
+    'parser': '@typescript-eslint/parser',
   },
   rules: {
     // 'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -32,7 +36,7 @@ module.exports = {
     'no-this-before-super': 'warn',
     'no-undef': 'error',
     'no-unreachable': 'error',
-    'no-unused-vars': 'error',
+    'no-unused-vars': 'off',
     'import/newline-after-import': 'error',
     'semi': ['error', 'always'],
     'no-useless-constructor': 'off',

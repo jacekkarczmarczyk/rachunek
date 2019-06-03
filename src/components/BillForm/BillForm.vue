@@ -1,167 +1,157 @@
 <template>
-  <v-tabs
-    color="primary"
-    dark
-    slider-color="warning"
-  >
-    <v-tab>
-      Formularz
-    </v-tab>
-    <v-tab>
-      Faktura
-    </v-tab>
+  <v-tabs>
+    <v-tab>Formularz</v-tab>
+    <v-tab>Faktura</v-tab>
 
-    <v-tabs-items>
-      <v-tab-item>
-        <v-card>
-          <v-card-text>
-            <form @submit.prevent>
-              <v-container grid-list-xl>
-                <v-layout
-                  row
-                  wrap
+    <v-tab-item>
+      <v-card>
+        <v-card-text>
+          <form @submit.prevent>
+            <v-container grid-list-xl>
+              <v-layout
+                row
+                wrap
+              >
+                <v-flex
+                  xs12
+                  sm4
                 >
-                  <v-flex
-                    xs12
-                    sm4
-                  >
-                    <v-select
-                      v-model="stawkaVat"
-                      type="number"
-                      label="Stawka VAT"
-                      :items="[{ text: 'Liniowa - 19%', value: 19.0}]"
-                    />
-                  </v-flex>
-                  <v-flex
-                    xs12
-                    sm4
-                  >
-                    <v-text-field
-                      v-if="company.zus"
-                      v-model="ubezpieczenieSpoleczne"
-                      type="number"
-                      label="Ubezpieczenie społeczne"
-                    />
-                  </v-flex>
-                  <v-flex
-                    xs12
-                    sm4
-                  >
-                    <v-text-field
-                      v-if="company.zus"
-                      v-model="ubezpieczenieZdrowotne"
-                      type="number"
-                      label="Ubezpieczenie zdrowotne"
-                    />
-                  </v-flex>
-
-                  <v-flex
-                    xs12
-                    sm4
-                  >
-                    <v-text-field
-                      v-model="invoiceDate"
-                      type="date"
-                      label="Data sprzedaży"
-                    />
-                  </v-flex>
-                  <v-flex
-                    xs12
-                    sm4
-                  >
-                    <v-text-field
-                      v-model="issueDate"
-                      type="date"
-                      label="Data wystawienia faktury"
-                    />
-                  </v-flex>
-                  <v-flex
-                    xs12
-                    sm4
-                  >
-                    <v-text-field
-                      v-model="invoiceNo"
-                      type="number"
-                      label="Nr porządkowy faktury"
-                    />
-                  </v-flex>
-
-                  <v-flex xs8>
-                    <v-text-field
-                      v-model="workingHours"
-                      box
-                      min="0"
-                      autofocusbox
-                      type="number"
-                      label="Godziny robocze"
-                    />
-                  </v-flex>
-                  <v-flex xs4>
-                    <v-text-field
-                      disabled
-                      autofocusbox
-                      type="number"
-                      label="Stawka godzinowa"
-                      :value="company.workingHourRate"
-                    />
-                  </v-flex>
-                </v-layout>
-              </v-container>
-
-              <v-container grid-list-xl>
-                <v-layout
-                  row
-                  wrap
-                  align-center
+                  <v-select
+                    v-model="stawkaVat"
+                    type="number"
+                    label="Stawka VAT"
+                    :items="[{ text: 'Liniowa - 19%', value: 19.0}]"
+                  />
+                </v-flex>
+                <v-flex
+                  xs12
+                  sm4
                 >
-                  <v-flex
-                    xs4
-                    class="headline text-xs-right"
-                  >
-                    Kwota na rękę:
-                  </v-flex>
-                  <v-flex
-                    v-clipboard:copy="B7.toFixed(2)"
-                    v-clipboard:success="() => valueForMeCopied = true"
-                    xs8
-                    class="display-2 copy-to-clipboard"
-                    :class="valueForMeCopied ? 'success--text' : ''"
-                  >
-                    {{ format(B7) }}
-                  </v-flex>
-                  <v-flex
-                    xs4
-                    class="headline text-xs-right"
-                  >
-                    Kwota na fakturze netto:
-                  </v-flex>
-                  <v-flex
-                    v-clipboard:copy="valueNet.toFixed(2)"
-                    v-clipboard:success="() => valueNetCopied = true"
-                    xs8
-                    class="display-2 copy-to-clipboard"
-                    :class="valueNetCopied ? 'success--text' : ''"
-                  >
-                    {{ format(valueNet) }}
-                  </v-flex>
-                </v-layout>
-              </v-container>
-            </form>
-          </v-card-text>
-        </v-card>
+                  <v-text-field
+                    v-if="company.zus"
+                    v-model="ubezpieczenieSpoleczne"
+                    type="number"
+                    label="Ubezpieczenie społeczne"
+                  />
+                </v-flex>
+                <v-flex
+                  xs12
+                  sm4
+                >
+                  <v-text-field
+                    v-if="company.zus"
+                    v-model="ubezpieczenieZdrowotne"
+                    type="number"
+                    label="Ubezpieczenie zdrowotne"
+                  />
+                </v-flex>
 
-      </v-tab-item>
-      <v-tab-item>
-        <invoice
-          :company="company"
-          :net="valueNet"
-          :seller="seller"
-          :invoice-date="invoiceDate"
-          :issue-date="issueDate"
-          :invoice-no="invoiceNo"
-        />
-      </v-tab-item>
-    </v-tabs-items>
+                <v-flex
+                  xs12
+                  sm4
+                >
+                  <v-text-field
+                    v-model="invoiceDate"
+                    type="date"
+                    label="Data sprzedaży"
+                  />
+                </v-flex>
+                <v-flex
+                  xs12
+                  sm4
+                >
+                  <v-text-field
+                    v-model="issueDate"
+                    type="date"
+                    label="Data wystawienia faktury"
+                  />
+                </v-flex>
+                <v-flex
+                  xs12
+                  sm4
+                >
+                  <v-text-field
+                    v-model="invoiceNo"
+                    type="number"
+                    label="Nr porządkowy faktury"
+                  />
+                </v-flex>
+
+                <v-flex xs8>
+                  <v-text-field
+                    v-model="workingHours"
+                    filled
+                    min="0"
+                    autofocusbox
+                    type="number"
+                    label="Godziny robocze"
+                  />
+                </v-flex>
+                <v-flex xs4>
+                  <v-text-field
+                    disabled
+                    autofocusbox
+                    type="number"
+                    label="Stawka godzinowa"
+                    :value="company.workingHourRate"
+                  />
+                </v-flex>
+              </v-layout>
+            </v-container>
+
+            <v-container grid-list-xl>
+              <v-layout
+                row
+                wrap
+                align-center
+              >
+                <v-flex
+                  xs4
+                  class="headline text-xs-right"
+                >
+                  Kwota na rękę:
+                </v-flex>
+                <v-flex
+                  v-clipboard:copy="B7.toFixed(2)"
+                  v-clipboard:success="() => valueForMeCopied = true"
+                  xs8
+                  class="display-2 copy-to-clipboard"
+                  :class="valueForMeCopied ? 'success--text' : ''"
+                >
+                  {{ format(B7) }}
+                </v-flex>
+                <v-flex
+                  xs4
+                  class="headline text-xs-right"
+                >
+                  Kwota na fakturze netto:
+                </v-flex>
+                <v-flex
+                  v-clipboard:copy="valueNet.toFixed(2)"
+                  v-clipboard:success="() => valueNetCopied = true"
+                  xs8
+                  class="display-2 copy-to-clipboard"
+                  :class="valueNetCopied ? 'success--text' : ''"
+                >
+                  {{ format(valueNet) }}
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </form>
+        </v-card-text>
+      </v-card>
+
+    </v-tab-item>
+    <v-tab-item>
+      <invoice
+        :company="company"
+        :net="valueNet"
+        :seller="seller"
+        :invoice-date="invoiceDate"
+        :issue-date="issueDate"
+        :invoice-no="invoiceNo"
+      />
+    </v-tab-item>
   </v-tabs>
 
 </template>

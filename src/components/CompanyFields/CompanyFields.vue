@@ -88,7 +88,7 @@
       >
         <v-text-field
           v-model="value.workingHourRate"
-          box
+          filled
           type="number"
           suffix="PLN"
           hide-details
@@ -108,7 +108,7 @@
       <v-flex xs12>
         <v-text-field
           v-model="value.serviceTitle"
-          box
+          filled
           hide-details
           label="Nazwa usługi"
         />
