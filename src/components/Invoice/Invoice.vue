@@ -204,8 +204,10 @@ export default {
 
     print () {
       document.body.classList.add('print-invoice');
-      print();
-      document.body.classList.remove('print-invoice');
+      setTimeout(() => {
+        print();
+        document.body.classList.remove('print-invoice');
+      });
     },
   },
 };
@@ -228,27 +230,26 @@ tr:hover {
 </style>
 
 <style>
-@media print {
-  .print-invoice .application {
-    background: none;
-  }
+.print-invoice .application {
+  background: none;
+}
 
-  .print-invoice aside,
-  .print-invoice .v-tabs-bar,
-  .print-invoice .print-button,
-  .print-invoice .v-footer {
-    display: none;
-  }
+.print-invoice aside,
+.print-invoice .v-tabs-bar,
+.print-invoice .print-button,
+.print-invoice .v-navigation-drawer,
+.print-invoice .v-footer {
+  display: none !important;
+}
 
-  .print-invoice .container,
-  .print-invoice .v-content {
-    padding: 0 !important;
-    max-width: none;
-  }
+.print-invoice .container,
+.print-invoice .v-content {
+  padding: 0 !important;
+  max-width: none;
+}
 
-  .print-invoice div {
-    border: none;
-    box-shadow: none;
-  }
+.print-invoice div {
+  border: none;
+  box-shadow: none;
 }
 </style>
