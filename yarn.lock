@@ -10128,9 +10128,9 @@ vuetify-loader@^1.0.5:
     loader-utils "^1.1.0"
 
 vuetify@^2.0.0-beta.0:
-  version "2.0.0-beta.5"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.0.0-beta.5.tgz#3cb929d3b2af1c057e83a68a6bd11d12323e2a19"
-  integrity sha512-YJBTs681yHrQ/mZpmjHNDtM6CPjIRr6CLnmKTWWGGuHEUtKc7hSv+JHd3myvSowlcN+5c3gxQHjW2nn7l2Wz1A==
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.0.3.tgz#3fdca5df2e326c203d96561443087a9c756341de"
+  integrity sha512-XJ70Iex/BBwxbmf+s2hCpyrDPsXuuQkGod+dthiQkAf9N28tzyYD0vxS3r6U1o7Oaqmo1ctzLhlAw074asdGFg==
 
 vuex@^3.0.1:
   version "3.1.1"
