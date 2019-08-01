@@ -199,6 +199,7 @@ export default {
       }
 
       const slownie = new Slownie();
+
       return `${slownie.get(Math.floor(value / 100))} zł${(value % 100) ? (`, ${slownie.get(value % 100)} gr`) : ''}`;
     },
 

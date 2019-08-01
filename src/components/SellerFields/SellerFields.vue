@@ -139,6 +139,7 @@ export default {
     async fetchCompanyData () {
       const taxId = this.value.taxId.replace(/[^0-9]/, '');
       const data = await axios.get(`https://api-v3.mojepanstwo.pl/dane/krs_podmioty.json?conditions[krs_podmioty.nip]=${taxId}`);
+
       if (!data || !data.data || !data.data.Dataobject || !data.data.Dataobject.length) {
         alert('Nie znaleziono firmy');
         return;
@@ -154,6 +155,7 @@ export default {
         house: item['krs_podmioty.adres_numer'],
         flat: item['krs_podmioty.adres_lokal'],
       });
+
       this.$emit('input', newData);
     },
   },

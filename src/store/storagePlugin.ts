@@ -13,7 +13,7 @@ const initState = ({
 
   Object.keys(store.modules).forEach(module => {
     (store.modules[module].sync || []).forEach((key: any) => {
-      if (syncedData.hasOwnProperty(module) && syncedData[module].hasOwnProperty(key)) {
+      if ((module in syncedData) && (key in syncedData[module])) {
         store.modules[module].state[key] = syncedData[module][key];
       }
     });
@@ -38,6 +38,7 @@ export default ({
   const modules = Object.keys(store.modules);
   const syncProperties = {};
   const storageData = {};
+
   modules.forEach(module => {
     (syncProperties as any)[module] = store.modules[module].sync;
     (storageData as any)[module] = {};

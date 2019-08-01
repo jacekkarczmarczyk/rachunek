@@ -15,7 +15,7 @@ module.exports = {
     */
   ],
   parserOptions: {
-    'parser': '@typescript-eslint/parser',
+    parser: '@typescript-eslint/parser',
   },
   rules: {
     // 'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -24,7 +24,7 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
     'constructor-super': 'error',
     'generator-star-spacing': 0,
-    'indent': ['error', 2],
+    indent: ['error', 2],
     'object-shorthand': ['error', 'always'],
     'no-const-assign': 'error',
     'no-empty': 'error',
@@ -38,7 +38,8 @@ module.exports = {
     'no-unreachable': 'error',
     'no-unused-vars': 'off',
     'import/newline-after-import': 'error',
-    'semi': ['error', 'always'],
+    'newline-after-var': ['error', 'always'],
+    semi: ['error', 'always'],
     'no-useless-constructor': 'off',
     'space-infix-ops': 'error',
     'space-before-function-paren': [

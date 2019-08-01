@@ -251,6 +251,7 @@ export default {
     },
     valueForMe () {
       let hours = parseFloat((this.workingHours || '').replace(',', '.'));
+
       if (isNaN(hours) || hours < 0) {
         hours = 0;
       }
