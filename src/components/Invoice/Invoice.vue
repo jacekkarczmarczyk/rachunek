@@ -1,10 +1,10 @@
 <template>
   <v-card>
-    <v-card-text class="pa-3">
-      <div class="text-xs-right"><small>{{ seller.city }}, {{ intlDate.format(new Date(issueDate)) }}</small></div>
-      <div class="text-xs-right"><small>Data sprzedaży, {{ intlDate.format(new Date(invoiceDate)) }}</small></div>
+    <v-card-text class="pa-4">
+      <div class="text-right"><small>{{ seller.city }}, {{ intlDate.format(new Date(issueDate)) }}</small></div>
+      <div class="text-right"><small>Data sprzedaży, {{ intlDate.format(new Date(invoiceDate)) }}</small></div>
       <div
-        class="mb-5 text-xs-center"
+        class="mb-12 text-center"
         style="margin-top: -2rem"
       >
         <div>Rachunek</div>
@@ -12,15 +12,15 @@
         <div class="subheading">Oryginał</div>
       </div>
 
-      <v-simple-table class="mb-5">
+      <v-simple-table class="mb-12">
         <thead>
           <tr>
             <th
-              class="text-xs-left"
+              class="text-left"
               style="width: 50%"
             >Sprzedawca</th>
             <th
-              class="text-xs-left"
+              class="text-left"
               colspan="2"
             >Nabywca</th>
           </tr>
@@ -48,9 +48,9 @@
         </tbody>
         <thead>
           <tr>
-            <th class="text-xs-left">Rachunek bankowy</th>
-            <th class="text-xs-left">Sposób zapłaty</th>
-            <th class="text-xs-left">Termin płatności</th>
+            <th class="text-left">Rachunek bankowy</th>
+            <th class="text-left">Sposób zapłaty</th>
+            <th class="text-left">Termin płatności</th>
           </tr>
         </thead>
         <tbody>
@@ -65,7 +65,7 @@
         </tbody>
       </v-simple-table>
 
-      <v-simple-table class="mb-5">
+      <v-simple-table class="mb-12">
         <thead>
           <tr>
             <th>Nazwa towaru / usługi</th>
@@ -91,7 +91,7 @@
             <th />
             <th />
             <th
-              class="text-xs-right"
+              class="text-right"
               style="vertical-align: middle"
               scope="row"
             >Razem</th>
@@ -101,7 +101,7 @@
         </tbody>
       </v-simple-table>
 
-      <v-simple-table class="mb-5">
+      <v-simple-table class="mb-12">
         <tbody>
           <tr>
             <th
@@ -121,29 +121,29 @@
       </v-simple-table>
 
       <div
-        class="pt-5"
+        class="pt-12"
         style="display: flex; text-align: center; font-size: 0.8rem; justify-content: space-around"
       >
         <div
-          class="px-3"
+          class="px-4"
           style="width: 30%; border-top: 1px dotted #888"
         >
           <div>Podpis osoby upoważnionej do wystawienia faktury</div>
           <div class="body-2">{{ seller.name }}</div>
         </div>
         <div
-          class="px-3"
+          class="px-4"
           style="width: 30%; border-top: 1px dotted #888"
         >Podpis osoby upoważnionej do odbioru faktury</div>
       </div>
 
     </v-card-text>
-    <v-card-actions class="justify-center pa-4">
+    <v-card-actions class="justify-center pa-6">
       <v-btn
         class="print-button"
         color="primary"
         @click="print"
-      ><v-icon class="mr-3">mdi-printer</v-icon>Drukuj</v-btn>
+      ><v-icon class="mr-4">mdi-printer</v-icon>Drukuj</v-btn>
     </v-card-actions>
   </v-card>
 </template>

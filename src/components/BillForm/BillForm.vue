@@ -107,7 +107,7 @@
               >
                 <v-flex
                   xs4
-                  class="headline text-xs-right"
+                  class="headline text-right"
                 >
                   Kwota na rękę:
                 </v-flex>
@@ -122,7 +122,7 @@
                 </v-flex>
                 <v-flex
                   xs4
-                  class="headline text-xs-right"
+                  class="headline text-right"
                 >
                   Kwota na fakturze netto:
                 </v-flex>

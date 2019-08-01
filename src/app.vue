@@ -66,10 +66,10 @@
             </v-list-item-action>
           </v-list-item>
         </v-list>
-        <div class="text-xs-right">
+        <div class="text-right">
           <v-btn
             color="primary"
-            class="ma-3"
+            class="ma-4"
             @click="addCompany()"
           ><v-icon left>mdi-plus</v-icon>Dodaj firmę</v-btn>
         </div>
@@ -105,7 +105,7 @@
               v-model="companyFormData"
             />
           </v-card-text>
-          <v-card-actions class="pa-3">
+          <v-card-actions class="pa-4">
             <v-spacer />
             <v-btn
               text
@@ -140,7 +140,7 @@
               v-model="sellerFormData"
             />
           </v-card-text>
-          <v-card-actions class="pa-3">
+          <v-card-actions class="pa-4">
             <v-spacer />
             <v-btn
               text
