@@ -2,7 +2,7 @@ import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import '@mdi/font/css/materialdesignicons.css';
 import Vue from 'vue';
 import VueClipboard from 'vue-clipboard2';
-import Vuetify from 'vuetify/lib';
+import Vuetify from 'vuetify';
 import pl from 'vuetify/src/locale/pl';
 import router from '@/router';
 import store from '@/store';
