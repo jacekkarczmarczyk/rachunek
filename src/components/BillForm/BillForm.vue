@@ -32,6 +32,7 @@
                     v-model="ubezpieczenieSpoleczne"
                     type="number"
                     label="Ubezpieczenie społeczne"
+                    placeholder="227,69 zł"
                   />
                 </v-flex>
                 <v-flex
@@ -43,6 +44,7 @@
                     v-model="ubezpieczenieZdrowotne"
                     type="number"
                     label="Ubezpieczenie zdrowotne"
+                    placeholder="362,34 zł"
                   />
                 </v-flex>
 
