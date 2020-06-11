@@ -11160,9 +11160,9 @@ vuetify-loader@^1.0.5:
     loader-utils "^1.2.0"
 
 vuetify@^2.3.0-beta.2:
-  version "2.3.0-beta.7"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.3.0-beta.7.tgz#b9e956ea5cafe34275959f0914297cb5138fb36e"
-  integrity sha512-Jw/Bi5SOHq/FETJiZ3p4e7h9h+X7HhXJZhFNNMwp3l9F+Wo2AUVph9M/qessw4ch+daAyRBbsSg1dCTx4hi38w==
+  version "2.3.0-beta.10"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.3.0-beta.10.tgz#3f77928f685690e75f92c473aa4172575d1f1763"
+  integrity sha512-RzEX+FMlnptXJOJJTc5ZqNzHVOtRlhLwTsddXu8izE+abf59aEIX8SrevKUVGQ36Sq/Ytmmp03ut4J6+TsjIBA==
 
 vuex@^3.0.1:
   version "3.4.0"
