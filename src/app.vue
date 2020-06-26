@@ -50,16 +50,16 @@
             </v-list-item-content>
             <v-list-item-action>
               <v-btn
-                icon
                 color="warning"
+                icon
                 text
                 @click.stop="deleteCompany(company)"
               ><v-icon>mdi-delete</v-icon></v-btn>
             </v-list-item-action>
             <v-list-item-action>
               <v-btn
-                icon
                 color="primary"
+                icon
                 text
                 @click.stop="editCompany(company)"
               ><v-icon>mdi-pencil</v-icon></v-btn>
@@ -68,8 +68,8 @@
         </v-list>
         <div class="text-right">
           <v-btn
-            color="primary"
             class="ma-4"
+            color="primary"
             @click="addCompany()"
           ><v-icon left>mdi-plus</v-icon>Dodaj firmę</v-btn>
         </div>

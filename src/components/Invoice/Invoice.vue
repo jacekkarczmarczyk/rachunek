@@ -92,8 +92,8 @@
             <th />
             <th
               class="text-right"
-              style="vertical-align: middle"
               scope="row"
+              style="vertical-align: middle"
             >Razem</th>
             <td style="vertical-align: middle">{{ format(netInt) }}</td>
             <td style="vertical-align: middle">{{ format(netInt) }}</td>

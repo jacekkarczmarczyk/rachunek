@@ -7,10 +7,10 @@
       <v-flex xs12>
         <v-text-field
           v-model="value.taxId"
+          append-outer-icon="mdi-download"
           autofocus
           hide-details
           label="NIP"
-          append-outer-icon="mdi-download"
           @click:append-outer="fetchCompanyData"
         />
       </v-flex>
@@ -22,8 +22,8 @@
         />
       </v-flex>
       <v-flex
-        xs12
         sm6
+        xs12
       >
         <v-text-field
           v-model="value.country"
@@ -32,8 +32,8 @@
         />
       </v-flex>
       <v-flex
-        xs12
         sm6
+        xs12
       >
         <v-text-field
           v-model="value.city"
@@ -42,8 +42,8 @@
         />
       </v-flex>
       <v-flex
-        xs12
         sm6
+        xs12
       >
         <v-text-field
           v-model="value.postalCode"
@@ -52,8 +52,8 @@
         />
       </v-flex>
       <v-flex
-        xs12
         sm6
+        xs12
       >
         <v-text-field
           v-model="value.street"
@@ -62,8 +62,8 @@
         />
       </v-flex>
       <v-flex
-        xs12
         sm6
+        xs12
       >
         <v-text-field
           v-model="value.house"
@@ -72,8 +72,8 @@
         />
       </v-flex>
       <v-flex
-        xs12
         sm6
+        xs12
       >
         <v-text-field
           v-model="value.flat"
@@ -126,7 +126,7 @@ export default {
   watch: {
     value: {
       deep: true,
-      handler (v) {
+      handler (/* v */) {
         // this.$emit('input', Object.assign({}, v))
       },
     },

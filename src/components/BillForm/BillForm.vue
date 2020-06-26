@@ -13,88 +13,88 @@
                 wrap
               >
                 <v-flex
-                  xs12
                   sm4
+                  xs12
                 >
                   <v-select
                     v-model="stawkaVat"
-                    type="number"
-                    label="Stawka VAT"
                     :items="[{ text: 'Liniowa - 19%', value: 19.0}]"
+                    label="Stawka VAT"
+                    type="number"
                   />
                 </v-flex>
                 <v-flex
-                  xs12
                   sm4
+                  xs12
                 >
                   <v-text-field
                     v-if="company.zus"
                     v-model="ubezpieczenieSpoleczne"
-                    type="number"
                     label="Ubezpieczenie społeczne"
                     placeholder="227,69 zł"
+                    type="number"
                   />
                 </v-flex>
                 <v-flex
-                  xs12
                   sm4
+                  xs12
                 >
                   <v-text-field
                     v-if="company.zus"
                     v-model="ubezpieczenieZdrowotne"
-                    type="number"
                     label="Ubezpieczenie zdrowotne"
                     placeholder="362,34 zł"
+                    type="number"
                   />
                 </v-flex>
 
                 <v-flex
-                  xs12
                   sm4
+                  xs12
                 >
                   <v-text-field
                     v-model="invoiceDate"
-                    type="date"
                     label="Data sprzedaży"
+                    type="date"
                   />
                 </v-flex>
                 <v-flex
-                  xs12
                   sm4
+                  xs12
                 >
                   <v-text-field
                     v-model="issueDate"
-                    type="date"
                     label="Data wystawienia faktury"
+                    type="date"
                   />
                 </v-flex>
                 <v-flex
-                  xs12
                   sm4
+                  xs12
                 >
                   <v-text-field
                     v-model="invoiceNo"
-                    type="number"
                     label="Nr porządkowy faktury"
+                    type="number"
                   />
                 </v-flex>
 
                 <v-flex xs8>
                   <v-text-field
                     v-model="workingHours"
-                    filled
-                    min="0"
                     autofocusbox
-                    type="number"
+                    filled
                     label="Godziny robocze"
+                    min="0"
+                    type="number"
                   />
                 </v-flex>
                 <v-flex xs4>
                   <v-text-field
-                    disabled
                     autofocusbox
-                    type="number"
+                    disabled
                     label="Stawka godzinowa"
+                    type="number"
                     :value="company.workingHourRate"
                   />
                 </v-flex>
@@ -103,37 +103,37 @@
 
             <v-container grid-list-xl>
               <v-layout
+                align-center
                 row
                 wrap
-                align-center
               >
                 <v-flex
-                  xs4
                   class="headline text-right"
+                  xs4
                 >
                   Kwota na rękę:
                 </v-flex>
                 <v-flex
                   v-clipboard:copy="B7.toFixed(2)"
                   v-clipboard:success="() => valueForMeCopied = true"
-                  xs8
                   class="display-2 copy-to-clipboard"
                   :class="valueForMeCopied ? 'success--text' : ''"
+                  xs8
                 >
                   {{ format(B7) }}
                 </v-flex>
                 <v-flex
-                  xs4
                   class="headline text-right"
+                  xs4
                 >
                   Kwota na fakturze netto:
                 </v-flex>
                 <v-flex
                   v-clipboard:copy="valueNet.toFixed(2)"
                   v-clipboard:success="() => valueNetCopied = true"
-                  xs8
                   class="display-2 copy-to-clipboard"
                   :class="valueNetCopied ? 'success--text' : ''"
+                  xs8
                 >
                   {{ format(valueNet) }}
                 </v-flex>
@@ -147,11 +147,11 @@
     <v-tab-item>
       <invoice
         :company="company"
+        :invoice-date="invoiceDate"
+        :invoice-no="invoiceNo"
+        :issue-date="issueDate"
         :net="valueNet"
         :seller="seller"
-        :invoice-date="invoiceDate"
-        :issue-date="issueDate"
-        :invoice-no="invoiceNo"
       />
     </v-tab-item>
   </v-tabs>
