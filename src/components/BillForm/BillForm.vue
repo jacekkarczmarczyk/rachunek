@@ -8,10 +8,7 @@
         <v-card-text>
           <form @submit.prevent>
             <v-container grid-list-xl>
-              <v-layout
-                row
-                wrap
-              >
+              <v-layout wrap>
                 <v-flex
                   sm4
                   xs12
@@ -104,7 +101,6 @@
             <v-container grid-list-xl>
               <v-layout
                 align-center
-                row
                 wrap
               >
                 <v-flex
