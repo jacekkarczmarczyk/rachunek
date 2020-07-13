@@ -10913,9 +10913,9 @@ typedarray@^0.0.6:
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
 typescript@^4.0.0-dev.20200626:
-  version "4.0.0-dev.20200711"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.0-dev.20200711.tgz#c98738ca78d3b2caaa91adaaef72d2abdb5f7a48"
-  integrity sha512-ynscKsQt5G6NStIzPpzCEhPJK0qp/DYyI6uTl5Mn1mDhBqnrMXQWXGoYDl9DA6Mf5plK64zSD9CoSn4L8vDyig==
+  version "4.0.0-dev.20200712"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.0-dev.20200712.tgz#b998b2890749cf017d93c056438359cd5623e0f5"
+  integrity sha512-qR8rfTI9A0SeC9akZq+/xMuDud3xcB07pJC3Pt3dBqJ+fcyrBCpapfB709syNw+6/SQHueMOMhUYk74DZMPedA==
 
 typescript@~3.9.3:
   version "3.9.6"
