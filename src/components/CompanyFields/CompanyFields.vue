@@ -150,6 +150,7 @@ export default {
 
       if (!data || !data.data || !data.data.Dataobject || !data.data.Dataobject.length) {
         alert('Nie znaleziono firmy');
+
         return;
       }
       const item = data.data.Dataobject[0].data;

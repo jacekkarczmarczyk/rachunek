@@ -112,7 +112,7 @@
                 <v-flex
                   v-clipboard:copy="B7.toFixed(2)"
                   v-clipboard:success="() => valueForMeCopied = true"
-                  class="display-2 copy-to-clipboard"
+                  class="copy-to-clipboard display-2"
                   :class="valueForMeCopied ? 'success--text' : ''"
                   xs8
                 >
@@ -127,7 +127,7 @@
                 <v-flex
                   v-clipboard:copy="valueNet.toFixed(2)"
                   v-clipboard:success="() => valueNetCopied = true"
-                  class="display-2 copy-to-clipboard"
+                  class="copy-to-clipboard display-2"
                   :class="valueNetCopied ? 'success--text' : ''"
                   xs8
                 >
@@ -253,6 +253,7 @@ export default {
       if (isNaN(hours) || hours < 0) {
         hours = 0;
       }
+
       return this.company.workingHourRate * hours;
     },
     valueNet () {

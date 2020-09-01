@@ -7,7 +7,7 @@ import Vuetify from 'vuetify/lib/framework';
 import pl from 'vuetify/src/locale/pl';
 import router from '@/router';
 import store from '@/store';
-import App from '@/app.vue';
+import App from '@/App.vue';
 
 Vue.config.productionTip = false;
 
@@ -25,9 +25,8 @@ const vuetify = new Vuetify({
   },
 });
 
-// eslint-disable-next-line no-new
 new Vue({
-  el: '#app',
+  name: 'Root',
   components: {
     App,
   },
@@ -35,4 +34,4 @@ new Vue({
   store,
   vuetify,
   render: h => h(App),
-});
+}).$mount('#app');

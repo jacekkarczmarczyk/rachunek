@@ -152,6 +152,8 @@
 import { Slownie } from 'slownie';
 
 export default {
+  name: 'Invoice',
+
   props: {
     seller: null,
     company: null,

@@ -234,6 +234,7 @@ export default {
     saveCompany () {
       if (!this.companyFormData.taxId || !this.companyFormData.company) {
         alert('Proszę podać NIP i nazwę firmy');
+
         return;
       }
       this.$store.commit('__global__/MUTATE_ADD_COMPANY', this.companyFormData);
@@ -242,6 +243,7 @@ export default {
     saveSeller () {
       if (!this.sellerFormData.taxId || !this.sellerFormData.company) {
         alert('Proszę podać NIP i nazwę firmy');
+
         return;
       }
       this.$store.commit('__global__/MUTATE_SET_SELLER', this.sellerFormData);
