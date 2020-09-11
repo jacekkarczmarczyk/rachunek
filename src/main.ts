@@ -2,7 +2,6 @@ import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import '@mdi/font/css/materialdesignicons.css';
 import Vue from 'vue';
 import VueClipboard from 'vue-clipboard2';
-// @ts-ignore
 import Vuetify from 'vuetify/lib/framework';
 import pl from 'vuetify/src/locale/pl';
 import router from '@/router';
@@ -14,7 +13,6 @@ Vue.config.productionTip = false;
 Vue.use(VueClipboard);
 Vue.use(Vuetify);
 
-// @ts-ignore
 const vuetify = new Vuetify({
   iconfont: 'mdi',
   lang: {
