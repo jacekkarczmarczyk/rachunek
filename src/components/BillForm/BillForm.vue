@@ -192,9 +192,9 @@ export default {
         return this.taxSettings.ubezpieczenieSpoleczne;
       },
       set (v) {
-        this.$store.commit('__global__/MUTATE_TAX_SETTINGS', Object.assign({}, this.taxSettings, {
+        this.updateTaxSettings({
           ubezpieczenieSpoleczne: parseFloat(v),
-        }));
+        });
       },
     },
     ubezpieczenieZdrowotne: {
@@ -202,9 +202,9 @@ export default {
         return this.taxSettings.ubezpieczenieZdrowotne;
       },
       set (v) {
-        this.$store.commit('__global__/MUTATE_TAX_SETTINGS', Object.assign({}, this.taxSettings, {
+        this.updateTaxSettings({
           ubezpieczenieZdrowotne: parseFloat(v),
-        }));
+        });
       },
     },
     stawkaVat: {
@@ -212,9 +212,9 @@ export default {
         return this.taxSettings.stawkaVat;
       },
       set (v) {
-        this.$store.commit('__global__/MUTATE_TAX_SETTINGS', Object.assign({}, this.taxSettings, {
+        this.updateTaxSettings({
           stawkaVat: parseFloat(v),
-        }));
+        });
       },
     },
     E3 () {
@@ -276,6 +276,9 @@ export default {
         style: 'currency',
         currency: 'PLN',
       }).format(value);
+    },
+    updateTaxSettings (settings) {
+      this.$store.commit('__global__/MUTATE_TAX_SETTINGS', Object.assign({}, this.taxSettings, settings));
     },
   },
 };

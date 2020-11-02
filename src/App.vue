@@ -24,7 +24,7 @@
                 color="primary"
                 icon
                 text
-                @click.stop="editSeller()"
+                @click.stop="editSeller"
               ><v-icon>mdi-pencil</v-icon></v-btn>
             </v-list-item-action>
           </v-list-item>
@@ -70,7 +70,7 @@
           <v-btn
             class="ma-4"
             color="primary"
-            @click="addCompany()"
+            @click="addCompany"
           ><v-icon left>mdi-plus</v-icon>Dodaj firmę</v-btn>
         </div>
       </v-navigation-drawer>
