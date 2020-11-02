@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-content>
+    <v-main>
       <v-navigation-drawer
         app
         disable-route-watcher
@@ -77,7 +77,7 @@
       <v-container>
         <router-view ref="routerView" />
       </v-container>
-    </v-content>
+    </v-main>
     <v-footer
       app
       style="background: rgba(0, 0, 0, 0.7)"

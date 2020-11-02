@@ -246,7 +246,7 @@ tr:hover {
 }
 
 .print-invoice .container,
-.print-invoice .v-content {
+.print-invoice .v-main {
   padding: 0 !important;
   max-width: none;
 }
