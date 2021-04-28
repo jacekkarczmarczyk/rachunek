@@ -104,7 +104,7 @@
                 wrap
               >
                 <v-flex
-                  class="headline text-right"
+                  class="text-h5 text-right"
                   xs4
                 >
                   Kwota na rękę:
@@ -112,14 +112,14 @@
                 <v-flex
                   v-clipboard:copy="B7.toFixed(2)"
                   v-clipboard:success="() => valueForMeCopied = true"
-                  class="copy-to-clipboard display-2"
+                  class="copy-to-clipboard text-h3"
                   :class="valueForMeCopied ? 'success--text' : ''"
                   xs8
                 >
                   {{ format(B7) }}
                 </v-flex>
                 <v-flex
-                  class="headline text-right"
+                  class="text-h5 text-right"
                   xs4
                 >
                   Kwota na fakturze netto:
@@ -127,7 +127,7 @@
                 <v-flex
                   v-clipboard:copy="valueNet.toFixed(2)"
                   v-clipboard:success="() => valueNetCopied = true"
-                  class="copy-to-clipboard display-2"
+                  class="copy-to-clipboard text-h3"
                   :class="valueNetCopied ? 'success--text' : ''"
                   xs8
                 >

@@ -8,7 +8,7 @@
         style="margin-top: -2rem"
       >
         <div>Rachunek</div>
-        <div class="headline">{{ new Date(invoiceDate).getFullYear() }}/{{ (1 + new Date(invoiceDate).getMonth()).toString().padStart(2, '0') }}/{{ invoiceNo.toString().padStart(2, '0') }}</div>
+        <div class="text-h5">{{ new Date(invoiceDate).getFullYear() }}/{{ (1 + new Date(invoiceDate).getMonth()).toString().padStart(2, '0') }}/{{ invoiceNo.toString().padStart(2, '0') }}</div>
         <div class="subheading">Oryginał</div>
       </div>
 
@@ -129,7 +129,7 @@
           style="width: 30%; border-top: 1px dotted #888"
         >
           <div>Podpis osoby upoważnionej do wystawienia faktury</div>
-          <div class="body-2">{{ seller.name }}</div>
+          <div class="text-body-2">{{ seller.name }}</div>
         </div>
         <div
           class="px-4"
