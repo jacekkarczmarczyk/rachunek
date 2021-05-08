@@ -147,25 +147,24 @@ export default {
     async fetchCompanyData () {
       const taxId = this.value.taxId.replace(/[^0-9]/, '');
       const data = await axios.get(`https://api-v3.mojepanstwo.pl/dane/krs_podmioty.json?conditions[krs_podmioty.nip]=${taxId}`);
+      const item = data?.data?.Dataobject?.[0]?.data ?? null;
 
-      if (!data || !data.data || !data.data.Dataobject || !data.data.Dataobject.length) {
+      if (!item) {
         alert('Nie znaleziono firmy');
+      } else {
+        const newData = Object.assign({}, this.internalValue, {
+          taxId,
+          company: item['krs_podmioty.nazwa'],
+          country: item['krs_podmioty.adres_kraj'],
+          city: item['krs_podmioty.adres_miejscowosc'],
+          postalCode: item['krs_podmioty.adres_kod_pocztowy'],
+          street: item['krs_podmioty.adres_ulica'],
+          house: item['krs_podmioty.adres_numer'],
+          flat: item['krs_podmioty.adres_lokal'],
+        });
 
-        return;
+        this.$emit('input', newData);
       }
-      const item = data.data.Dataobject[0].data;
-      const newData = Object.assign({}, this.internalValue, {
-        taxId,
-        company: item['krs_podmioty.nazwa'],
-        country: item['krs_podmioty.adres_kraj'],
-        city: item['krs_podmioty.adres_miejscowosc'],
-        postalCode: item['krs_podmioty.adres_kod_pocztowy'],
-        street: item['krs_podmioty.adres_ulica'],
-        house: item['krs_podmioty.adres_numer'],
-        flat: item['krs_podmioty.adres_lokal'],
-      });
-
-      this.$emit('input', newData);
     },
   },
 };
