@@ -3,7 +3,7 @@ const initState = ({
   storageKey,
   store,
 }: any) => {
-  const initial = storage.getItem(storageKey);
+  const initial: string = storage.getItem(storageKey);
 
   if (!initial) {
     return;
@@ -11,6 +11,7 @@ const initState = ({
 
   const syncedData = JSON.parse(initial);
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   Object.keys(store.modules).forEach(module => {
     (store.modules[module].sync || []).forEach((key: any) => {
       if ((module in syncedData) && (key in syncedData[module])) {
@@ -35,6 +36,7 @@ export default ({
     store.plugins = [];
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const modules = Object.keys(store.modules);
   const syncProperties = {};
   const storageData = {};

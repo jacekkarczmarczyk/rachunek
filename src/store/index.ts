@@ -6,6 +6,7 @@ import '@mdi/font/css/materialdesignicons.css';
 
 Vue.use(Vuex);
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 const store = new Vuex.Store(initPersistentState({
   store: {
     modules: {
