@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@mdi/font": "^6.1.95",
+    "@vue/composition-api": "^1.4.4",
     "axios": "^0.25.0",
     "core-js": "^3.8.3",
     "roboto-fontface": "*",
@@ -27,6 +28,7 @@
     "sass": "~1.32.0",
     "typescript": "~4.4",
     "unplugin-vue-components": "^0.17.13",
+    "unplugin-vue2-script-setup": "^0.9.1",
     "vite": "^2.7.2",
     "vite-plugin-checker": "^0.3.4",
     "vite-plugin-vue2": "^1.9.2",

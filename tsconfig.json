@@ -18,7 +18,8 @@
     "types": [
       "vuetify",
       "node",
-      "vite/client"
+      "vite/client",
+      "unplugin-vue2-script-setup/types"
     ],
     "paths": {
       "@/*": [

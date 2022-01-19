@@ -4,12 +4,14 @@ import { resolve } from 'path';
 import Components from 'unplugin-vue-components/vite';
 import { VuetifyResolver } from 'unplugin-vue-components/resolvers';
 import checker from 'vite-plugin-checker';
+import ScriptSetup from 'unplugin-vue2-script-setup/vite';
 
 // https://vitejs.dev/config/
 // https://github.com/logue/vite-vue2-vuetify-ts-starter/blob/master/vite.config.ts
 export default defineConfig({
   plugins: [
     createVuePlugin(),
+    ScriptSetup(),
     // Vuetify
     Components({
       // generate `components.d.ts` global declarations

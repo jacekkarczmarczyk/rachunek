@@ -114,58 +114,40 @@
   </v-container>
 </template>
 
-<script>
+<script setup lang="ts">
+/* global defineProps, defineEmits */
+import type { Company } from '@/compsables/useState';
+import { ref } from '@vue/composition-api';
 import axios from 'axios';
 
-export default {
-  name: 'CompanyFields',
+const props = defineProps<{
+  value: Company;
+}>();
+const emit = defineEmits<{ // eslint-disable-line func-call-spacing
+  (name: 'input', value: Company): void;
+}>();
+const internalValue = ref({ ...props.value });
 
-  props: {
-    value: {
-      type: Object,
-      required: true,
-    },
-  },
+async function fetchCompanyData () {
+  const taxId = props.value.taxId.replace(/[^0-9]/, '');
+  const data = await axios.get(`https://api-v3.mojepanstwo.pl/dane/krs_podmioty.json?conditions[krs_podmioty.nip]=${taxId}`);
+  const item = data?.data?.Dataobject?.[0]?.data ?? null;
 
-  data: vm => ({
-    internalValue: Object.assign({}, vm.value),
-  }),
+  if (!item) {
+    alert('Nie znaleziono firmy');
+  } else {
+    const newData = Object.assign({}, internalValue.value, {
+      taxId,
+      company: item['krs_podmioty.nazwa'],
+      country: item['krs_podmioty.adres_kraj'],
+      city: item['krs_podmioty.adres_miejscowosc'],
+      postalCode: item['krs_podmioty.adres_kod_pocztowy'],
+      street: item['krs_podmioty.adres_ulica'],
+      house: item['krs_podmioty.adres_numer'],
+      flat: item['krs_podmioty.adres_lokal'],
+    });
 
-  watch: {
-    value: {
-      deep: true,
-      handler (/* v */) {
-        // this.$emit('input', Object.assign({}, v))
-      },
-    },
-  },
-
-  methods: {
-    refresh () {
-      this.internalValue = Object.assign({}, this.value);
-    },
-    async fetchCompanyData () {
-      const taxId = this.value.taxId.replace(/[^0-9]/, '');
-      const data = await axios.get(`https://api-v3.mojepanstwo.pl/dane/krs_podmioty.json?conditions[krs_podmioty.nip]=${taxId}`);
-      const item = data?.data?.Dataobject?.[0]?.data ?? null;
-
-      if (!item) {
-        alert('Nie znaleziono firmy');
-      } else {
-        const newData = Object.assign({}, this.internalValue, {
-          taxId,
-          company: item['krs_podmioty.nazwa'],
-          country: item['krs_podmioty.adres_kraj'],
-          city: item['krs_podmioty.adres_miejscowosc'],
-          postalCode: item['krs_podmioty.adres_kod_pocztowy'],
-          street: item['krs_podmioty.adres_ulica'],
-          house: item['krs_podmioty.adres_numer'],
-          flat: item['krs_podmioty.adres_lokal'],
-        });
-
-        this.$emit('input', newData);
-      }
-    },
-  },
-};
+    emit('input', newData);
+  }
+}
 </script>

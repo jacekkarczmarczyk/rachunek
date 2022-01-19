@@ -157,101 +157,69 @@
   </v-app>
 </template>
 
-<script>
+<script setup lang="ts">
 import CompanyFields from '@/components/CompanyFields/CompanyFields.vue';
 import SellerFields from '@/components/SellerFields/SellerFields.vue';
+import type { Company } from '@/compsables/useState';
+import { createCompany, useState, useStateInjectionKey } from '@/compsables/useState';
+import { computed, provide, ref } from '@vue/composition-api';
 
-export default {
-  name: 'App',
+const State = useState();
+const { MUTATE_ADD_COMPANY, MUTATE_REMOVE_COMPANY, MUTATE_SET_CURRENT_TAX_ID, MUTATE_SET_SELLER, state } = State;
+const companyDialog = ref(false);
+const sellerDialog = ref(false);
+const companyFormData = ref<Company>();
+const sellerFormData = ref<Company>();
+const companies = computed(() => state.companies);
+const seller = computed(() => state.seller);
 
-  components: {
-    CompanyFields,
-    SellerFields,
-  },
+provide(useStateInjectionKey, State);
 
-  data: () => ({
-    companyDialog: false,
-    sellerDialog: false,
-    defaultCompanyFormData: {
-      company: '',
-      taxId: '',
-      country: 'Polska',
-      city: '',
-      postalCode: '',
-      street: '',
-      house: '',
-      flat: '',
-      workingHourRate: '',
-      zus: '',
-    },
-    defaultSellerFormData: {
-      company: '',
-      taxId: '',
-      country: 'Polska',
-      city: '',
-      postalCode: '',
-      street: '',
-      house: '',
-      flat: '',
-      name: '',
-      bankName: '',
-      bankAccount: '',
-    },
-    companyFormData: null,
-    sellerFormData: null,
-  }),
+function addCompany () {
+  companyFormData.value = createCompany();
+  companyDialog.value = true;
+  // this.$nextTick(() => this.$refs.companyFields.refresh());
+}
 
-  computed: {
-    companies () {
-      return this.$store.state.__global__.companies;
-    },
-    seller () {
-      return this.$store.state.__global__.seller;
-    },
-  },
+function editCompany (company: Company) {
+  companyFormData.value = { ...company };
+  companyDialog.value = true;
+  // this.$nextTick(() => this.$refs.companyFields.refresh());
+}
 
-  methods: {
-    addCompany () {
-      this.companyFormData = Object.assign({}, this.defaultCompanyFormData);
-      this.companyDialog = true;
-      this.$nextTick(() => this.$refs.companyFields.refresh());
-    },
-    editCompany (company) {
-      this.companyFormData = Object.assign({}, company);
-      this.companyDialog = true;
-      this.$nextTick(() => this.$refs.companyFields.refresh());
-    },
-    editSeller () {
-      this.sellerFormData = Object.assign({}, this.seller);
-      this.sellerDialog = true;
-      this.$nextTick(() => this.$refs.sellerFields.refresh());
-    },
-    deleteCompany (company) {
-      if (confirm(`Usunąć firmę "${company.company}"?`)) {
-        this.$store.commit('__global__/MUTATE_REMOVE_COMPANY', company.taxId);
-      }
-    },
-    saveCompany () {
-      if (!this.companyFormData.taxId || !this.companyFormData.company) {
-        alert('Proszę podać NIP i nazwę firmy');
+function editSeller () {
+  sellerFormData.value = state.seller;
+  sellerDialog.value = true;
+  // this.$nextTick(() => this.$refs.sellerFields.refresh());
+}
 
-        return;
-      }
-      this.$store.commit('__global__/MUTATE_ADD_COMPANY', this.companyFormData);
-      this.companyDialog = false;
-    },
-    saveSeller () {
-      if (!this.sellerFormData.taxId || !this.sellerFormData.company) {
-        alert('Proszę podać NIP i nazwę firmy');
+function deleteCompany (company: Company) {
+  if (confirm(`Usunąć firmę "${company.company}"?`)) {
+    MUTATE_REMOVE_COMPANY(company.taxId);
+  }
+}
 
-        return;
-      }
-      this.$store.commit('__global__/MUTATE_SET_SELLER', this.sellerFormData);
-      this.sellerDialog = false;
-    },
-    setCurrentCompanyTaxId (taxId) {
-      this.$store.commit('__global__/MUTATE_SET_CURRENT_TAX_ID', taxId);
-    },
-  },
-};
+function saveCompany () {
+  if (!companyFormData.value?.taxId || !companyFormData.value?.company) {
+    alert('Proszę podać NIP i nazwę firmy');
+
+    return;
+  }
+  MUTATE_ADD_COMPANY(companyFormData.value);
+  companyDialog.value = false;
+}
+
+function saveSeller () {
+  if (!sellerFormData.value?.taxId || !sellerFormData.value?.company) {
+    alert('Proszę podać NIP i nazwę firmy');
+
+    return;
+  }
+  MUTATE_SET_SELLER(sellerFormData.value);
+  sellerDialog.value = false;
+}
+
+function setCurrentCompanyTaxId (taxId: string) {
+  MUTATE_SET_CURRENT_TAX_ID(taxId);
+}
 </script>

@@ -1,24 +1,12 @@
 <template>
-  <bill-form :tax-id="taxId" />
+  <bill-form :tax-id="state.currentTaxId" />
 </template>
 
-<script>
+<script setup lang="ts">
 import BillForm from '@/components/BillForm/BillForm.vue';
+import { useStateInjectionKey } from '@/compsables/useState';
+import { inject } from '@vue/composition-api';
 
-export default {
-  name: 'BillFormView',
+const { state } = inject(useStateInjectionKey)!;
 
-  components: {
-    BillForm,
-  },
-
-  data: () => ({
-  }),
-
-  computed: {
-    taxId () {
-      return this.$store.state.__global__.currentTaxId;
-    },
-  },
-};
 </script>

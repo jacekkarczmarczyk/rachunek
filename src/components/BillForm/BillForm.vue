@@ -154,134 +154,89 @@
 
 </template>
 
-<script>
+<script setup lang="ts">
+/* global defineProps */
 import Invoice from '@/components/Invoice/Invoice.vue';
+import { useStateInjectionKey } from '@/compsables/useState';
+import { computed, inject, ref, watch } from '@vue/composition-api';
 
-export default {
-  name: 'BillForm',
-
-  components: {
-    Invoice,
+const props = defineProps<{
+  taxId?: string;
+}>();
+const { MUTATE_TAX_SETTINGS, state } = inject(useStateInjectionKey)!;
+const workingHours = ref(null);
+const valueForMeCopied = ref(false);
+const valueNetCopied = ref(false);
+const invoiceNo = ref(1);
+const invoiceDate = ref(new Date().toISOString().substr(0, 10));
+const issueDate = ref(new Date().toISOString().substr(0, 10));
+const company = computed(() => state.companies[props.taxId]);
+const taxSettings = computed(() => state.settings.tax);
+const seller = computed(() => state.seller);
+const ubezpieczenieSpoleczne = computed({
+  get (): number {
+    return taxSettings.value.ubezpieczenieSpoleczne;
   },
-
-  props: {
-    taxId: String,
+  set (v: number) {
+    updateTaxSettings({
+      ubezpieczenieSpoleczne: parseFloat(String(v)),
+    });
   },
-
-  data: () => ({
-    workingHours: null,
-    valueForMeCopied: false,
-    valueNetCopied: false,
-    invoiceNo: 1,
-    invoiceDate: new Date().toISOString().substr(0, 10),
-    issueDate: new Date().toISOString().substr(0, 10),
-  }),
-
-  computed: {
-    company () {
-      return this.$store.state.__global__.companies[this.taxId];
-    },
-    taxSettings () {
-      return this.$store.state.__global__.settings.tax;
-    },
-    seller () {
-      return this.$store.state.__global__.seller;
-    },
-    ubezpieczenieSpoleczne: {
-      get () {
-        return this.taxSettings.ubezpieczenieSpoleczne;
-      },
-      set (v) {
-        this.updateTaxSettings({
-          ubezpieczenieSpoleczne: parseFloat(v),
-        });
-      },
-    },
-    ubezpieczenieZdrowotne: {
-      get () {
-        return this.taxSettings.ubezpieczenieZdrowotne;
-      },
-      set (v) {
-        this.updateTaxSettings({
-          ubezpieczenieZdrowotne: parseFloat(v),
-        });
-      },
-    },
-    stawkaVat: {
-      get () {
-        return this.taxSettings.stawkaVat;
-      },
-      set (v) {
-        this.updateTaxSettings({
-          stawkaVat: parseFloat(v),
-        });
-      },
-    },
-    E3 () {
-      return this.company.zus ? this.ubezpieczenieSpoleczne : 0;
-    },
-    F3 () {
-      return this.company.zus ? this.ubezpieczenieZdrowotne : 0;
-    },
-    E6 () {
-      return this.stawkaVat;
-    },
-    B2 () {
-      return Math.ceil(this.B11);
-    },
-    B3 () {
-      return this.B2 - this.E3;
-    },
-    B4 () {
-      return Math.round(this.B3 * this.E6 / 100 - this.F3);
-    },
-    B5 () {
-      return this.B2 - this.B4;
-    },
-    B7 () {
-      return Math.max(0, this.B5 - this.E3 - this.F3);
-    },
-    B10 () {
-      return this.valueForMe;
-    },
-    B11 () {
-      return (((this.B10 + ((100 - this.E6) * this.E3) / 100) * 100) / (100 - this.E6));
-    },
-    valueForMe () {
-      let hours = parseFloat((this.workingHours || '').replace(',', '.'));
-
-      if (isNaN(hours) || hours < 0) {
-        hours = 0;
-      }
-
-      return this.company.workingHourRate * hours;
-    },
-    valueNet () {
-      return this.valueForMe > 0 ? this.B11 : 0;
-    },
+});
+const ubezpieczenieZdrowotne = computed({
+  get (): number {
+    return taxSettings.value.ubezpieczenieZdrowotne;
   },
-
-  watch: {
-    valueForMe () {
-      this.valueForMeCopied = false;
-    },
-    valueNet () {
-      this.valueNetCopied = false;
-    },
+  set (v: number) {
+    updateTaxSettings({
+      ubezpieczenieZdrowotne: parseFloat(String(v)),
+    });
   },
-
-  methods: {
-    format (value) {
-      return Intl.NumberFormat('pl-PL', {
-        style: 'currency',
-        currency: 'PLN',
-      }).format(value);
-    },
-    updateTaxSettings (settings) {
-      this.$store.commit('__global__/MUTATE_TAX_SETTINGS', Object.assign({}, this.taxSettings, settings));
-    },
+});
+const stawkaVat = computed({
+  get (): number {
+    return taxSettings.value.stawkaVat;
   },
-};
+  set (v: number) {
+    updateTaxSettings({
+      stawkaVat: parseFloat(String(v)),
+    });
+  },
+});
+const E3 = computed(() => company.value?.zus ? ubezpieczenieSpoleczne.value : 0);
+const F3 = computed(() => company.value?.zus ? ubezpieczenieZdrowotne.value : 0);
+const E6 = computed(() => stawkaVat.value);
+const B2 = computed(() => Math.ceil(B11.value));
+const B3 = computed(() => B2.value - E3.value);
+const B4 = computed(() => Math.round(B3.value * E6.value / 100 - F3.value));
+const B5 = computed(() => B2.value - B4.value);
+const B7 = computed(() => Math.max(0, B5.value - E3.value - F3.value));
+const B10 = computed(() => valueForMe.value);
+const B11 = computed(() => (((B10.value + ((100 - E6.value) * E3.value) / 100) * 100) / (100 - E6.value)));
+const valueForMe = computed(() => {
+  let hours = parseFloat((workingHours.value || '').replace(',', '.'));
+
+  if (isNaN(hours) || hours < 0) {
+    hours = 0;
+  }
+
+  return (company.value?.workingHourRate ?? 0) * hours;
+});
+const valueNet = computed(() => valueForMe.value > 0 ? B11.value : 0);
+
+watch(valueForMe, () => (valueForMeCopied.value = false));
+watch(valueNet, () => (valueNetCopied.value = false));
+
+function format (value: number) {
+  return Intl.NumberFormat('pl-PL', {
+    style: 'currency',
+    currency: 'PLN',
+  }).format(value);
+}
+
+function updateTaxSettings (settings: any) {
+  MUTATE_TAX_SETTINGS(Object.assign({}, taxSettings.value, settings));
+}
 </script>
 
 <style scoped>
