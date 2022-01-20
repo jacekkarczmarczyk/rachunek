@@ -148,72 +148,53 @@
   </v-card>
 </template>
 
-<script>
+<script setup lang="ts">
+import type { Company } from '@/compsables/useState';
+import { computed } from '@vue/composition-api';
+import { defineProps } from '@vue/runtime-dom';
+// @ts-ignore
 import { Slownie } from 'slownie';
 
-export default {
-  name: 'Invoice',
+const props = defineProps<{
+  seller: Company;
+  company: Company;
+  net: number;
+  issueDate: string;
+  invoiceDate: string;
+  invoiceNo: number;
+}>();
+const intlDate = Intl.DateTimeFormat('pl-PL', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+const intlCurrency = Intl.NumberFormat('pl-PL', {
+  style: 'currency',
+  currency: 'PLN',
+});
+const netInt = computed(() => Math.round(100 * props.net));
 
-  props: {
-    seller: null,
-    company: null,
-    net: null,
-    issueDate: null,
-    invoiceDate: null,
-    invoiceNo: null,
-  },
+function format (value: number) {
+  return intlCurrency.format(value / 100);
+}
 
-  computed: {
-    intlDate () {
-      return Intl.DateTimeFormat('pl-PL', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      });
-    },
-    intlCurrency () {
-      return Intl.NumberFormat('pl-PL', {
-        style: 'currency',
-        currency: 'PLN',
-      });
-    },
-    netInt () {
-      return Math.round(100 * this.net);
-    },
+function number2words (value: number) {
+  if (!value) {
+    return '-';
+  }
 
-    grossInt () {
-      return this.netInt + this.taxInt;
-    },
+  const slownie = new Slownie();
 
-    taxInt () {
-      return Math.round(23 * this.net);
-    },
-  },
+  return `${slownie.get(Math.floor(value / 100))} zł${(value % 100) ? (`, ${slownie.get(value % 100)} gr`) : ''}`;
+}
 
-  methods: {
-    format (value) {
-      return this.intlCurrency.format(value / 100);
-    },
-
-    number2words (value) {
-      if (!value) {
-        return '-';
-      }
-
-      const slownie = new Slownie();
-
-      return `${slownie.get(Math.floor(value / 100))} zł${(value % 100) ? (`, ${slownie.get(value % 100)} gr`) : ''}`;
-    },
-
-    print () {
-      document.body.classList.add('print-invoice');
-      setTimeout(() => {
-        print();
-        document.body.classList.remove('print-invoice');
-      });
-    },
-  },
-};
+function print () {
+  document.body.classList.add('print-invoice');
+  setTimeout(() => {
+    print();
+    document.body.classList.remove('print-invoice');
+  });
+}
 </script>
 
 <style scoped>

@@ -1,5 +1,5 @@
 import type { InjectionKey } from '@vue/composition-api';
-import { reactive } from '@vue/composition-api';
+import { useLocalStorage } from '@vueuse/core';
 import Vue from 'vue';
 
 export type Company = {
@@ -20,7 +20,7 @@ export type Company = {
 }
 
 export function useState () {
-  const state = reactive({
+  const state = useLocalStorage('rachunek', {
     settings: {
       tax: {
         ubezpieczenieSpoleczne: 0,
@@ -31,19 +31,18 @@ export function useState () {
     companies: {} as { [taxId in string]?: Company },
     seller: createCompany(),
     currentTaxId: '',
-
   });
-  const MUTATE_TAX_SETTINGS = (settings: typeof state.settings.tax) => {
-    (Object.keys(state.settings.tax) as (keyof typeof state.settings.tax)[]).forEach(setting => {
+  const MUTATE_TAX_SETTINGS = (settings: typeof state.value.settings.tax) => {
+    (Object.keys(state.value.settings.tax) as (keyof typeof state.value.settings.tax)[]).forEach(setting => {
       if (setting in settings) {
-        state.settings.tax[setting] = settings[setting];
+        state.value.settings.tax[setting] = settings[setting];
       }
     });
   };
-  const MUTATE_ADD_COMPANY = (company: Company) => Vue.set(state.companies, company.taxId, { ...company });
-  const MUTATE_SET_CURRENT_TAX_ID = (taxId: string) => (state.currentTaxId = taxId);
-  const MUTATE_REMOVE_COMPANY = (taxId: string) => Vue.delete(state.companies, taxId);
-  const MUTATE_SET_SELLER = (seller: Company) => (state.seller = { ...seller });
+  const MUTATE_ADD_COMPANY = (company: Company) => Vue.set(state.value.companies, company.taxId, { ...company });
+  const MUTATE_SET_CURRENT_TAX_ID = (taxId: string) => (state.value.currentTaxId = taxId);
+  const MUTATE_REMOVE_COMPANY = (taxId: string) => Vue.delete(state.value.companies, taxId);
+  const MUTATE_SET_SELLER = (seller: Company) => (state.value.seller = { ...seller });
 
   return {
     state,

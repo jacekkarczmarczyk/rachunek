@@ -169,9 +169,9 @@ const valueNetCopied = ref(false);
 const invoiceNo = ref(1);
 const invoiceDate = ref(new Date().toISOString().substr(0, 10));
 const issueDate = ref(new Date().toISOString().substr(0, 10));
-const company = computed(() => state.companies[props.taxId ?? ''] ?? createCompany());
-const taxSettings = computed(() => state.settings.tax);
-const seller = computed(() => state.seller);
+const company = computed(() => state.value.companies[props.taxId ?? ''] ?? createCompany());
+const taxSettings = computed(() => state.value.settings.tax);
+const seller = computed(() => state.value.seller);
 const ubezpieczenieSpoleczne = computed({
   get (): number {
     return taxSettings.value.ubezpieczenieSpoleczne;

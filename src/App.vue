@@ -170,8 +170,8 @@ const companyDialog = ref(false);
 const sellerDialog = ref(false);
 const companyFormData = ref<Company>();
 const sellerFormData = ref<Company>();
-const companies = computed(() => state.companies as { [taxId: string]: Company });
-const seller = computed(() => state.seller);
+const companies = computed(() => state.value.companies as { [taxId: string]: Company });
+const seller = computed(() => state.value.seller);
 
 provide(useStateInjectionKey, State);
 
@@ -188,7 +188,7 @@ function editCompany (company: Company) {
 }
 
 function editSeller () {
-  sellerFormData.value = state.seller;
+  sellerFormData.value = state.value.seller;
   sellerDialog.value = true;
   // this.$nextTick(() => this.$refs.sellerFields.refresh());
 }
