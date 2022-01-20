@@ -160,7 +160,6 @@ import Invoice from '@/components/Invoice/Invoice.vue';
 import { createCompany, useStateInjectionKey } from '@/compsables/useState';
 import { computed, inject, ref, watch } from '@vue/composition-api';
 
-// @ts-ignore
 const props = defineProps<{
   taxId?: string;
 }>();
@@ -171,7 +170,7 @@ const valueNetCopied = ref(false);
 const invoiceNo = ref(1);
 const invoiceDate = ref(new Date().toISOString().substr(0, 10));
 const issueDate = ref(new Date().toISOString().substr(0, 10));
-const company = computed(() => state.companies[props.taxId] ?? createCompany());
+const company = computed(() => state.companies[props.taxId ?? ''] ?? createCompany());
 const taxSettings = computed(() => state.settings.tax);
 const seller = computed(() => state.seller);
 const ubezpieczenieSpoleczne = computed({
