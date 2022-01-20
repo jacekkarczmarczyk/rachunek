@@ -170,7 +170,7 @@ const companyDialog = ref(false);
 const sellerDialog = ref(false);
 const companyFormData = ref<Company>();
 const sellerFormData = ref<Company>();
-const companies = computed(() => state.companies);
+const companies = computed(() => state.companies as { [taxId: string]: Company });
 const seller = computed(() => state.seller);
 
 provide(useStateInjectionKey, State);

@@ -109,9 +109,11 @@ import type { Company } from '@/compsables/useState';
 import { ref } from '@vue/composition-api';
 import axios from 'axios';
 
+// @ts-ignore
 const props = defineProps<{
   value: Company;
 }>();
+// @ts-ignore
 const emit = defineEmits<{ // eslint-disable-line func-call-spacing
   (name: 'input', value: Company): void;
 }>();
