@@ -104,7 +104,6 @@
 </template>
 
 <script setup lang="ts">
-/* global defineProps, defineEmits */
 import type { Company } from '@/compsables/useState';
 import { ref } from '@vue/composition-api';
 import axios from 'axios';

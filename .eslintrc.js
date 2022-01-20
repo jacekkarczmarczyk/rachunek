@@ -7,4 +7,9 @@ module.exports = {
   rules: {
     'vue/no-mutating-props': 'off',
   },
+  globals: {
+    defineProps: 'readonly',
+    defineEmits: 'readonly',
+    defineExpose: 'readonly',
+  },
 };

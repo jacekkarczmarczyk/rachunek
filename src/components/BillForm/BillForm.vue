@@ -155,7 +155,6 @@
 </template>
 
 <script setup lang="ts">
-/* global defineProps */
 import Invoice from '@/components/Invoice/Invoice.vue';
 import { createCompany, useStateInjectionKey } from '@/compsables/useState';
 import { computed, inject, ref, watch } from '@vue/composition-api';
