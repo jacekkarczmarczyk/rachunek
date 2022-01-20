@@ -15,7 +15,7 @@
                 >
                   <v-select
                     v-model="stawkaVat"
-                    :items="[{ text: 'Liniowa - 19%', value: 19.0}]"
+                    :items="[{ text: 'Liniowa - 19%', value: 19.0}, { text: 'Ryczałt (polski wał) - 12%', value: 12.0}]"
                     label="Stawka VAT"
                     type="number"
                   />
@@ -110,13 +110,13 @@
                   Kwota na rękę:
                 </v-flex>
                 <v-flex
-                  v-clipboard:copy="B7.toFixed(2)"
+                  v-clipboard:copy="valueForMe.toFixed(2)"
                   v-clipboard:success="() => valueForMeCopied = true"
                   class="copy-to-clipboard text-h3"
                   :class="valueForMeCopied ? 'success--text' : ''"
                   xs8
                 >
-                  {{ format(B7) }}
+                  {{ format(valueForMe) }}
                 </v-flex>
                 <v-flex
                   class="text-h5 text-right"
@@ -157,7 +157,7 @@
 <script setup lang="ts">
 /* global defineProps */
 import Invoice from '@/components/Invoice/Invoice.vue';
-import { useStateInjectionKey } from '@/compsables/useState';
+import { createCompany, useStateInjectionKey } from '@/compsables/useState';
 import { computed, inject, ref, watch } from '@vue/composition-api';
 
 const props = defineProps<{
@@ -170,7 +170,7 @@ const valueNetCopied = ref(false);
 const invoiceNo = ref(1);
 const invoiceDate = ref(new Date().toISOString().substr(0, 10));
 const issueDate = ref(new Date().toISOString().substr(0, 10));
-const company = computed(() => state.companies[props.taxId]);
+const company = computed(() => state.companies[props.taxId] ?? createCompany());
 const taxSettings = computed(() => state.settings.tax);
 const seller = computed(() => state.seller);
 const ubezpieczenieSpoleczne = computed({
@@ -203,26 +203,13 @@ const stawkaVat = computed({
     });
   },
 });
-const E3 = computed(() => company.value?.zus ? ubezpieczenieSpoleczne.value : 0);
-const F3 = computed(() => company.value?.zus ? ubezpieczenieZdrowotne.value : 0);
-const E6 = computed(() => stawkaVat.value);
-const B2 = computed(() => Math.ceil(B11.value));
-const B3 = computed(() => B2.value - E3.value);
-const B4 = computed(() => Math.round(B3.value * E6.value / 100 - F3.value));
-const B5 = computed(() => B2.value - B4.value);
-const B7 = computed(() => Math.max(0, B5.value - E3.value - F3.value));
-const B10 = computed(() => valueForMe.value);
-const B11 = computed(() => (((B10.value + ((100 - E6.value) * E3.value) / 100) * 100) / (100 - E6.value)));
-const valueForMe = computed(() => {
-  let hours = parseFloat((workingHours.value || '').replace(',', '.'));
+const hours = computed(() => {
+  const val = parseFloat((workingHours.value || '').replace(',', '.'));
 
-  if (isNaN(hours) || hours < 0) {
-    hours = 0;
-  }
-
-  return (company.value?.workingHourRate ?? 0) * hours;
+  return (isNaN(val) || val < 0) ? 0 : val;
 });
-const valueNet = computed(() => valueForMe.value > 0 ? B11.value : 0);
+const valueForMe = computed(() => (company.value?.workingHourRate ?? 0) * hours.value);
+const valueNet = computed(() => (valueForMe.value + (ubezpieczenieSpoleczne.value + ubezpieczenieZdrowotne.value) * hours.value / 160) / 0.88);
 
 watch(valueForMe, () => (valueForMeCopied.value = false));
 watch(valueNet, () => (valueNetCopied.value = false));

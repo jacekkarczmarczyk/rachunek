@@ -25,7 +25,7 @@ export function useState () {
       tax: {
         ubezpieczenieSpoleczne: 0,
         ubezpieczenieZdrowotne: 0,
-        stawkaVat: 19.0,
+        stawkaVat: 12.0,
       },
     },
     companies: {} as { [taxId in string]?: Company },

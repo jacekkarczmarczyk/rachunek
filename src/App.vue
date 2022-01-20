@@ -37,7 +37,7 @@
           <v-list-item
             v-for="company in companies"
             :key="company.taxId"
-            :class="{'grey lighten-2': company.taxId === $store.state.__global__.currentTaxId}"
+            :class="{'grey lighten-2': company.taxId === state.currentTaxId}"
             @click="setCurrentCompanyTaxId(company.taxId)"
           >
             <v-list-item-content>
