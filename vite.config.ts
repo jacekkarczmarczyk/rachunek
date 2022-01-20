@@ -9,6 +9,29 @@ import ScriptSetup from 'unplugin-vue2-script-setup/vite';
 // https://vitejs.dev/config/
 // https://github.com/logue/vite-vue2-vuetify-ts-starter/blob/master/vite.config.ts
 export default defineConfig({
+  build: {
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        assetFileNames: 'assets/[hash].[ext]',
+        entryFileNames: 'app/index.[hash].js',
+        chunkFileNames: info => {
+          if (info.name.startsWith('vendor.')) {
+            return `vendor/${info.name.replace(/^vendor\./, '')}.[hash].js`;
+          } else {
+            return 'app/[hash].js';
+          }
+        },
+        manualChunks (id) {
+          const match = id.match(/\/node_modules\/([^/]+)\//);
+
+          if (match) {
+            return `vendor.${match[1].replace('@', '')}`;
+          }
+        },
+      },
+    },
+  },
   plugins: [
     createVuePlugin(),
     ScriptSetup(),
