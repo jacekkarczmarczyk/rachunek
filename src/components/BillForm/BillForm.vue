@@ -15,6 +15,7 @@
                 >
                   <v-select
                     v-model="stawkaVat"
+                    disabled
                     :items="[{ text: 'Liniowa - 19%', value: 19.0}, { text: 'Ryczałt (polski wał) - 12%', value: 12.0}]"
                     label="Stawka VAT"
                     type="number"
@@ -27,8 +28,9 @@
                   <v-text-field
                     v-if="company.zus"
                     v-model="ubezpieczenieSpoleczne"
+                    disabled
                     label="Ubezpieczenie społeczne"
-                    placeholder="227,69 zł"
+                    placeholder="1211,29 zł"
                     type="number"
                   />
                 </v-flex>
@@ -39,8 +41,9 @@
                   <v-text-field
                     v-if="company.zus"
                     v-model="ubezpieczenieZdrowotne"
+                    disabled
                     label="Ubezpieczenie zdrowotne"
-                    placeholder="362,34 zł"
+                    placeholder="511 zł"
                     type="number"
                   />
                 </v-flex>
@@ -79,7 +82,7 @@
                 <v-flex xs8>
                   <v-text-field
                     v-model="workingHours"
-                    autofocusbox
+                    autofocus
                     filled
                     label="Godziny robocze"
                     min="0"
@@ -88,7 +91,6 @@
                 </v-flex>
                 <v-flex xs4>
                   <v-text-field
-                    autofocusbox
                     disabled
                     label="Stawka godzinowa"
                     type="number"
@@ -151,7 +153,6 @@
       />
     </v-tab-item>
   </v-tabs>
-
 </template>
 
 <script setup lang="ts">
@@ -174,7 +175,7 @@ const taxSettings = computed(() => state.value.settings.tax);
 const seller = computed(() => state.value.seller);
 const ubezpieczenieSpoleczne = computed({
   get (): number {
-    return taxSettings.value.ubezpieczenieSpoleczne;
+    return 1211.29; // taxSettings.value.ubezpieczenieSpoleczne;
   },
   set (v: number) {
     updateTaxSettings({
@@ -184,7 +185,7 @@ const ubezpieczenieSpoleczne = computed({
 });
 const ubezpieczenieZdrowotne = computed({
   get (): number {
-    return taxSettings.value.ubezpieczenieZdrowotne;
+    return 511; // taxSettings.value.ubezpieczenieZdrowotne;
   },
   set (v: number) {
     updateTaxSettings({
@@ -208,7 +209,7 @@ const hours = computed(() => {
   return (isNaN(val) || val < 0) ? 0 : val;
 });
 const valueForMe = computed(() => (company.value?.workingHourRate ?? 0) * hours.value);
-const valueNet = computed(() => (valueForMe.value + (ubezpieczenieSpoleczne.value + ubezpieczenieZdrowotne.value) * hours.value / 160) / 0.88);
+const valueNet = computed(() => (valueForMe.value + (ubezpieczenieSpoleczne.value * (1 - stawkaVat.value / 100) + ubezpieczenieZdrowotne.value) * hours.value / 160) / (1 - stawkaVat.value / 100));
 
 watch(valueForMe, () => (valueForMeCopied.value = false));
 watch(valueNet, () => (valueNetCopied.value = false));
