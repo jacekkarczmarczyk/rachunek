@@ -26,7 +26,6 @@
                   xs12
                 >
                   <v-text-field
-                    v-if="company.zus"
                     v-model="ubezpieczenieSpoleczne"
                     disabled
                     label="Ubezpieczenie społeczne"
@@ -39,7 +38,6 @@
                   xs12
                 >
                   <v-text-field
-                    v-if="company.zus"
                     v-model="ubezpieczenieZdrowotne"
                     disabled
                     label="Ubezpieczenie zdrowotne"
@@ -209,7 +207,7 @@ const hours = computed(() => {
   return (isNaN(val) || val < 0) ? 0 : val;
 });
 const valueForMe = computed(() => (company.value?.workingHourRate ?? 0) * hours.value);
-const valueNet = computed(() => (valueForMe.value + (ubezpieczenieSpoleczne.value * (1 - stawkaVat.value / 100) + ubezpieczenieZdrowotne.value) * hours.value / 160) / (1 - stawkaVat.value / 100));
+const valueNet = computed(() => (valueForMe.value + (ubezpieczenieSpoleczne.value * (1 - stawkaVat.value / 100) + (ubezpieczenieZdrowotne.value * (company.value?.zus ? 2 : 1) / 2)) * hours.value / 160) / (1 - stawkaVat.value / 100));
 
 watch(valueForMe, () => (valueForMeCopied.value = false));
 watch(valueNet, () => (valueNetCopied.value = false));

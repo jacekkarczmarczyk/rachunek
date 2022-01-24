@@ -97,9 +97,10 @@
         xs12
       >
         <v-checkbox
-          v-model="value.zus"
           hide-details
-          label="Opłacanie ZUS"
+          :input-value="!value.zus"
+          label="Rabat 50% na ubezpieczenie zdrowotne"
+          @change="value.zus = !value.zus"
         />
       </v-flex>
       <v-flex xs12>
