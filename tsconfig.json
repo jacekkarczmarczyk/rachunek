@@ -15,23 +15,23 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "resolveJsonModule": true,
-    "types": [
-      "vuetify",
-      "node",
-      "vite/client",
-      "unplugin-vue2-script-setup/types"
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
     ],
     "paths": {
       "@/*": [
         "src/*"
       ]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
+    "types": [
+      "vuetify",
+      "node",
+      "vite/client",
+      "unplugin-vue2-script-setup/types"
+    ],
   },
   "include": [
     "src/**/*.js",
