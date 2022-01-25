@@ -142,7 +142,7 @@
       <v-btn
         class="print-button"
         color="primary"
-        @click="print"
+        @click="printInvoice"
       ><v-icon class="mr-4">mdi-printer</v-icon>Drukuj</v-btn>
     </v-card-actions>
   </v-card>
@@ -188,10 +188,10 @@ function number2words (value: number) {
   return `${slownie.get(Math.floor(value / 100))} zł${(value % 100) ? (`, ${slownie.get(value % 100)} gr`) : ''}`;
 }
 
-function print () {
+function printInvoice () {
   document.body.classList.add('print-invoice');
   setTimeout(() => {
-    print();
+    window.print();
     document.body.classList.remove('print-invoice');
   });
 }
