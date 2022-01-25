@@ -125,13 +125,13 @@
                   Kwota na fakturze netto:
                 </v-flex>
                 <v-flex
-                  v-clipboard:copy="valueNet.toFixed(2)"
-                  v-clipboard:success="() => valueNetCopied = true"
+                  v-clipboard:copy="invoiceValue.toFixed(2)"
+                  v-clipboard:success="() => invoiceValueCopied = true"
                   class="copy-to-clipboard text-h3"
-                  :class="valueNetCopied ? 'success--text' : ''"
+                  :class="invoiceValueCopied ? 'success--text' : ''"
                   xs8
                 >
-                  {{ format(valueNet) }}
+                  {{ format(invoiceValue) }}
                 </v-flex>
               </v-layout>
             </v-container>
@@ -146,7 +146,7 @@
         :invoice-date="invoiceDate"
         :invoice-no="invoiceNo"
         :issue-date="issueDate"
-        :net="valueNet"
+        :net="invoiceValue"
         :seller="seller"
       />
     </v-tab-item>
@@ -164,7 +164,7 @@ const props = defineProps<{
 const { MUTATE_TAX_SETTINGS, state } = inject(useStateInjectionKey)!;
 const workingHours = ref(null);
 const valueForMeCopied = ref(false);
-const valueNetCopied = ref(false);
+const invoiceValueCopied = ref(false);
 const invoiceNo = ref(1);
 const invoiceDate = ref(new Date().toISOString().substr(0, 10));
 const issueDate = ref(new Date().toISOString().substr(0, 10));
@@ -207,10 +207,15 @@ const hours = computed(() => {
   return (isNaN(val) || val < 0) ? 0 : val;
 });
 const valueForMe = computed(() => (company.value?.workingHourRate ?? 0) * hours.value);
-const valueNet = computed(() => (valueForMe.value + (ubezpieczenieSpoleczne.value * (1 - stawkaVat.value / 100) + (ubezpieczenieZdrowotne.value * (company.value?.zus ? 2 : 1) / 2)) * hours.value / 160) / (1 - stawkaVat.value / 100));
+const zusScale = computed(() => (company.value?.zus ? 2 : 1) / 2);
+const HOURS_IN_MONTH = 160;
+const ubezpieczenieSpoleczneScaled = computed(() => ubezpieczenieSpoleczne.value * hours.value / HOURS_IN_MONTH);
+const ubezpieczenieZdrowotneScaled = computed(() => ubezpieczenieZdrowotne.value * zusScale.value * hours.value / HOURS_IN_MONTH);
+const vatRate = computed(() => stawkaVat.value / 100);
+const invoiceValue = computed(() => (valueForMe.value + ubezpieczenieSpoleczneScaled.value * (1 - vatRate.value) + ubezpieczenieZdrowotneScaled.value) / (1 - vatRate.value));
 
 watch(valueForMe, () => (valueForMeCopied.value = false));
-watch(valueNet, () => (valueNetCopied.value = false));
+watch(invoiceValue, () => (invoiceValueCopied.value = false));
 
 function format (value: number) {
   return Intl.NumberFormat('pl-PL', {
