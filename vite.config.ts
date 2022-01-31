@@ -41,6 +41,7 @@ export default defineConfig({
     ScriptSetup(),
     // Vuetify
     Components({
+      dirs: [],
       // generate `components.d.ts` global declarations
       // dts: true,
       // auto import for directives
