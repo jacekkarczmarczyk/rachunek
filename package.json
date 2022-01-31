@@ -6,7 +6,7 @@
     "dev": "vite --port=9001 --open",
     "build": "vue-tsc --noEmit && vite build",
     "lint": "eslint --ext .js,.ts,.vue src",
-    "preview": "vite preview"
+    "preview": "vite preview --port=9001 --open"
   },
   "dependencies": {
     "@mdi/font": "^6.1.95",
