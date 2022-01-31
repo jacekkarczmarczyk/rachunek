@@ -208,7 +208,7 @@ const hours = computed(() => {
 });
 const valueForMe = computed(() => (company.value?.workingHourRate ?? 0) * hours.value);
 const zusScale = computed(() => (company.value?.zus ? 2 : 1) / 2);
-const HOURS_IN_MONTH = 160;
+const HOURS_IN_MONTH = 168;
 const ubezpieczenieSpoleczneScaled = computed(() => ubezpieczenieSpoleczne.value * hours.value / HOURS_IN_MONTH);
 const ubezpieczenieZdrowotneScaled = computed(() => ubezpieczenieZdrowotne.value * zusScale.value * hours.value / HOURS_IN_MONTH);
 const vatRate = computed(() => stawkaVat.value / 100);
