@@ -12,7 +12,7 @@
     "@mdi/font": "^6.1.95",
     "@vue/composition-api": "^1.4.4",
     "@vueuse/core": "^7.5.3",
-    "axios": "^0.25.0",
+    "axios": "^0.26.0",
     "core-js": "^3.8.3",
     "roboto-fontface": "*",
     "slownie": "^1.0.1",
@@ -33,9 +33,9 @@
     "unplugin-vue-components": "^0.17.13",
     "unplugin-vue2-script-setup": "^0.9.1",
     "vite": "^2.7.2",
-    "vite-plugin-checker": "^0.3.4",
+    "vite-plugin-checker": "^0.4.2",
     "vite-plugin-vue2": "^1.9.2",
     "vue-template-compiler": "^2.6.11",
-    "vue-tsc": "^0.30.6"
+    "vue-tsc": "^0.31.4"
   }
 }

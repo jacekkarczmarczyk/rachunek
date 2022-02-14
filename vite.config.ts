@@ -52,8 +52,7 @@ export default defineConfig({
     checker({
       typescript: true,
       eslint: {
-        files: ['./src'],
-        extensions: ['.ts', '.js', '.vue'],
+        lintCommand: 'eslint "./src/**/*.{ts,tsx,js,vue}"',
       },
       overlay: true,
     }),

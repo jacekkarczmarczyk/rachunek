@@ -4,10 +4,6 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    BillForm: typeof import('./src/components/BillForm/BillForm.vue')['default']
-    CompanyFields: typeof import('./src/components/CompanyFields/CompanyFields.vue')['default']
-    Invoice: typeof import('./src/components/Invoice/Invoice.vue')['default']
-    SellerFields: typeof import('./src/components/SellerFields/SellerFields.vue')['default']
     VApp: typeof import('vuetify/lib')['VApp']
     VBtn: typeof import('vuetify/lib')['VBtn']
     VCard: typeof import('vuetify/lib')['VCard']
