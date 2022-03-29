@@ -184,8 +184,10 @@ function number2words (value: number) {
   }
 
   const slownie = new Slownie();
+  const zl = `${slownie.get(Math.floor(value / 100))} zł`;
+  const gr = (value % 100) ? (`, ${slownie.get(value % 100)} gr`) : '';
 
-  return `${slownie.get(Math.floor(value / 100))} zł${(value % 100) ? (`, ${slownie.get(value % 100)} gr`) : ''}`;
+  return `${zl}${gr}`;
 }
 
 function printInvoice () {

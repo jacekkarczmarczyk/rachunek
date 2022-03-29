@@ -25,7 +25,7 @@ const vuetify = new Vuetify({
   },
 });
 const app = createApp({
-  name: 'Root',
+  name: 'RootComponent',
   components: {
     App,
   },
