@@ -5,7 +5,6 @@ import Components from 'unplugin-vue-components/vite';
 import { VuetifyResolver } from 'unplugin-vue-components/resolvers';
 import checker from 'vite-plugin-checker';
 import ScriptSetup from 'unplugin-vue2-script-setup/vite';
-import legacy from '@vitejs/plugin-legacy';
 
 // https://vitejs.dev/config/
 // https://github.com/logue/vite-vue2-vuetify-ts-starter/blob/master/vite.config.ts
@@ -16,13 +15,6 @@ export default defineConfig({
       output: {
         assetFileNames: 'assets/[hash].[ext]',
         entryFileNames: 'app/index.[hash].js',
-        chunkFileNames: info => {
-          if (info.name.startsWith('vendor.')) {
-            return `vendor/${info.name.replace(/^vendor\./, '')}.[hash].js`;
-          } else {
-            return 'app/[hash].js';
-          }
-        },
         manualChunks (id) {
           const match = id.match(/\/node_modules\/([^/]+)\//);
 
@@ -34,9 +26,6 @@ export default defineConfig({
     },
   },
   plugins: [
-    legacy({
-      targets: ['> 1%', 'last 2 versions', 'not ie <= 8'],
-    }),
     createVuePlugin(),
     ScriptSetup(),
     // Vuetify
