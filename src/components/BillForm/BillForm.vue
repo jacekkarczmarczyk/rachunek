@@ -141,7 +141,7 @@
 
     </v-tab-item>
     <v-tab-item>
-      <invoice
+      <invoice-preview
         :company="company"
         :invoice-date="invoiceDate"
         :invoice-no="invoiceNo"
@@ -154,7 +154,7 @@
 </template>
 
 <script setup lang="ts">
-import Invoice from '@/components/Invoice/Invoice.vue';
+import InvoicePreview from '@/components/Invoice/InvoicePreview.vue';
 import { createCompany, useStateInjectionKey } from '@/compsables/useState';
 import { computed, inject, ref, watch } from '@vue/composition-api';
 

@@ -9,10 +9,10 @@
     "preview": "vite preview --port=9001 --open"
   },
   "dependencies": {
-    "@mdi/font": "~6.5.95",
+    "@mdi/font": "^6.6.96",
     "@vue/composition-api": "^1.4.4",
     "@vueuse/core": "^8.2.0",
-    "axios": "^0.26.0",
+    "axios": "^0.27.2",
     "core-js": "^3.8.3",
     "roboto-fontface": "*",
     "slownie": "^1.0.1",
@@ -29,12 +29,12 @@
     "eslint-config-jkarczm": "^5.0.0-beta.34",
     "sass": "~1.32.0",
     "typescript": "^4.4",
-    "unplugin-vue-components": "^0.18.5",
+    "unplugin-vue-components": "^0.19.3",
     "unplugin-vue2-script-setup": "^0.10.1",
     "vite": "^2.9.0-beta.10",
     "vite-plugin-checker": "^0.4.2",
-    "vite-plugin-vue2": "^1.9.2",
+    "vite-plugin-vue2": "^2.0.0",
     "vue-template-compiler": "^2.6.11",
-    "vue-tsc": "^0.33.9"
+    "vue-tsc": "^0.34.11"
   }
 }
