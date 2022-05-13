@@ -31,7 +31,7 @@
     "typescript": "^4.4",
     "unplugin-vue-components": "^0.19.3",
     "unplugin-vue2-script-setup": "^0.10.1",
-    "vite": "^2.9.0-beta.10",
+    "vite": "^3.0.0-alpha.0",
     "vite-plugin-checker": "^0.4.2",
     "vite-plugin-vue2": "^2.0.0",
     "vue-template-compiler": "^2.6.11",
