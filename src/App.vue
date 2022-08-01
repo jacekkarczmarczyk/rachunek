@@ -162,7 +162,7 @@ import CompanyFields from '@/components/CompanyFields/CompanyFields.vue';
 import SellerFields from '@/components/SellerFields/SellerFields.vue';
 import type { Company } from '@/compsables/useState';
 import { createCompany, useState, useStateInjectionKey } from '@/compsables/useState';
-import { computed, provide, ref } from '@vue/composition-api';
+import { computed, provide, ref } from 'vue';
 
 const State = useState();
 const { MUTATE_ADD_COMPANY, MUTATE_REMOVE_COMPANY, MUTATE_SET_CURRENT_TAX_ID, MUTATE_SET_SELLER, state } = State;

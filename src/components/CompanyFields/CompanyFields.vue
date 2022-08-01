@@ -117,7 +117,7 @@
 
 <script setup lang="ts">
 import type { Company } from '@/compsables/useState';
-import { ref } from '@vue/composition-api';
+import { ref } from 'vue';
 import axios from 'axios';
 
 const props = defineProps<{

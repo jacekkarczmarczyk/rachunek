@@ -1,7 +1,6 @@
 import App from '@/App.vue';
 import router from '@/router';
 import '@mdi/font/css/materialdesignicons.css';
-import VueCompositionApi, { createApp } from '@vue/composition-api';
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import type { CreateElement } from 'vue';
 import Vue from 'vue';
@@ -13,7 +12,6 @@ Vue.config.productionTip = false;
 
 Vue.use(VueClipboard);
 Vue.use(Vuetify);
-Vue.use(VueCompositionApi);
 
 const vuetify = new Vuetify({
   iconfont: 'mdi',
@@ -24,7 +22,8 @@ const vuetify = new Vuetify({
     current: 'pl',
   },
 });
-const app = createApp({
+
+new Vue({
   name: 'RootComponent',
   components: {
     App,
@@ -37,6 +36,4 @@ const app = createApp({
   router,
   vuetify,
   render: (h: CreateElement) => h(App),
-});
-
-app.mount('#app');
+}).$mount('#app');

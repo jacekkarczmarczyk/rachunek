@@ -156,7 +156,7 @@
 <script setup lang="ts">
 import InvoicePreview from '@/components/Invoice/InvoicePreview.vue';
 import { createCompany, useStateInjectionKey } from '@/compsables/useState';
-import { computed, inject, ref, watch } from '@vue/composition-api';
+import { computed, inject, ref, watch } from 'vue';
 
 const props = defineProps<{
   taxId?: string;

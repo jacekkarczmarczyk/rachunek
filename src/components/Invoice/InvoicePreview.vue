@@ -150,7 +150,7 @@
 
 <script setup lang="ts">
 import type { Company } from '@/compsables/useState';
-import { computed } from '@vue/composition-api';
+import { computed } from 'vue';
 import { defineProps } from '@vue/runtime-dom';
 // @ts-ignore
 import { Slownie } from 'slownie';

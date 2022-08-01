@@ -1,4 +1,4 @@
-import type { InjectionKey } from '@vue/composition-api';
+import type { InjectionKey } from 'vue';
 import { useLocalStorage } from '@vueuse/core';
 import Vue from 'vue';
 

@@ -29,8 +29,7 @@
     "types": [
       "vuetify",
       "node",
-      "vite/client",
-      "unplugin-vue2-script-setup/types"
+      "vite/client"
     ],
   },
   "include": [
@@ -48,6 +47,6 @@
     "node_modules"
   ],
   "vueCompilerOptions": {
-    "experimentalCompatMode": 2
+    "target": 2.7
   }
 }
