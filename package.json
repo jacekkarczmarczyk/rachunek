@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "vite --port=9001 --open",
-    "build": "yarn tsc && yarn build-only",
+    "build": "yarn type-check && yarn build-only",
     "build-only": "vite build",
-    "tsc": "vue-tsc --noEmit",
+    "type-check": "vue-tsc --noEmit",
     "lint": "eslint --ext .js,.ts,.vue src",
     "preview": "vite preview --port=9001 --open"
   },

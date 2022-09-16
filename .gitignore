@@ -8,6 +8,7 @@ node_modules
 .env.*.local
 
 components.d.ts
+.tsbuildinfo
 
 # Log files
 npm-debug.log*
