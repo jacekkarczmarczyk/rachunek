@@ -18,6 +18,7 @@
     "sourceMap": true,
     "baseUrl": ".",
     "resolveJsonModule": true,
+    "allowJs": true,
     "lib": [
       "esnext",
       "dom",
@@ -44,7 +45,8 @@
     "tests/**/*.tsx",
     "build/**/*.js",
     ".eslintrc.js",
-    "vite.config.ts"
+    "vite.config.ts",
+    "phpstorm.config.js"
   ],
   "exclude": [
     "node_modules"

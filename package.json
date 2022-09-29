@@ -7,7 +7,8 @@
     "build": "yarn type-check && yarn build-only",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
-    "lint": "eslint --ext .js,.ts,.vue src",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
+    "test": "yarn type-check && yarn lint",
     "preview": "vite preview --port=9001 --open"
   },
   "dependencies": {
