@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "vite --port=9001 --open",
-    "build": "yarn type-check && yarn build-only",
+    "build": "pnpm run type-check && pnpm run build-only",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
-    "test": "yarn type-check && yarn lint",
+    "test": "pnpm run type-check && pnpm run lint",
     "preview": "vite preview --port=9001 --open"
   },
   "dependencies": {
@@ -31,7 +31,7 @@
     "eslint-config-jkarczm": "^6.0.0",
     "sass": "~1.32.0",
     "typescript": "^4.4",
-    "unplugin-vue-components": "^0.22.7",
+    "unplugin-vue-components": "0.22.7",
     "vite": "^3.2.2",
     "vite-plugin-checker": "^0.5.1",
     "vue-loader": "15.10",
