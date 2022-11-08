@@ -5,6 +5,8 @@ import Components from 'unplugin-vue-components/vite';
 import { Vuetify3Resolver } from 'unplugin-vue-components/resolvers';
 import checker from 'vite-plugin-checker';
 
+const fileHashMap: { [s in string]?: true } = {};
+
 // https://vitejs.dev/config/
 // https://github.com/logue/vite-vue2-vuetify-ts-starter/blob/master/vite.config.ts
 export default defineConfig({
@@ -14,6 +16,19 @@ export default defineConfig({
       output: {
         assetFileNames: 'assets/[hash].[ext]',
         entryFileNames: 'app/index.[hash].js',
+        sanitizeFileName (filename) {
+          if (filename.startsWith('vendor.')) return filename;
+
+          let code = filename.split('').reduce((prev, curr) => prev + curr.charCodeAt(0), 0);
+          let hex = code.toString(16).padStart(3, '0');
+
+          while (hex in fileHashMap) {
+            code++;
+            hex = code.toString(16).padStart(3, '0');
+          }
+
+          return `module.${hex}`;
+        },
         manualChunks (id) {
           const match = id.match(/[\\/]node_modules[\\/]\.pnpm[\\/]([^+\\/]+)/);
 
