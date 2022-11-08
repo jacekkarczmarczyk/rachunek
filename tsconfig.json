@@ -37,8 +37,8 @@
     ],
   },
   "include": [
-    "src/**/*.js",
     "src/**/*.ts",
+    "src/**/*.js",
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
@@ -50,8 +50,5 @@
   ],
   "exclude": [
     "node_modules"
-  ],
-  "vueCompilerOptions": {
-    "target": 2.7
-  }
+  ]
 }

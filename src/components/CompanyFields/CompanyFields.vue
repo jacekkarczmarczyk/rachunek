@@ -1,117 +1,117 @@
 <template>
-  <v-container grid-list-xl>
-    <v-layout wrap>
-      <v-flex xs12>
+  <v-container>
+    <v-row>
+      <v-col cols="12">
         <v-text-field
-          v-model="value.taxId"
-          append-outer-icon="mdi-download"
+          v-model="modelValue.taxId"
+          append-icon="mdi-download"
           autofocus
           hide-details
           label="NIP"
-          @click:append-outer="fetchCompanyData"
+          @click:append="fetchCompanyData"
         />
-      </v-flex>
-      <v-flex xs12>
+      </v-col>
+      <v-col cols="12">
         <v-text-field
-          v-model="value.company"
+          v-model="modelValue.company"
           hide-details
           label="Firma"
         />
-      </v-flex>
-      <v-flex
-        sm6
-        xs12
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
       >
         <v-text-field
-          v-model="value.country"
+          v-model="modelValue.country"
           hide-details
-          label="Panstwo"
+          label="Państwo"
         />
-      </v-flex>
-      <v-flex
-        sm6
-        xs12
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
       >
         <v-text-field
-          v-model="value.city"
+          v-model="modelValue.city"
           hide-details
           label="Miasto"
         />
-      </v-flex>
-      <v-flex
-        sm6
-        xs12
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
       >
         <v-text-field
-          v-model="value.postalCode"
+          v-model="modelValue.postalCode"
           hide-details
           label="Kod pocztowy"
         />
-      </v-flex>
-      <v-flex
-        sm6
-        xs12
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
       >
 
         <v-text-field
-          v-model="value.street"
+          v-model="modelValue.street"
           hide-details
           label="Ulica"
         />
-      </v-flex>
-      <v-flex
-        sm6
-        xs12
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
       >
         <v-text-field
-          v-model="value.house"
+          v-model="modelValue.house"
           hide-details
           label="Numer domu"
         />
-      </v-flex>
-      <v-flex
-        sm6
-        xs12
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
       >
         <v-text-field
-          v-model="value.flat"
+          v-model="modelValue.flat"
           hide-details
           label="Numer lokalu"
         />
-      </v-flex>
-      <v-flex
-        sm6
-        xs12
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
       >
         <v-text-field
-          v-model="value.workingHourRate"
-          filled
+          v-model="modelValue.workingHourRate"
           hide-details
           label="Stawka godzinowa"
           suffix="PLN"
           type="number"
+          variant="filled"
         />
-      </v-flex>
-      <v-flex
-        sm6
-        xs12
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
       >
         <v-checkbox
           hide-details
-          :input-value="!value.zus"
           label="Rabat 50% na ubezpieczenie zdrowotne"
-          @change="value.zus = !value.zus"
+          :model-value="!modelValue.zus"
+          @update:model-value="modelValue.zus = !modelValue.zus"
         />
-      </v-flex>
-      <v-flex xs12>
+      </v-col>
+      <v-col cols="12">
         <v-text-field
-          v-model="value.serviceTitle"
-          filled
+          v-model="modelValue.serviceTitle"
           hide-details
           label="Nazwa usługi"
+          variant="filled"
         />
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -121,15 +121,15 @@ import { ref } from 'vue';
 import axios from 'axios';
 
 const props = defineProps<{
-  value: Company;
+  modelValue: Company;
 }>();
 const emit = defineEmits<{ // eslint-disable-line func-call-spacing
   (name: 'input', value: Company): void;
 }>();
-const internalValue = ref({ ...props.value });
+const internalValue = ref({ ...props.modelValue });
 
 async function fetchCompanyData () {
-  const taxId = props.value.taxId.replace(/[^0-9]/, '');
+  const taxId = props.modelValue.taxId.replace(/[^0-9]/, '');
   const data = await axios.get(`https://api-v3.mojepanstwo.pl/dane/krs_podmioty.json?conditions[krs_podmioty.nip]=${taxId}`);
   const item = data?.data?.Dataobject?.[0]?.data ?? null;
 

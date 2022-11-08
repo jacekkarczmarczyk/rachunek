@@ -12,7 +12,7 @@
         <div class="subheading">Oryginał</div>
       </div>
 
-      <v-simple-table class="mb-12">
+      <v-table class="mb-12">
         <thead>
           <tr>
             <th
@@ -63,9 +63,9 @@
             <td>14 dni</td>
           </tr>
         </tbody>
-      </v-simple-table>
+      </v-table>
 
-      <v-simple-table class="mb-12">
+      <v-table class="mb-12">
         <thead>
           <tr>
             <th>Nazwa towaru / usługi</th>
@@ -99,9 +99,9 @@
             <td style="vertical-align: middle">{{ format(netInt) }}</td>
           </tr>
         </tbody>
-      </v-simple-table>
+      </v-table>
 
-      <v-simple-table class="mb-12">
+      <v-table class="mb-12">
         <tbody>
           <tr>
             <th
@@ -118,7 +118,7 @@
             <td>{{ number2words(netInt) }}</td>
           </tr>
         </tbody>
-      </v-simple-table>
+      </v-table>
 
       <div
         class="pt-12"
@@ -142,16 +142,18 @@
       <v-btn
         class="print-button"
         color="primary"
+        variant="tonal"
         @click="printInvoice"
-      ><v-icon class="mr-4">mdi-printer</v-icon>Drukuj</v-btn>
+      >
+        <v-icon class="mr-4">mdi-printer</v-icon>Drukuj
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script setup lang="ts">
 import type { Company } from '@/compsables/useState';
-import { computed } from 'vue';
-import { defineProps } from '@vue/runtime-dom';
+import { computed, defineProps } from 'vue';
 // @ts-ignore
 import { Slownie } from 'slownie';
 
@@ -221,7 +223,7 @@ tr:hover {
 }
 
 .print-invoice aside,
-.print-invoice .v-tabs-bar,
+.print-invoice .v-tabs,
 .print-invoice .print-button,
 .print-invoice .v-navigation-drawer,
 .print-invoice .v-footer {

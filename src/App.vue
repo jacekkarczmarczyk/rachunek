@@ -1,88 +1,64 @@
 <template>
   <v-app>
     <v-main>
-      <v-navigation-drawer
-        app
-        disable-route-watcher
-        permanent
-      >
-        <v-subheader>
-          Sprzedawca
-        </v-subheader>
-        <v-list two-line>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>
-                {{ seller.company || 'Nie podano firmy' }}
-              </v-list-item-title>
-              <v-list-item-subtitle>
-                {{ seller.taxId || 'Nie podano nru NIP' }}
-              </v-list-item-subtitle>
-            </v-list-item-content>
-            <v-list-item-action>
-              <v-btn
+      <v-navigation-drawer>
+        <v-list lines="two">
+          <v-list-subheader>Sprzedawca</v-list-subheader>
+          <v-list-item
+            :subtitle="seller.taxId || 'Nie podano nru NIP'"
+            :title="seller.company || 'Nie podano firmy'"
+          >
+            <template #append>
+              <v-icon
                 color="primary"
-                icon
-                text
-                @click.stop="editSeller"
-              ><v-icon>mdi-pencil</v-icon></v-btn>
-            </v-list-item-action>
+                @click="editSeller"
+              >mdi-pencil</v-icon>
+            </template>
           </v-list-item>
         </v-list>
         <v-divider />
-        <v-subheader>
-          Klienci
-        </v-subheader>
-        <v-list two-line>
+        <v-list lines="two">
+          <v-list-subheader>Klienci</v-list-subheader>
           <v-list-item
             v-for="company in companies"
             :key="company.taxId"
-            :class="{'grey lighten-2': company.taxId === state.currentTaxId}"
+            :active="company.taxId === state.currentTaxId"
+            color="primary"
+            link
+            :subtitle="company.taxId"
+            :title="company.company"
             @click="setCurrentCompanyTaxId(company.taxId)"
           >
-            <v-list-item-content>
-              <v-list-item-title>
-                {{ company.company }}
-              </v-list-item-title>
-              <v-list-item-subtitle>
-                {{ company.taxId }}
-              </v-list-item-subtitle>
-            </v-list-item-content>
-            <v-list-item-action>
-              <v-btn
+            <template #append>
+              <v-icon
                 color="warning"
-                icon
-                text
-                @click.stop="deleteCompany(company)"
-              ><v-icon>mdi-delete</v-icon></v-btn>
-            </v-list-item-action>
-            <v-list-item-action>
-              <v-btn
+                @click="deleteCompany(company)"
+              >mdi-delete</v-icon>
+              <v-icon
                 color="primary"
-                icon
-                text
-                @click.stop="editCompany(company)"
-              ><v-icon>mdi-pencil</v-icon></v-btn>
-            </v-list-item-action>
+                @click="editCompany(company)"
+              >mdi-pencil</v-icon>
+            </template>
           </v-list-item>
         </v-list>
         <div class="text-right">
           <v-btn
             class="ma-4"
             color="primary"
+            variant="tonal"
             @click="addCompany"
-          ><v-icon left>mdi-plus</v-icon>Dodaj firmę</v-btn>
+          >
+            <v-icon start>mdi-plus</v-icon>
+            Dodaj firmę</v-btn>
         </div>
       </v-navigation-drawer>
       <v-container>
-        <router-view ref="routerView" />
+        <router-view />
       </v-container>
     </v-main>
-    <v-footer
-      app
-      style="background: rgba(0, 0, 0, 0.7)"
-    >
-      <div class="grey--text">(C) {{ (new Date).getFullYear() }} Jacek Karczmarczyk</div>
+
+    <v-footer app>
+      <div class="text-grey">(C) {{ (new Date).getFullYear() }} Jacek Karczmarczyk</div>
     </v-footer>
 
     <v-dialog
@@ -108,7 +84,7 @@
           <v-card-actions class="pa-4">
             <v-spacer />
             <v-btn
-              text
+              variant="text"
               @click="companyDialog = false"
             >Anuluj</v-btn>
             <v-btn
@@ -143,7 +119,7 @@
           <v-card-actions class="pa-4">
             <v-spacer />
             <v-btn
-              text
+              variant="text"
               @click="sellerDialog = false"
             >Anuluj</v-btn>
             <v-btn

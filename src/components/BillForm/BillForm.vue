@@ -1,170 +1,169 @@
 <template>
-  <v-tabs>
-    <v-tab>Formularz</v-tab>
-    <v-tab>Faktura</v-tab>
+  <div>
+    <v-tabs v-model="tab">
+      <v-tab value="tab-1">Formularz</v-tab>
+      <v-tab value="tab-2">Faktura</v-tab>
+    </v-tabs>
 
-    <v-tab-item>
-      <v-card>
-        <v-card-text>
-          <form @submit.prevent>
-            <v-container grid-list-xl>
-              <v-layout wrap>
-                <v-flex
-                  sm4
-                  xs12
-                >
-                  <v-select
-                    v-model="stawkaVat"
-                    disabled
-                    :items="[{ text: 'Liniowa - 19%', value: 19.0}, { text: 'Ryczałt (polski wał) - 12%', value: 12.0}]"
-                    label="Stawka VAT"
-                    type="number"
-                  />
-                </v-flex>
-                <v-flex
-                  sm4
-                  xs12
-                >
-                  <v-text-field
-                    v-model="ubezpieczenieSpoleczne"
-                    disabled
-                    label="Ubezpieczenie społeczne"
-                    placeholder="1211,29 zł"
-                    type="number"
-                  />
-                </v-flex>
-                <v-flex
-                  sm4
-                  xs12
-                >
-                  <v-text-field
-                    v-model="ubezpieczenieZdrowotne"
-                    disabled
-                    label="Ubezpieczenie zdrowotne"
-                    placeholder="511 zł"
-                    type="number"
-                  />
-                </v-flex>
+    <v-window v-model="tab">
+      <v-window-item value="tab-1">
+        <v-card>
+          <v-card-text>
+            <form @submit.prevent>
+              <v-container>
+                <v-row wrap>
+                  <v-col
+                    cols="12"
+                    sm="4"
+                  >
+                    <v-select
+                      v-model="stawkaVat"
+                      disabled
+                      :items="[{ title: 'Liniowa - 19%', value: 19.0}, { title: 'Ryczałt (polski wał) - 12%', value: 12.0}]"
+                      label="Stawka VAT"
+                      type="number"
+                    />
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="4"
+                  >
+                    <v-text-field
+                      v-model="ubezpieczenieSpoleczne"
+                      disabled
+                      label="Ubezpieczenie społeczne"
+                      placeholder="1211,29 zł"
+                      type="number"
+                    />
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="4"
+                  >
+                    <v-text-field
+                      v-model="ubezpieczenieZdrowotne"
+                      disabled
+                      label="Ubezpieczenie zdrowotne"
+                      placeholder="511 zł"
+                      type="number"
+                    />
+                  </v-col>
 
-                <v-flex
-                  sm4
-                  xs12
-                >
-                  <v-text-field
-                    v-model="invoiceDate"
-                    label="Data sprzedaży"
-                    type="date"
-                  />
-                </v-flex>
-                <v-flex
-                  sm4
-                  xs12
-                >
-                  <v-text-field
-                    v-model="issueDate"
-                    label="Data wystawienia faktury"
-                    type="date"
-                  />
-                </v-flex>
-                <v-flex
-                  sm4
-                  xs12
-                >
-                  <v-text-field
-                    v-model="invoiceNo"
-                    label="Nr porządkowy faktury"
-                    type="number"
-                  />
-                </v-flex>
+                  <v-col
+                    cols="12"
+                    sm="4"
+                  >
+                    <v-text-field
+                      v-model="invoiceDate"
+                      label="Data sprzedaży"
+                      type="date"
+                    />
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="4"
+                  >
+                    <v-text-field
+                      v-model="issueDate"
+                      label="Data wystawienia faktury"
+                      type="date"
+                    />
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="4"
+                  >
+                    <v-text-field
+                      v-model="invoiceNo"
+                      label="Nr porządkowy faktury"
+                      type="number"
+                    />
+                  </v-col>
 
-                <v-flex xs8>
-                  <v-text-field
-                    v-model="workingHours"
-                    autofocus
-                    filled
-                    label="Godziny robocze"
-                    min="0"
-                    type="number"
-                  />
-                </v-flex>
-                <v-flex xs4>
-                  <v-text-field
-                    disabled
-                    label="Stawka godzinowa"
-                    type="number"
-                    :value="company.workingHourRate"
-                  />
-                </v-flex>
-              </v-layout>
-            </v-container>
+                  <v-col cols="8">
+                    <v-text-field
+                      v-model="workingHours"
+                      autofocus
+                      label="Godziny robocze"
+                      min="0"
+                      type="number"
+                      variant="filled"
+                    />
+                  </v-col>
+                  <v-col cols="4">
+                    <v-text-field
+                      disabled
+                      label="Stawka godzinowa"
+                      :model-value="company.workingHourRate"
+                      type="number"
+                    />
+                  </v-col>
+                </v-row>
+              </v-container>
 
-            <v-container grid-list-xl>
-              <v-layout
-                align-center
-                wrap
-              >
-                <v-flex
-                  class="text-h5 text-right"
-                  xs4
-                >
-                  Kwota na rękę:
-                </v-flex>
-                <v-flex
-                  v-clipboard:copy="valueForMe.toFixed(2)"
-                  v-clipboard:success="() => valueForMeCopied = true"
-                  class="copy-to-clipboard text-h3"
-                  :class="valueForMeCopied ? 'success--text' : ''"
-                  xs8
-                >
-                  {{ format(valueForMe) }}
-                </v-flex>
-                <v-flex
-                  class="text-h5 text-right"
-                  xs4
-                >
-                  Kwota na fakturze netto:
-                </v-flex>
-                <v-flex
-                  v-clipboard:copy="invoiceValue.toFixed(2)"
-                  v-clipboard:success="() => invoiceValueCopied = true"
-                  class="copy-to-clipboard text-h3"
-                  :class="invoiceValueCopied ? 'success--text' : ''"
-                  xs8
-                >
-                  {{ format(invoiceValue) }}
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </form>
-        </v-card-text>
-      </v-card>
+              <v-container>
+                <v-row align="center">
+                  <v-col
+                    class="text-h5 text-right"
+                    cols="4"
+                  >
+                    Kwota na rękę:
+                  </v-col>
+                  <v-col
+                    class="copy-to-clipboard text-h3"
+                    :class="valueForMeCopied ? 'text-success' : ''"
+                    cols="8"
+                    @click="copyValueForMe(valueForMe.toFixed(2))"
+                  >
+                    {{ format(valueForMe) }}
+                  </v-col>
+                  <v-col
+                    class="text-h5 text-right"
+                    cols="4"
+                  >
+                    Kwota na fakturze netto:
+                  </v-col>
+                  <v-col
+                    class="copy-to-clipboard text-h3"
+                    :class="invoiceValueCopied ? 'text-success' : ''"
+                    cols="8"
+                    @click="copyInvoiceValue(invoiceValue.toFixed(2))"
+                  >
+                    {{ format(invoiceValue) }}
+                  </v-col>
+                </v-row>
+              </v-container>
+            </form>
+          </v-card-text>
+        </v-card>
+      </v-window-item>
 
-    </v-tab-item>
-    <v-tab-item>
-      <invoice-preview
-        :company="company"
-        :invoice-date="invoiceDate"
-        :invoice-no="invoiceNo"
-        :issue-date="issueDate"
-        :net="invoiceValue"
-        :seller="seller"
-      />
-    </v-tab-item>
-  </v-tabs>
+      <v-window-item value="tab-2">
+        <invoice-preview
+          :company="company"
+          :invoice-date="invoiceDate"
+          :invoice-no="invoiceNo"
+          :issue-date="issueDate"
+          :net="invoiceValue"
+          :seller="seller"
+        />
+      </v-window-item>
+    </v-window>
+  </div>
 </template>
 
 <script setup lang="ts">
 import InvoicePreview from '@/components/Invoice/InvoicePreview.vue';
 import { createCompany, useStateInjectionKey } from '@/compsables/useState';
-import { computed, inject, ref, watch } from 'vue';
+import { useClipboard } from '@vueuse/core';
+import { computed, inject, ref } from 'vue';
 
 const props = defineProps<{
   taxId?: string;
 }>();
 const { MUTATE_TAX_SETTINGS, state } = inject(useStateInjectionKey)!;
+const tab = ref('');
 const workingHours = ref(null);
-const valueForMeCopied = ref(false);
-const invoiceValueCopied = ref(false);
 const invoiceNo = ref(1);
 const invoiceDate = ref(new Date().toISOString().substr(0, 10));
 const issueDate = ref(new Date().toISOString().substr(0, 10));
@@ -214,9 +213,6 @@ const ubezpieczenieZdrowotneScaled = computed(() => ubezpieczenieZdrowotne.value
 const vatRate = computed(() => stawkaVat.value / 100);
 const invoiceValue = computed(() => (valueForMe.value + ubezpieczenieSpoleczneScaled.value * (1 - vatRate.value) + ubezpieczenieZdrowotneScaled.value) / (1 - vatRate.value));
 
-watch(valueForMe, () => (valueForMeCopied.value = false));
-watch(invoiceValue, () => (invoiceValueCopied.value = false));
-
 function format (value: number) {
   return Intl.NumberFormat('pl-PL', {
     style: 'currency',
@@ -227,6 +223,10 @@ function format (value: number) {
 function updateTaxSettings (settings: any) {
   MUTATE_TAX_SETTINGS(Object.assign({}, taxSettings.value, settings));
 }
+
+const { copied: valueForMeCopied, copy: copyValueForMe } = useClipboard();
+const { copied: invoiceValueCopied, copy: copyInvoiceValue } = useClipboard();
+
 </script>
 
 <style scoped>

@@ -1,8 +1,7 @@
 import type { InjectionKey } from 'vue';
 import { useLocalStorage } from '@vueuse/core';
-import Vue from 'vue';
 
-export type Company = {
+export interface Company {
   taxId: string;
   company: string;
   country: string;
@@ -19,8 +18,21 @@ export type Company = {
   serviceTitle: string;
 }
 
+interface State {
+  settings: {
+    tax: {
+      ubezpieczenieSpoleczne: number;
+      ubezpieczenieZdrowotne: number;
+      stawkaVat: number;
+    };
+  };
+  companies: { [taxId in string]?: Company };
+  seller: Company;
+  currentTaxId: string;
+}
+
 export function useState () {
-  const state = useLocalStorage('rachunek', {
+  const state = useLocalStorage<State>('rachunek', {
     settings: {
       tax: {
         ubezpieczenieSpoleczne: 0,
@@ -28,7 +40,7 @@ export function useState () {
         stawkaVat: 12.0,
       },
     },
-    companies: {} as { [taxId in string]?: Company },
+    companies: {},
     seller: createCompany(),
     currentTaxId: '',
   });
@@ -39,9 +51,9 @@ export function useState () {
       }
     });
   };
-  const MUTATE_ADD_COMPANY = (company: Company) => Vue.set(state.value.companies, company.taxId, { ...company });
+  const MUTATE_ADD_COMPANY = (company: Company) => (state.value.companies[company.taxId] = { ...company });
   const MUTATE_SET_CURRENT_TAX_ID = (taxId: string) => (state.value.currentTaxId = taxId);
-  const MUTATE_REMOVE_COMPANY = (taxId: string) => Vue.delete(state.value.companies, taxId);
+  const MUTATE_REMOVE_COMPANY = (taxId: string) => delete state.value.companies[taxId];
   const MUTATE_SET_SELLER = (seller: Company) => (state.value.seller = { ...seller });
 
   return {

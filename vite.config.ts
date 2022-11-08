@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue2';
+import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
 import Components from 'unplugin-vue-components/vite';
-import { VuetifyResolver } from 'unplugin-vue-components/resolvers';
+import { Vuetify3Resolver } from 'unplugin-vue-components/resolvers';
 import checker from 'vite-plugin-checker';
 
 // https://vitejs.dev/config/
@@ -15,7 +15,7 @@ export default defineConfig({
         assetFileNames: 'assets/[hash].[ext]',
         entryFileNames: 'app/index.[hash].js',
         manualChunks (id) {
-          const match = id.match(/\/node_modules\/([^/]+)\//);
+          const match = id.match(/[\\/]node_modules[\\/]\.pnpm[\\/]([^+\\/]+)/);
 
           if (match) {
             return `vendor.${match[1].replace('@', '')}`;
@@ -34,7 +34,7 @@ export default defineConfig({
       // auto import for directives
       directives: false,
       // resolvers for custom components
-      resolvers: [VuetifyResolver()],
+      resolvers: [Vuetify3Resolver()],
     }),
     checker({
       typescript: true,
