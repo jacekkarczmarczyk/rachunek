@@ -20,7 +20,7 @@ export default defineConfig({
         assetFileNames: 'assets/[hash].[ext]',
         entryFileNames: 'app/index.[hash].js',
         sanitizeFileName (filename) {
-          if (filename.startsWith('vendor.')) return filename;
+          if (filename === 'index' || filename.startsWith('vendor.')) return filename;
 
           let code = filename.split('').reduce((prev, curr) => prev + curr.charCodeAt(0), 0);
           let hex = code.toString(16).padStart(3, '0');
