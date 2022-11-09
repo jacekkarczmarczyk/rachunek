@@ -10,6 +10,9 @@ const fileHashMap: { [s in string]?: true } = {};
 // https://vitejs.dev/config/
 // https://github.com/logue/vite-vue2-vuetify-ts-starter/blob/master/vite.config.ts
 export default defineConfig({
+  define: {
+    'import.meta.env.VITE_BUILD_TIME': `"${Date.now()}"`,
+  },
   build: {
     sourcemap: false,
     rollupOptions: {
@@ -30,6 +33,8 @@ export default defineConfig({
           return `module.${hex}`;
         },
         manualChunks (id) {
+          if (id.includes('src/env.ts')) return 'env';
+
           const match = id.match(/[\\/]node_modules[\\/]\.pnpm[\\/]([^+\\/]+)/);
 
           if (match) {

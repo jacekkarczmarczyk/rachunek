@@ -58,7 +58,10 @@
     </v-main>
 
     <v-footer app>
-      <div class="text-grey">(C) {{ (new Date).getFullYear() }} Jacek Karczmarczyk</div>
+      <div class="text-grey">
+        (C) {{ (new Date).getFullYear() }} Jacek Karczmarczyk,
+        {{ new Date(Number(VITE_BUILD_TIME)).toLocaleDateString() }}
+      </div>
     </v-footer>
 
     <v-dialog
@@ -139,6 +142,7 @@ import SellerFields from '@/components/SellerFields/SellerFields.vue';
 import type { Company } from '@/compsables/useState';
 import { createCompany, useState, useStateInjectionKey } from '@/compsables/useState';
 import { computed, provide, ref } from 'vue';
+import { VITE_BUILD_TIME } from '@/env';
 
 const State = useState();
 const { MUTATE_ADD_COMPANY, MUTATE_REMOVE_COMPANY, MUTATE_SET_CURRENT_TAX_ID, MUTATE_SET_SELLER, state } = State;
