@@ -20,7 +20,7 @@ export default defineConfig({
       output: {
         format: 'system',
         assetFileNames: 'assets/[hash].[ext]',
-        entryFileNames: 'app/index.js',
+        entryFileNames: 'chunks/app.js',
         chunkFileNames: 'chunks/[name].js',
         sanitizeFileName (filename) {
           // TODO vite-plugin-tidychunks
@@ -43,6 +43,7 @@ export default defineConfig({
           ImportmapPlugin({
             base: '/',
             external: true,
+            indexHtml: 'index.html',
           }),
         ],
         manualChunks (id) {
