@@ -9,14 +9,14 @@ specifiers:
   axios: ^1.1.3
   eslint: ^8.27.0
   eslint-config-jkarczm: ^10.0.0-beta.1
-  importmap-plugin: ^0.6.1
+  importmap-plugin: ^0.6.2
   roboto-fontface: '*'
   sass: ^1.56.1
   slownie: ^1.0.1
   systemjs: ^6.13.0
   typescript: ^4.8.4
-  unplugin-vue-components: 0.22.7
-  vite: ^4.0.0-alpha.1
+  unplugin-vue-components: ^0.22.9
+  vite: 4.0.0-alpha.2
   vite-plugin-checker: ^0.5.1
   vue: ^3.2.45
   vue-loader: ^17.0.1
@@ -41,21 +41,21 @@ dependencies:
 
 devDependencies:
   '@types/node': 18.11.9
-  '@vitejs/plugin-vue': 3.2.0_acctezulrvk5qdmzboycqafita
+  '@vitejs/plugin-vue': 3.2.0_7wvrchwwedb2ihibkdawekedt4
   '@vue/runtime-dom': 3.2.45
   eslint: 8.27.0
   eslint-config-jkarczm: 10.0.0-beta.1_lqfgek7rghyya3244y7efukuxy
-  importmap-plugin: 0.6.1
+  importmap-plugin: 0.6.2
   typescript: 4.8.4
-  unplugin-vue-components: 0.22.7_vue@3.2.45
-  vite: 4.0.0-alpha.1_ajklay5k626t46b6fyghkbup3i
-  vite-plugin-checker: 0.5.1_bzoosfs36lwwh7p4oluyn7zqcm
+  unplugin-vue-components: 0.22.9_vue@3.2.45
+  vite: 4.0.0-alpha.2_ajklay5k626t46b6fyghkbup3i
+  vite-plugin-checker: 0.5.1_n7tlmbojiwgmcpmjwhp5uzo46e
   vue-tsc: 1.0.9_typescript@4.8.4
 
 packages:
 
-  /@antfu/utils/0.5.2:
-    resolution: {integrity: sha512-CQkeV+oJxUazwjlHD0/3ZD08QWKuGQkhnrKo3e6ly5pd48VUpXbb77q0xMU4+vc2CkJnDS02Eq/M9ugyX20XZA==}
+  /@antfu/utils/0.6.3:
+    resolution: {integrity: sha512-sEYpyyKUPOew9QsXZ8feRVMzW6DWLviwOl+/ap06UQW02A8Srbc95CPHVm4eUbiBzBgD46eyIT+przv//KSSlQ==}
     dev: true
 
   /@babel/code-frame/7.18.6:
@@ -177,12 +177,22 @@ packages:
       fastq: 1.13.0
     dev: true
 
-  /@rollup/pluginutils/4.2.1:
-    resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
-    engines: {node: '>= 8.0.0'}
+  /@rollup/pluginutils/5.0.2:
+    resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
     dependencies:
+      '@types/estree': 1.0.0
       estree-walker: 2.0.2
       picomatch: 2.3.1
+    dev: true
+
+  /@types/estree/1.0.0:
+    resolution: {integrity: sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==}
     dev: true
 
   /@types/json-schema/7.0.11:
@@ -334,14 +344,14 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@vitejs/plugin-vue/3.2.0_acctezulrvk5qdmzboycqafita:
+  /@vitejs/plugin-vue/3.2.0_7wvrchwwedb2ihibkdawekedt4:
     resolution: {integrity: sha512-E0tnaL4fr+qkdCNxJ+Xd0yM31UwMkQje76fsDVBBUCoGOUPexu2VDUYHL8P4CwV+zMvWw6nlRw19OnRKmYAJpw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^3.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.0.0-alpha.1_ajklay5k626t46b6fyghkbup3i
+      vite: 4.0.0-alpha.2_ajklay5k626t46b6fyghkbup3i
       vue: 3.2.45
     dev: true
 
@@ -1824,8 +1834,8 @@ packages:
       resolve-from: 4.0.0
     dev: true
 
-  /importmap-plugin/0.6.1:
-    resolution: {integrity: sha512-xTc+0u33bPGyMSmIb+GEmuhodLm6Cc2iK27sQ+eaODpHZ34UZvd+YycAhBK9Vmsk7V6npZBuDQUXiCtpAc7A7Q==}
+  /importmap-plugin/0.6.2:
+    resolution: {integrity: sha512-b+YNY1SvXtysk35J2MyOK+s0IHLcjUNFT7YF9lsKFASrNOvmLxPmGMJCQvCBMYGAsltT8T+aHMMD74/3+zPi9w==}
     dependencies:
       hash.js: 1.1.7
       rollup: 3.3.0
@@ -2554,8 +2564,8 @@ packages:
       which-boxed-primitive: 1.0.2
     dev: true
 
-  /unplugin-vue-components/0.22.7_vue@3.2.45:
-    resolution: {integrity: sha512-MJEAKJF9bRykTRvJ4WXF0FNMAyt1PX3iwpu2NN+li35sAKjQv6sC1col5aZDLiwDZDo2AGwxNkzLJFKaun9qHw==}
+  /unplugin-vue-components/0.22.9_vue@3.2.45:
+    resolution: {integrity: sha512-qBvooq3EgpjtYicxeccRUGUBBQCCw9rJ0kHPZPOSJd8TBZViSv86vuKLTRDHPyjWtclwOIkVStZJfPdJFhYUMw==}
     engines: {node: '>=14'}
     peerDependencies:
       '@babel/parser': ^7.15.8
@@ -2564,8 +2574,8 @@ packages:
       '@babel/parser':
         optional: true
     dependencies:
-      '@antfu/utils': 0.5.2
-      '@rollup/pluginutils': 4.2.1
+      '@antfu/utils': 0.6.3
+      '@rollup/pluginutils': 5.0.2
       chokidar: 3.5.3
       debug: 4.3.4
       fast-glob: 3.2.12
@@ -2573,14 +2583,15 @@ packages:
       magic-string: 0.26.7
       minimatch: 5.1.0
       resolve: 1.22.1
-      unplugin: 0.9.6
+      unplugin: 0.10.2
       vue: 3.2.45
     transitivePeerDependencies:
+      - rollup
       - supports-color
     dev: true
 
-  /unplugin/0.9.6:
-    resolution: {integrity: sha512-YYLtfoNiie/lxswy1GOsKXgnLJTE27la/PeCGznSItk+8METYZErO+zzV9KQ/hXhPwzIJsfJ4s0m1Rl7ZCWZ4Q==}
+  /unplugin/0.10.2:
+    resolution: {integrity: sha512-6rk7GUa4ICYjae5PrAllvcDeuT8pA9+j5J5EkxbMFaV+SalHhxZ7X2dohMzu6C3XzsMT+6jwR/+pwPNR3uK9MA==}
     dependencies:
       acorn: 8.8.1
       chokidar: 3.5.3
@@ -2598,7 +2609,7 @@ packages:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
     dev: true
 
-  /vite-plugin-checker/0.5.1_bzoosfs36lwwh7p4oluyn7zqcm:
+  /vite-plugin-checker/0.5.1_n7tlmbojiwgmcpmjwhp5uzo46e:
     resolution: {integrity: sha512-NFiO1PyK9yGuaeSnJ7Whw9fnxLc1AlELnZoyFURnauBYhbIkx9n+PmIXxSFUuC9iFyACtbJQUAEuQi6yHs2Adg==}
     engines: {node: '>=14.16'}
     peerDependencies:
@@ -2630,15 +2641,15 @@ packages:
       strip-ansi: 6.0.1
       tiny-invariant: 1.3.1
       typescript: 4.8.4
-      vite: 4.0.0-alpha.1_ajklay5k626t46b6fyghkbup3i
+      vite: 4.0.0-alpha.2_ajklay5k626t46b6fyghkbup3i
       vscode-languageclient: 7.0.0
       vscode-languageserver: 7.0.0
       vscode-languageserver-textdocument: 1.0.7
       vscode-uri: 3.0.6
     dev: true
 
-  /vite/4.0.0-alpha.1_ajklay5k626t46b6fyghkbup3i:
-    resolution: {integrity: sha512-UST48z4+n6rlAEsQjMvF5kxicASSRyzd4S68FMEjtY8YYv5pNmDkJXShGVCDwBM7KnBd+PKjdymejVZ9Z4pgqA==}
+  /vite/4.0.0-alpha.2_ajklay5k626t46b6fyghkbup3i:
+    resolution: {integrity: sha512-7xq/JtyOAiiY7A5vyfZvG/kt4hlH+ZhX/w551aY9Etp060JM+FiA6isn3a6wzXugMSErN4pouKQT9LRXeJoJYw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
