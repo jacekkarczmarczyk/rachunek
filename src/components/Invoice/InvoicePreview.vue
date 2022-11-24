@@ -153,7 +153,7 @@
 
 <script setup lang="ts">
 import type { Company } from '@/compsables/useState';
-import { computed, defineProps } from 'vue';
+import { computed } from 'vue';
 // @ts-ignore
 import { Slownie } from 'slownie';
 

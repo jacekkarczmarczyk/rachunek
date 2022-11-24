@@ -1,10 +1,10 @@
-import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import { resolve } from 'path';
-import Components from 'unplugin-vue-components/vite';
-import { Vuetify3Resolver } from 'unplugin-vue-components/resolvers';
-import checker from 'vite-plugin-checker';
 import ImportmapPlugin from 'importmap-plugin';
+import { fileURLToPath, URL } from 'node:url';
+import { Vuetify3Resolver } from 'unplugin-vue-components/resolvers';
+import Components from 'unplugin-vue-components/vite';
+import { defineConfig } from 'vite';
+import checker from 'vite-plugin-checker';
 
 const fileHashMap: { [s in string]?: true } = {};
 
@@ -71,16 +71,16 @@ export default defineConfig({
       resolvers: [Vuetify3Resolver()],
     }),
     checker({
-      typescript: true,
       eslint: {
         lintCommand: 'eslint "./src/**/*.{ts,tsx,js,vue}"',
       },
       overlay: true,
+      vueTsc: true,
     }),
   ],
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src'),
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
 });
