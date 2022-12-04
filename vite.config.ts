@@ -43,6 +43,7 @@ export default defineConfig({
           ImportmapPlugin({
             base: '/',
             external: true,
+            hashLength: 8,
             indexHtml: 'index.html',
           }),
         ],
