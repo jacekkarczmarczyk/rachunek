@@ -18,7 +18,7 @@ export default defineConfig({
     sourcemap: false,
     rollupOptions: {
       output: {
-        format: 'system',
+        format: 'es',
         assetFileNames: 'assets/[hash].[ext]',
         entryFileNames: 'chunks/app.js',
         chunkFileNames: 'chunks/[name].js',
@@ -27,7 +27,7 @@ export default defineConfig({
           // TODO modulePrefix = 'module', vendorPrefix = 'vendor', packageManager = 'pnpm'|'npm'|'yarn'
           // TODO rollup-plugin-, vite-plugin-
           // TODO https://vitejs.dev/guide/api-plugin.html#config
-          if (filename === 'index' || filename.startsWith('vendor.')) return filename;
+          if (filename === 'index' || filename.includes('.')) return filename;
 
           let code = filename.split('').reduce((prev, curr) => prev + curr.charCodeAt(0), 0);
           let hex = code.toString(16).padStart(3, '0');
@@ -42,7 +42,7 @@ export default defineConfig({
         plugins: [
           ImportmapPlugin({
             base: '/',
-            external: true,
+            external: false,
             hashLength: 8,
             indexHtml: 'index.html',
           }),
