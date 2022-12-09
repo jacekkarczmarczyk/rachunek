@@ -154,7 +154,7 @@
 <script setup lang="ts">
 import type { Company } from '@/compsables/useState';
 import { computed } from 'vue';
-// @ts-ignore
+// @ts-expect-error missing types
 import { Slownie } from 'slownie';
 
 const props = defineProps<{

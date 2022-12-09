@@ -40,12 +40,7 @@ export default defineConfig({
           return `module.${hex}`;
         },
         plugins: [
-          ImportmapPlugin({
-            base: '/',
-            external: false,
-            hashLength: 8,
-            indexHtml: 'index.html',
-          }),
+          ImportmapPlugin({}),
         ],
         manualChunks (id) {
           if (id.includes('src/env.ts')) return 'env';
