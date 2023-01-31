@@ -16,43 +16,6 @@
                     cols="12"
                     sm="4"
                   >
-                    <v-select
-                      v-model="stawkaVat"
-                      disabled
-                      :items="[{ title: 'Liniowa - 19%', value: 19.0}, { title: 'Ryczałt (polski wał) - 12%', value: 12.0}]"
-                      label="Stawka VAT"
-                      type="number"
-                    />
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="4"
-                  >
-                    <v-text-field
-                      v-model="ubezpieczenieSpoleczne"
-                      disabled
-                      label="Ubezpieczenie społeczne"
-                      placeholder="1211,29 zł"
-                      type="number"
-                    />
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="4"
-                  >
-                    <v-text-field
-                      v-model="ubezpieczenieZdrowotne"
-                      disabled
-                      label="Ubezpieczenie zdrowotne"
-                      placeholder="511 zł"
-                      type="number"
-                    />
-                  </v-col>
-
-                  <v-col
-                    cols="12"
-                    sm="4"
-                  >
                     <v-text-field
                       v-model="invoiceDate"
                       label="Data sprzedaży"
@@ -161,67 +124,27 @@ import { computed, inject, ref } from 'vue';
 const props = defineProps<{
   taxId?: string;
 }>();
-const { MUTATE_TAX_SETTINGS, state } = inject(useStateInjectionKey)!;
+const { state } = inject(useStateInjectionKey)!;
 const tab = ref('');
 const workingHours = ref(null);
 const invoiceNo = ref(1);
-const invoiceDate = ref(new Date().toISOString().substr(0, 10));
-const issueDate = ref(new Date().toISOString().substr(0, 10));
+const invoiceDate = ref(new Date().toISOString().substring(0, 10));
+const issueDate = ref(new Date().toISOString().substring(0, 10));
 const company = computed(() => state.value.companies[props.taxId ?? ''] ?? createCompany());
-const taxSettings = computed(() => state.value.settings.tax);
 const seller = computed(() => state.value.seller);
-const ubezpieczenieSpoleczne = computed({
-  get (): number {
-    return 1211.29; // taxSettings.value.ubezpieczenieSpoleczne;
-  },
-  set (v: number) {
-    updateTaxSettings({
-      ubezpieczenieSpoleczne: parseFloat(String(v)),
-    });
-  },
-});
-const ubezpieczenieZdrowotne = computed({
-  get (): number {
-    return 511; // taxSettings.value.ubezpieczenieZdrowotne;
-  },
-  set (v: number) {
-    updateTaxSettings({
-      ubezpieczenieZdrowotne: parseFloat(String(v)),
-    });
-  },
-});
-const stawkaVat = computed({
-  get (): number {
-    return taxSettings.value.stawkaVat;
-  },
-  set (v: number) {
-    updateTaxSettings({
-      stawkaVat: parseFloat(String(v)),
-    });
-  },
-});
 const hours = computed(() => {
   const val = parseFloat((workingHours.value || '').replace(',', '.'));
 
   return (isNaN(val) || val < 0) ? 0 : val;
 });
 const valueForMe = computed(() => (company.value?.workingHourRate ?? 0) * hours.value);
-const zusScale = computed(() => (company.value?.zus ? 2 : 1) / 2);
-const HOURS_IN_MONTH = 168;
-const ubezpieczenieSpoleczneScaled = computed(() => ubezpieczenieSpoleczne.value * hours.value / HOURS_IN_MONTH);
-const ubezpieczenieZdrowotneScaled = computed(() => ubezpieczenieZdrowotne.value * zusScale.value * hours.value / HOURS_IN_MONTH);
-const vatRate = computed(() => stawkaVat.value / 100);
-const invoiceValue = computed(() => (valueForMe.value + ubezpieczenieSpoleczneScaled.value * (1 - vatRate.value) + ubezpieczenieZdrowotneScaled.value) / (1 - vatRate.value));
+const invoiceValue = computed(() => (company.value?.invoiceHourRate ?? 0) * hours.value);
 
 function format (value: number) {
   return Intl.NumberFormat('pl-PL', {
     style: 'currency',
     currency: 'PLN',
   }).format(value);
-}
-
-function updateTaxSettings (settings: any) {
-  MUTATE_TAX_SETTINGS(Object.assign({}, taxSettings.value, settings));
 }
 
 const { copied: valueForMeCopied, copy: copyValueForMe } = useClipboard();

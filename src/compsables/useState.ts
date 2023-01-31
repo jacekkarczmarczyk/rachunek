@@ -13,8 +13,8 @@ export interface Company {
   name: string;
   bankName: string;
   bankAccount: string;
-  zus: boolean;
   workingHourRate: number;
+  invoiceHourRate: number;
   serviceTitle: string;
 }
 
@@ -79,7 +79,7 @@ export function createCompany (): Company {
     house: '',
     flat: '',
     workingHourRate: 0,
-    zus: true,
+    invoiceHourRate: 0,
     bankAccount: '',
     bankName: '',
     name: '',

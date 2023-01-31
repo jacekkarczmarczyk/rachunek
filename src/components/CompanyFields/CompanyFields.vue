@@ -96,11 +96,13 @@
         cols="12"
         sm="6"
       >
-        <v-checkbox
+        <v-text-field
+          v-model="modelValue.invoiceHourRate"
           hide-details
-          label="Rabat 50% na ubezpieczenie zdrowotne"
-          :model-value="!modelValue.zus"
-          @update:model-value="modelValue.zus = !modelValue.zus"
+          label="Stawka na fakturze"
+          suffix="PLN"
+          type="number"
+          variant="filled"
         />
       </v-col>
       <v-col cols="12">
