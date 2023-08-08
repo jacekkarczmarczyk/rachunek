@@ -111,10 +111,10 @@ import axios from 'axios';
 const props = defineProps<{
   modelValue: Company;
 }>();
-const emit = defineEmits<{ // eslint-disable-line func-call-spacing
+const emit = defineEmits<{
   (name: 'update:modelValue', value: Company): void;
 }>();
-const internalValue = ref({ ...props.modelValue });
+const internalValue = ref({ ...props.modelValue }); // eslint-disable-line vue/no-setup-props-destructure
 
 async function fetchCompanyData () {
   const taxId = props.modelValue.taxId.replace(/[^0-9]/, '');
