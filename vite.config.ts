@@ -1,5 +1,5 @@
 import vue from '@vitejs/plugin-vue';
-import ImportmapPlugin from 'importmap-plugin';
+// import ImportmapPlugin from 'importmap-plugin';
 import { fileURLToPath, URL } from 'node:url';
 import { Vuetify3Resolver } from 'unplugin-vue-components/resolvers';
 import Components from 'unplugin-vue-components/vite';
@@ -22,26 +22,26 @@ export default defineConfig({
         assetFileNames: 'assets/[hash].[ext]',
         entryFileNames: 'chunks/app.js',
         chunkFileNames: 'chunks/[name].js',
-        sanitizeFileName (filename) {
-          // TODO vite-plugin-tidychunks
-          // TODO modulePrefix = 'module', vendorPrefix = 'vendor', packageManager = 'pnpm'|'npm'|'yarn'
-          // TODO rollup-plugin-, vite-plugin-
-          // TODO https://vitejs.dev/guide/api-plugin.html#config
-          if (filename === 'index' || filename.includes('.')) return filename;
-
-          let code = filename.split('').reduce((prev, curr) => prev + curr.charCodeAt(0), 0);
-          let hex = code.toString(16).padStart(3, '0');
-
-          while (hex in fileHashMap) {
-            code++;
-            hex = code.toString(16).padStart(3, '0');
-          }
-
-          return `module.${hex}`;
-        },
-        plugins: [
-          ImportmapPlugin({}),
-        ],
+        // sanitizeFileName (filename) {
+        //   // TODO vite-plugin-tidychunks
+        //   // TODO modulePrefix = 'module', vendorPrefix = 'vendor', packageManager = 'pnpm'|'npm'|'yarn'
+        //   // TODO rollup-plugin-, vite-plugin-
+        //   // TODO https://vitejs.dev/guide/api-plugin.html#config
+        //   if (filename === 'index' || filename.includes('.')) return filename;
+        //
+        //   let code = filename.split('').reduce((prev, curr) => prev + curr.charCodeAt(0), 0);
+        //   let hex = code.toString(16).padStart(3, '0');
+        //
+        //   while (hex in fileHashMap) {
+        //     code++;
+        //     hex = code.toString(16).padStart(3, '0');
+        //   }
+        //
+        //   return `module.${hex}`;
+        // },
+        // plugins: [
+        //   ImportmapPlugin({}),
+        // ],
         manualChunks (id) {
           if (id.includes('src/env.ts')) return 'env';
 
