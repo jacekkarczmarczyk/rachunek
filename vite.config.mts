@@ -6,8 +6,6 @@ import Components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vite';
 import checker from 'vite-plugin-checker';
 
-const fileHashMap: { [s in string]?: true } = {};
-
 // https://vitejs.dev/config/
 // https://github.com/logue/vite-vue2-vuetify-ts-starter/blob/master/vite.config.ts
 export default defineConfig({

@@ -45,7 +45,8 @@
     "build/**/*.js",
     ".eslintrc.js",
     "vite.config.ts",
-    "phpstorm.config.js"
+    "phpstorm.config.js",
+    "vite.config.mts"
   ],
   "exclude": [
     "node_modules"
