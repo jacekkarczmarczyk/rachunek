@@ -9,7 +9,7 @@
       >
         <div>Rachunek</div>
         <div class="text-h5">{{ new Date(invoiceDate).getFullYear() }}/{{ (1 + new Date(invoiceDate).getMonth()).toString().padStart(2, '0') }}/{{ invoiceNo.toString().padStart(2, '0') }}</div>
-        <div class="subheading">Oryginał</div>
+        <div class="text-subtitle-1">Oryginał</div>
       </div>
 
       <v-table class="mb-12">
